@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('circuits', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('alternative');
+            $table->string('description');
+            $table->string('audio');
+            $table->string('headpoint');
+            $table->string('zoom');
             $table->timestamps();
         });
     }

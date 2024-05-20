@@ -4,8 +4,8 @@
     <div id="map" style="width: 100%; height: 400px;"></div>
     {{-- <button id="submit" class="border px-2 py-1 rounded-md test-[1.2rem] bg-gray-500 text-white">add circuit</button>
  --}}
-    @include('circuit.partials.add_building_modal')
-    @include('circuit.partials.delete_building_modal')
+    @include('building.partials.add_building_modal')
+    @include('building.partials.delete_building_modal')
     <script type='text/javascript'
         src='https://maps.google.com/maps/api/js?language=en&key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&region=GB&libraries=directions'>
     </script>

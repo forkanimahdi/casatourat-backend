@@ -7,15 +7,14 @@ use Illuminate\Http\Request;
 
 class BuildingController extends Controller
 {
-    public function building_map_index()
+    public function create()
     {
         $buildings = Building::where('circuit_id', null)->get();
-
-        return view('circuit.building_map', compact('buildings'));
+        return view('building.building_map', compact('buildings'));
     }
 
 
-    public function buildign_post(Request $request)
+    public function store(Request $request)
     {
         request()->validate([
             'circuit_id' => 'nullable',
@@ -47,7 +46,7 @@ class BuildingController extends Controller
         return back();
     }
 
-    public function delete_building(Request $request)
+    public function destroy(Request $request)
     {
         $building_id = $request->building_id;
         $building = Building::where('id', $building_id)->first();

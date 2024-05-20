@@ -14,6 +14,11 @@ class CircuitController extends Controller
         return view('circuit.welcome');
     }
 
+    public function create()
+    {
+        return view('circuit.circuit_create');
+    }
+
     public function post(Request $request)
     {
         request()->validate([
@@ -29,7 +34,6 @@ class CircuitController extends Controller
         $circuit = Circuit::create([
             'name' => $request->name,
             'alternative' => $request->alternative,
-            'description' => $request->description,
             'description' => $request->description,
             'audio' => $request->audio,
             'headpoint' => $request->headpoint,
@@ -68,7 +72,6 @@ class CircuitController extends Controller
             '*.longitude' => 'required|numeric|between:-180,180',
         ]);
 
-
         $circuit = $request->json()->all();
         foreach ($circuit as $path) {
             Path::create([
@@ -78,9 +81,8 @@ class CircuitController extends Controller
             ]);
         }
 
-        return response()->json(['route_to_building' => '/assign_building/map/' . $circuit[0]['circuit_id']]);
+        return response()->json(['route_to_building' => 'circuit/assign_building/map/' . $circuit[0]['circuit_id']]);
     }
-
 
     public function assign_building(Building $buildign, Request $request)
     {

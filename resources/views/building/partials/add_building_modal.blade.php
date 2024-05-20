@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="{{ route('circuit.buildign_post') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('building.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div>
                         <label for="">name</label>

@@ -9,9 +9,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post("/visitor", [api\VisitorController::class, "store"]);
+Route::put("/visitor", [api\VisitorController::class, "update"]);
+
 Route::get("/favorites", [api\FavoriteController::class, "index"]);
 Route::post("/favorites/{building}", [api\FavoriteController::class, "store"]);
-
+Route::delete("/favorites/{building}", [api\FavoriteController::class, "destroy"]);
 
 Route::get('/circuits', [api\CircuitController::class, 'index']);
 Route::post('/comment', [api\CommentController::class, 'store']);

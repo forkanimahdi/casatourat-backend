@@ -13,12 +13,12 @@ trait TokenValidation
      */
     protected function validateToken(Request $request, callable $callable)
     {
-        $token = $request->header('token');
+        $token = $request->header('Token');
         $visitor = models\Visitor::where('token', $token)->first();
 
         if (!$visitor) {
             return response()->json([
-                'message' => "Visitor Unauthorized",
+                'message' => "Unauthorized",
             ], 401);
         }
 

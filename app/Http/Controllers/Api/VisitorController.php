@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\VisitorRequest;
 use App\Models\Visitor;
+use App\TokenValidation;
 use Illuminate\Http\Request;
 
 class VisitorController extends Controller
 {
+    use TokenValidation;
+
     /**
      * Display a listing of the resource.
      */
@@ -50,9 +53,33 @@ class VisitorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        return $this->validateToken($request, function (Visitor $visitor) use ($request) {
+            $data = array_filter(
+                $request->all(),
+                fn ($key) => in_array($key, [
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "token",
+                    "gender",
+                ]),
+                ARRAY_FILTER_USE_KEY,
+            );
+
+            if (!$data) {
+                return response()->json([
+                    'message' => "Cannot found any Matching Field."
+                ], 400);
+            }
+
+            $visitor->update($data);
+
+            return response()->json([
+                'message' => "Vistor successfully updated."
+            ], 200);
+        });
     }
 
     /**

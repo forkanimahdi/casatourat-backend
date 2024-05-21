@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Api;
 
-use App\Models\Visitor;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;

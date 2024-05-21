@@ -11,3 +11,8 @@ Route::get('/user', function (Request $request) {
 Route::post("/visitor", [api\VisitorController::class, "store"]);
 Route::get("/favorites", [api\FavoriteController::class, "index"]);
 Route::post("/favorites/{building}", [api\FavoriteController::class, "store"]);
+
+
+Route::get('/circuits', [api\CircuitController::class, 'index']);
+Route::post('/comment', [api\CommentController::class, 'store']);
+Route::post('/rate', [api\RateController::class, 'store']);

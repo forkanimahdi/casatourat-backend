@@ -14,8 +14,6 @@ class Circuit extends Model
         'alternative',
         'description',
         'audio',
-        'headpoint',
-        'zoom',
     ];
 
     public function paths()

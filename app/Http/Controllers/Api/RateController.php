@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BuildingResource;
 use App\TokenValidation;
 use Illuminate\Http\Request;
 use App\Models as models;
+use Illuminate\Support\Facades\DB;
 
 class RateController extends Controller
 {
@@ -13,9 +15,19 @@ class RateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, string $building_id)
     {
-        //
+        return $this->validateToken($request, function () use ($building_id) {
+            $rates = models\Rate::where('building_id', $building_id)->get();
+            return $rates->map(fn ($rate) => [
+                'id' => $rate->id,
+                'rate' => $rate->value,
+                'visitor' => [
+                    'first_name' => $rate->visitor->first_name,
+                    'last_name' => $rate->visitor->last_name,
+                ],
+            ]);
+        });
     }
 
     /**
@@ -30,8 +42,19 @@ class RateController extends Controller
                     'message' => "building with id '$request->building_id' not found"
                 ]);
             }
-            $visitor->rates()->attach($building, [
-                'value' => $request->value,
+
+            models\Rate::updateOrCreate(
+                [
+                    'visitor_id' => $visitor->id,
+                    'building_id' => $request->building_id,
+                ],
+                [
+                    'value' => $request->value,
+                ]
+            );
+
+            return response()->json([
+                'message' => 'Rating stored successfully',
             ]);
         });
     }
@@ -55,7 +78,7 @@ class RateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $rate_id)
     {
         //
     }

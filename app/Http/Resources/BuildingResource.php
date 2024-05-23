@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BuildingResource extends BaseResource
 {
@@ -13,6 +14,7 @@ class BuildingResource extends BaseResource
         'description',
         'audio',
     ];
+
 
     /**
      * Transform the resource into an array.
@@ -27,7 +29,8 @@ class BuildingResource extends BaseResource
             'cordinates' => [
                 'latitude' => $this->resource->latitude,
                 'longitude' => $this->resource->longitude
-            ]
+            ],
+            'average_rate' => $this->resource->rates->avg('value') ?? 0,
         ];
     }
 }

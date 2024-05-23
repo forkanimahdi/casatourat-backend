@@ -6,6 +6,7 @@ use App\Models\Building;
 use App\Models\Circuit;
 use App\Models\Path;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class CircuitController extends Controller
 {
@@ -27,8 +28,6 @@ class CircuitController extends Controller
             'description' => 'required',
             'audio' => 'required',
             'image' => 'required',
-            'headpoint' => 'required',
-            'zoom' => 'required',
         ]);
 
         $circuit = Circuit::create([
@@ -36,8 +35,6 @@ class CircuitController extends Controller
             'alternative' => $request->alternative,
             'description' => $request->description,
             'audio' => $request->audio,
-            'headpoint' => $request->headpoint,
-            'zoom' => $request->zoom,
         ]);
 
         $images = $request->file('image');
@@ -81,7 +78,7 @@ class CircuitController extends Controller
                 'longitude' => $path['longitude'],
             ]);
         }
-        return response()->json(['route_to_building' => 'circuit/assign_building/map/' . $circuit[0]['circuit_id']]);
+        return response()->json(['route_to_building' => '/circuit/assign_building/map/' . $circuit[0]['circuit_id']]);
     }
 
     public function assign_building(Building $buildign, Request $request)
@@ -106,6 +103,27 @@ class CircuitController extends Controller
         $building = Building::where('id', $building_id)->first();
         $building['circuit_id'] = null;
         $building->save();
+        return back();
+    }
+
+    public function update_draft(Circuit $circuit)
+    {
+        $currentValue = $circuit->published;
+        $circuit->update([
+            'published' => !$currentValue,
+        ]);
+
+        if ($circuit->published) {
+            Http::post('https://app.nativenotify.com/api/notification', [
+                "appId" => 21328,
+                "appToken" => "TwOsi07V6IvVsAbrH9HDif",
+                "title" => "casa guide",
+                "body" => "a new circuit has been created",
+                "dateSent" => "5-20-2024 9:43AM",
+                "pushData" => ["yourProperty" => "yourPropertyValue"],
+                "bigPictureURL" => "Big picture URL as a string"
+            ]);
+        }
         return back();
     }
 }

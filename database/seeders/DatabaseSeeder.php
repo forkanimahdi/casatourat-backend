@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models as models;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -78,6 +79,12 @@ class DatabaseSeeder extends Seeder
                 "latitude" => 33.592974,
                 "longitude" => -7.617694,
             ]
+        ]);
+
+        models\User::insert([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('admin@gmail.com'),
         ]);
     }
 }

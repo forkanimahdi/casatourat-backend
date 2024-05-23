@@ -9,11 +9,17 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 class Circuit extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'published' => 'boolean',
+    ];
+
     protected $fillable = [
         'name',
         'alternative',
         'description',
         'audio',
+        'published'
     ];
 
     public function paths()

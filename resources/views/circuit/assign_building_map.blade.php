@@ -3,10 +3,16 @@
     </script> --}}
 <x-app-layout>
     @include('circuit.partials.unassign_building_modal')
-
+    {{ $circuit->published }}
     <h2>assign a building to the circuit</h2>
     <div id="map" style="width: 100%; height: 400px;"></div>
-    <button id="submit" class="border px-2 py-1 rounded-md test-[1.2rem] bg-gray-500 text-white">add circuit</button>
+    <form action="{{ route('circuit.update_draft' , $circuit) }}" method="post">
+        @method('PUT')
+        @csrf
+        <button
+            class="border px-2 py-1 rounded-md test-[1.2rem] bg-gray-500 text-white">{{ $circuit->published ? 'unpublish' : 'publish' }}
+            the circuit</button>
+    </form>
     @foreach ($buildings as $building)
         <div>
             <h5>name : {{ $building->name }}</h5>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('alternative');
             $table->string('description');
             $table->string('audio');
+            $table->boolean('published')->default(false);
             $table->timestamps();
         });
     }

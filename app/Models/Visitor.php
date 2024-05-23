@@ -22,13 +22,13 @@ class Visitor extends Model
         return $this->belongsToMany(Building::class, "favorites");
     }
 
-    public function comments()
-    {
-        return $this->belongsToMany(Building::class, "comments");
-    }
-
     public function rates()
     {
         return $this->belongsToMany(Building::class, "rates");
+    }
+
+    public function comments()
+    {
+        return $this->belongsToMany(Building::class, "comments");
     }
 }

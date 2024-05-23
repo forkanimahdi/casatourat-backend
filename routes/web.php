@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    
     return view('welcome');
 });
 
@@ -24,6 +25,8 @@ Route::get('circuit/assign_building/map/{id}', [CircuitController::class, 'assig
 
 Route::put('circuit/assign_building/{buildign}', [CircuitController::class, 'assign_building'])->name('circuit.assign_building');
 Route::put('circuit/unassign_building', [CircuitController::class, 'unassign_building'])->name('circuit.unassign_building');
+
+Route::put('circuit/update_draft/{circuit}', [CircuitController::class, 'update_draft'])->name('circuit.update_draft');
 
 // & building routes: 
 Route::get('building/create', [BuildingController::class, 'create'])->name('building.create');

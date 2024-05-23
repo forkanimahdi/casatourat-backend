@@ -21,14 +21,6 @@
             <label for="">audio</label>
             <input type="text" placeholder="audio" name="audio">
         </div>
-        <div>
-            <label for="">headpoint</label>
-            <input type="text" placeholder="headpoint" name="headpoint">
-        </div>
-        <div>
-            <label for="">zoom</label>
-            <input type="text" placeholder="zoom" name="zoom">
-        </div>
         <button>submit</button>
     </form>
 </x-app-layout>

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
                 "email" => "ahmedalaoui@gmail.com",
                 "token" => "Ahmed12345",
                 "gender" => "male",
+                "role" => "user",
             ],
             [
                 "first_name" => "Salma",
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
                 "email" => "salmaalaoui@gmail.com",
                 "token" => "Salma12345",
                 "gender" => "female",
+                "role" => "admin",
             ],
         ]);
 

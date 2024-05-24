@@ -16,8 +16,8 @@ class CircuitController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->validateToken($request, function () {
-            $circuits = Circuit::all();
+        return $this->validateToken($request, function ($visitor) {
+            $circuits = $visitor->role == 'admin' ? Circuit::all() : Circuit::where('published', true)->get();
             return CircuitResource::collection($circuits);
         });
     }
@@ -27,7 +27,6 @@ class CircuitController extends Controller
      */
     public function store(Request $request)
     {
-        
     }
 
     /**

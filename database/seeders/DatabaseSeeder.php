@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
                 "email" => "ahmedalaoui@gmail.com",
                 "token" => "Ahmed12345",
                 "gender" => "male",
+                "role" => "user",
             ],
             [
                 "first_name" => "Salma",
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
                 "email" => "salmaalaoui@gmail.com",
                 "token" => "Salma12345",
                 "gender" => "female",
+                "role" => "admin",
             ],
         ]);
 
@@ -85,6 +87,79 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin@gmail.com'),
+        ]);
+        
+        models\Path::insert([
+            [
+                "circuit_id" => 1,
+                "latitude" => 33.593601,
+                "longitude" => -7.606634
+            ],
+            [
+                "circuit_id" => 1,
+                "latitude" => 33.593741,
+                "longitude" => -7.608557
+            ],
+            [
+                "circuit_id" => 1,
+                "latitude" => 33.594108,
+                "longitude" => -7.610533
+            ],
+            [
+                "circuit_id" => 1,
+                "latitude" => 33.594651,
+                "longitude" => -7.613034
+            ],
+            [
+                "circuit_id" => 1,
+                "latitude" => 33.595325,
+                "longitude" => -7.616009
+            ],
+            [
+                "circuit_id" => 1,
+                "latitude" => 33.595500,
+                "longitude" => -7.617144
+            ],
+            [
+                "circuit_id" => 1,
+                "latitude" => 33.595991,
+                "longitude" => -7.617869
+            ],
+            [
+                "circuit_id" => 2,
+                "latitude" => 33.592974,
+                "longitude" => -7.617694
+            ],
+            [
+                "circuit_id" => 2,
+                "latitude" => 33.592849,
+                "longitude" => -7.618040
+            ],
+            [
+                "circuit_id" => 2,
+                "latitude" => 33.592580,
+                "longitude" => -7.618575
+            ],
+            [
+                "circuit_id" => 2,
+                "latitude" => 33.591644,
+                "longitude" => -7.618890
+            ],
+            [
+                "circuit_id" => 2,
+                "latitude" => 33.590495,
+                "longitude" => -7.619489
+            ],
+            [
+                "circuit_id" => 2,
+                "latitude" => 33.589982,
+                "longitude" => -7.619726
+            ],
+            [
+                "circuit_id" => 2,
+                "latitude" => 33.587633,
+                "longitude" => -7.621138
+            ]
         ]);
     }
 }

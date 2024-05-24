@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('audio');
-            $table->string('latitude');
-            $table->string('longitude');
+            $table->double('latitude');
+            $table->double('longitude');
             $table->timestamps();
         });
     }

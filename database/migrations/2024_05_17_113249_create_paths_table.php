@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('paths', function (Blueprint $table) {
             $table->id();
             $table->foreignId('circuit_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('latitude');
-            $table->string('longitude');
+            $table->double('latitude');
+            $table->double('longitude');
             $table->timestamps();
         });
     }

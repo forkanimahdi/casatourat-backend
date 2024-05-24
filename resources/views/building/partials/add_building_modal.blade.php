@@ -26,7 +26,7 @@
                     </div>
                     <div>
                         <label for="">audio</label>
-                        <input type="text" placeholder="audio" name="audio">
+                        <input type="file" placeholder="audio" name="audio">
                     </div>
                     <div>
                         <label for="">image</label>

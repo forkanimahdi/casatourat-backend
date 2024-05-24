@@ -32,8 +32,8 @@ class Circuit extends Model
         return $this->hasMany(Building::class);
     }
 
-    public function images(): MorphMany
-    {
-        return $this->morphMany(Image::class, 'imagable');
-    }
+    // public function images(): MorphMany
+    // {
+    //     return $this->morphMany(Image::class, 'imagable');
+    // }
 }

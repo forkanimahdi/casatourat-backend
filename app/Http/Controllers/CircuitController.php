@@ -27,24 +27,19 @@ class CircuitController extends Controller
             'alternative' => 'required',
             'description' => 'required',
             'audio' => 'required',
-            'image' => 'required',
         ]);
+
+        $audio = $request->file('audio');
+        $audioName = time() . $audio->getClientOriginalName();
+        $audio->storeAs('/audios', $audioName, 'public');
 
         $circuit = Circuit::create([
             'name' => $request->name,
             'alternative' => $request->alternative,
             'description' => $request->description,
-            'audio' => $request->audio,
+            'audio' => $audioName
         ]);
 
-        $images = $request->file('image');
-        foreach ($images as  $image) {
-            $imageName = time() . $image->getClientOriginalName();
-            $circuit->images()->create([
-                'path' => $imageName
-            ]);
-            $image->storeAs('circuits/', $imageName, 'public');
-        }
         return redirect()->route('circuit.index', compact('circuit'));
     }
 

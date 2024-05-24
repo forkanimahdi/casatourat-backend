@@ -15,6 +15,7 @@ class Visitor extends Model
         "email",
         "token",
         "gender",
+        "role"
     ];
 
     public function favorites()

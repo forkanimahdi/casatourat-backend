@@ -26,11 +26,15 @@ class BuildingController extends Controller
             'longitude' => 'required',
         ]);
 
+        $audio = $request->file('audio');
+        $audioName = time() . $audio->getClientOriginalName();
+        $audio->storeAs('/audios', $audioName, 'public');
+
         $building =  Building::create([
             'circuit_id' => $request->circuit_id,
             'name' => $request->name,
             'description' => $request->description,
-            'audio' => $request->audio,
+            'audio' => $audioName,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
         ]);

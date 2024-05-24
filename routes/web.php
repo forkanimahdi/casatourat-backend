@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
 use App\Http\Controllers\ProfileController;
@@ -32,6 +33,11 @@ Route::put('circuit/update_draft/{circuit}', [CircuitController::class, 'update_
 Route::get('building/create', [BuildingController::class, 'create'])->name('building.create');
 Route::post('building/store', [BuildingController::class, 'store'])->name('building.store');
 Route::delete('building/destroy', [BuildingController::class, 'destroy'])->name('building.destroy');
+
+
+// & add account routes:
+Route::get('/register_user' , [AdminRegisterController::class , 'index'])->name('register_user.index')->middleware('auth');
+Route::post('/register_user' , [AdminRegisterController::class , 'store'])->name('register_user.store')->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

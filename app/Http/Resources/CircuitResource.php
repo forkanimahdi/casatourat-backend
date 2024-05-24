@@ -37,7 +37,6 @@ class CircuitResource extends BaseResource
     {
         return [            ...parent::toArray($request),
             'path' => PathResource::collection($this->resource->paths),
-            'images' => $this->resource->images->map(fn ($image) => $image->path),
             'new' => $this->isNew($this->resource->updated_at) ?? false,
             'buildings' => BuildingResource::collection(($this->resource->buildings)),
         ];

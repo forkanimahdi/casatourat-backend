@@ -14,12 +14,8 @@
             <input type="text" placeholder="description" name="description">
         </div>
         <div>
-            <label for="">image</label>
-            <input type="file" placeholder="image" multiple name="image[]">
-        </div>
-        <div>
             <label for="">audio</label>
-            <input type="text" placeholder="audio" name="audio">
+            <input type="file" placeholder="audio" name="audio">
         </div>
         <button>submit</button>
     </form>

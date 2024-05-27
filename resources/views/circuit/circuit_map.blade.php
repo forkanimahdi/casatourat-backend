@@ -49,7 +49,6 @@
                 });
                 markers.push(marker);
                 line.setPath(markers.map(marker => marker.getPosition()));
-
             });
 
             document.getElementById('submit').addEventListener('click', function() {

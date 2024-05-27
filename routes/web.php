@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Resources\CircuitResource;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,6 +30,9 @@ Route::put('circuit/unassign_building', [CircuitController::class, 'unassign_bui
 Route::put('circuit/update_draft/{circuit}', [CircuitController::class, 'update_draft'])->name('circuit.update_draft');
 
 Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])->name('circuit.destroy');
+
+Route::get('circuit/update/map/{circuit}' , [CircuitController::class , 'update_map'])->name('circuit.update_map');
+Route::put('circuit/update/{id}' , [CircuitController::class , 'update']);
 
 // & building routes:
 Route::get('building', [BuildingController::class, 'index'])->name('building.index');

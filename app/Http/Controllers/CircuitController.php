@@ -41,7 +41,6 @@ class CircuitController extends Controller
             'audio' => $audioName
         ]);
 
-
         return redirect()->route('circuit.map_index', compact('circuit'));
     }
 
@@ -78,20 +77,20 @@ class CircuitController extends Controller
         return response()->json(['route_to_building' => '/circuit/assign_building/map/' . $circuit[0]['circuit_id']]);
     }
 
-    public function assign_building(Building $buildign, Request $request)
-    {
-        $buildign->update([
-            'circuit_id' => $request->circuit_id,
-        ]);
-        return back();
-    }
-
     public function assign_building_index(string $id)
     {
         $path_of_circuit = Path::select('latitude AS lat', 'longitude AS lng')->where('circuit_id', $id)->get();
         $buildings = Building::all()->where('circuit_id', null);
         $circuit = Circuit::where('id', $id)->first();
         return view('circuit.assign_building_map', compact('path_of_circuit', 'buildings', 'id', 'circuit'));
+    }
+
+    public function assign_building(Building $buildign, Request $request)
+    {
+        $buildign->update([
+            'circuit_id' => $request->circuit_id,
+        ]);
+        return back();
     }
 
     public function unassign_building(Request $request)
@@ -122,6 +121,33 @@ class CircuitController extends Controller
             ]);
         }
         return back();
+    }
+
+    public function update_map(Circuit $circuit)
+    {
+        return view('circuit.circuit_update_map', compact('circuit'));
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $circuitPaths = Path::where('circuit_id', $id)->get();
+
+        foreach ($circuitPaths as $path) {
+            $path->delete();
+        }
+
+        $circuit = $request->json()->all();
+        foreach ($circuit as $path) {
+            Path::create([
+                'circuit_id' => $path['circuit_id'],
+                'latitude' => $path['latitude'],
+                'longitude' => $path['longitude'],
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'success',
+        ]);
     }
 
     public function destroy(Circuit $circuit)

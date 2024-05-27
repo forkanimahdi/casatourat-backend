@@ -26,6 +26,7 @@
                             class="border px-2 py-1 rounded-md test-[1.2rem] bg-gray-500 text-white">{{ $circuit->published ? 'unpublish' : 'publish' }}
                             the circuit</button>
                     </form>
+                    <a href="{{ route('circuit.update_map' , $circuit) }}">update circuit</a>
                 </div>
             </div>
         @endforeach

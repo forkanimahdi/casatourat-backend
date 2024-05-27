@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class BuildingController extends Controller
 {
+
+
+    public function index()
+    {
+        $unassigned_buildings = Building::where('circuit_id', null)->get();
+        $assigned_buildings = Building::where('circuit_id', '!=', null)->get();
+        return view('building.building_index', compact('unassigned_buildings', 'assigned_buildings'));
+    }
+
+
     public function create()
     {
         $buildings = Building::where('circuit_id', null)->get();
@@ -50,10 +60,9 @@ class BuildingController extends Controller
         return back();
     }
 
-    public function destroy(Request $request)
+    public function destroy(string $id)
     {
-        $building_id = $request->building_id;
-        $building = Building::where('id', $building_id)->first();
+        $building = Building::where('id', $id)->first();
         $building->delete();
         return back();
     }

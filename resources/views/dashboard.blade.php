@@ -16,6 +16,13 @@
 
                     <h3 class="text-black">add buildings</h3>
                     <a href="{{ route('building.create') }}">add</a>
+
+                    <h3 class="text-black">all buildings</h3>
+                    <a href="{{ route('building.index') }}">show</a>
+
+                    <h3 class="text-black">all circuits</h3>
+                    <a href="{{ route('circuit.index') }}">show</a>
+
                 </div>
             </div>
         </div>

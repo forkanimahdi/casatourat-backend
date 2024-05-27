@@ -1,6 +1,4 @@
-{{-- <script type='text/javascript'
-        src='https://maps.google.com/maps/api/js?language=en&key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&region=GB'>
-    </script> --}}
+
 <x-app-layout>
     @include('circuit.partials.unassign_building_modal')
     {{ $circuit->published }}
@@ -24,11 +22,6 @@
             </form>
         </div>
     @endforeach
-
-
-    <script type='text/javascript'
-        src='https://maps.google.com/maps/api/js?language=en&key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&region=GB&libraries=directions'>
-    </script>
 
     <script>
         console.log(@json($circuit->buildings));

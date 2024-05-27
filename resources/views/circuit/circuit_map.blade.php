@@ -1,19 +1,19 @@
-{{-- <script type='text/javascript'
-        src='https://maps.google.com/maps/api/js?language=en&key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&region=GB'>
-    </script> --}}
-
 <x-app-layout>
-    <h2>select your circuit on the map</h2>
+    <h2>select your circuit on the map</h2>z
     <div id="map" style="width: 100%; height: 400px;"></div>
     <button id="submit" class="border px-2 py-1 rounded-md test-[1.2rem] bg-gray-500 text-white">add circuit</button>
-    {{ $circuit->id }}
 
-    <script type='text/javascript'
-        src='https://maps.google.com/maps/api/js?language=en&key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&region=GB&libraries=directions'>
-    </script>
+    <p class="text-white">{{ $circuit->paths }}</p>
 
     <script>
         let markers = [];
+
+        let circuitPaths = @json($circuit->paths).map((path) => {
+            return {
+                lat: path.latitude,
+                lng: path.longitude
+            }
+        })
 
         function initMap() {
             const casablanca = {
@@ -27,7 +27,6 @@
             });
 
 
-            // poly line that displayed on red to show the poly line that the user is currentely creating it
             let line = new google.maps.Polyline({
                 strokeColor: '#FF0000',
                 strokeWeight: 4,
@@ -35,6 +34,7 @@
             });
 
             map.addListener('click', function(event) {
+                console.log(markers);
                 const marker = new google.maps.Marker({
                     position: {
                         lat: event.latLng.lat(),
@@ -49,6 +49,7 @@
                 });
                 markers.push(marker);
                 line.setPath(markers.map(marker => marker.getPosition()));
+
             });
 
             document.getElementById('submit').addEventListener('click', function() {
@@ -62,16 +63,14 @@
 
                 async function submitData() {
                     if (markers.length < 2) return
-
                     try {
-                        const response = await axios.post('/circuit/path_post', cordinates);
+                        const response = await axios.post('/circuit/path_post',
+                            cordinates);
                         markers.map(marker => marker.setMap(null))
                         window.location.href = response.data['route_to_building']
 
                     } catch (error) {
-                        // Handle errors
                         console.error('Error posting data:', error.response.data);
-                        // Display error message to the user
                     }
                 }
                 submitData()
@@ -91,29 +90,10 @@
                     }
                 });
 
-
-
-                // allCicruits.push(polyLine)
-
-
-                // for (const polyLine of allCicruits) {
-                //     polyLine.setOptions({
-                //         path: polyline = polyLine.latLngs.Fg[0].Fg.map(path => {
-                //             return {
-                //                 lat: path.lat(),
-                //                 lng: path.lng()
-                //             }
-                //         }),
-                //     });
-
-                //     polyLine.addListener('click', function() {
-                //         console.log(polyLine.data);
-                //     })
-                // }
             })
         }
 
-
         window.onload = initMap;
     </script>
+
 </x-app-layout>

@@ -35,7 +35,8 @@ class CircuitResource extends BaseResource
      */
     public function toArray(Request $request): array
     {
-        return [            ...parent::toArray($request),
+        return [
+            ...parent::toArray($request),
             'path' => PathResource::collection($this->resource->paths),
             'new' => $this->isNew($this->resource->updated_at) ?? false,
             'buildings' => BuildingResource::collection(($this->resource->buildings)),

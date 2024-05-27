@@ -12,7 +12,8 @@ class CircuitController extends Controller
 {
     public function index()
     {
-        return view('circuit.welcome');
+        $circuits = Circuit::all();
+        return view('circuit.circuit_index', compact('circuits'));
     }
 
     public function create()
@@ -40,7 +41,8 @@ class CircuitController extends Controller
             'audio' => $audioName
         ]);
 
-        return redirect()->route('circuit.index', compact('circuit'));
+
+        return redirect()->route('circuit.map_index', compact('circuit'));
     }
 
     public function circuit_map_index(Circuit $circuit)
@@ -119,6 +121,19 @@ class CircuitController extends Controller
                 "bigPictureURL" => "Big picture URL as a string"
             ]);
         }
+        return back();
+    }
+
+    public function destroy(Circuit $circuit)
+    {
+
+        foreach ($circuit->buildings as $building) {
+            $building->update([
+                'circuit_id' => null
+            ]);
+        }
+
+        $circuit->delete();
         return back();
     }
 }

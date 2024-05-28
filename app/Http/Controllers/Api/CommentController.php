@@ -51,7 +51,7 @@ class CommentController extends Controller
             }
             $visitor->comments()->attach($building, [
                 'content' => $request->content,
-                'status' => $request->content,
+                'status' => $request->status,
             ]);
             return response()->json([
                 'message' => 'comment stored successfully',

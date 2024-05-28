@@ -14,8 +14,8 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script async 
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpBA1-3XXbHbxRdsz4Pilncvs0wZtxNtk&loading=async&callback=initMap">
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_API_KEY') }}&loading=async&callback=initMap">
     </script>
 
 </head>

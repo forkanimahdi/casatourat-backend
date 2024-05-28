@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('visitor_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('building_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->longText('content');
+            $table->enum('status', ['satisfying', 'warning', 'alert']);
             $table->timestamps();
         });
     }

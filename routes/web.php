@@ -31,15 +31,15 @@ Route::put('circuit/update_draft/{circuit}', [CircuitController::class, 'update_
 
 Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])->name('circuit.destroy');
 
-Route::get('circuit/update/map/{circuit}' , [CircuitController::class , 'update_map'])->name('circuit.update_map');
-Route::put('circuit/update/{id}' , [CircuitController::class , 'update']);
+Route::get('circuit/update/map/{circuit}', [CircuitController::class, 'update_map'])->name('circuit.update_map');
+Route::put('circuit/update_circuit/{id}', [CircuitController::class, 'update_circuit']);
+Route::put('circuit/update/{circuit}', [CircuitController::class, 'update'])->name('circuit.update');
 
 // & building routes:
 Route::get('building', [BuildingController::class, 'index'])->name('building.index');
 Route::get('building/create', [BuildingController::class, 'create'])->name('building.create');
 Route::post('building/store', [BuildingController::class, 'store'])->name('building.store');
 Route::delete('building/destroy/{id}', [BuildingController::class, 'destroy'])->name('building.destroy');
-
 
 // & add account routes:
 Route::get('/register_user', [AdminRegisterController::class, 'index'])->name('register_user.index')->middleware('auth');

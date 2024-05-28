@@ -12,13 +12,13 @@
                         @endforeach
                     </ul>
                 </div>
-                <div>
+                <div class="fles flex-col gap-2">
                     <form action="{{ route('circuit.destroy', $circuit) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger">delete</button>
                     </form>
-                    <a href="{{ route('assign_building.index', $circuit->id) }}">assign building to the circuit</a>
+                    <a class="btn btn-primary" href="{{ route('assign_building.index', $circuit->id) }}">assign building to the circuit</a>
                     <form action="{{ route('circuit.update_draft', $circuit) }}" method="post">
                         @method('PUT')
                         @csrf
@@ -26,7 +26,7 @@
                             class="border px-2 py-1 rounded-md test-[1.2rem] bg-gray-500 text-white">{{ $circuit->published ? 'unpublish' : 'publish' }}
                             the circuit</button>
                     </form>
-                    <a href="{{ route('circuit.update_map' , $circuit) }}">update circuit</a>
+                    <a class="btn btn-primary" href="{{ route('circuit.update_map' , $circuit) }}">update circuit</a>
                 </div>
             </div>
         @endforeach

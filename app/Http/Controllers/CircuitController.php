@@ -7,6 +7,7 @@ use App\Models\Circuit;
 use App\Models\Path;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class CircuitController extends Controller
 {
@@ -128,7 +129,7 @@ class CircuitController extends Controller
         return view('circuit.circuit_update_map', compact('circuit'));
     }
 
-    public function update(Request $request, string $id)
+    public function update_circuit(Request $request, string $id)
     {
         $circuitPaths = Path::where('circuit_id', $id)->get();
 
@@ -148,6 +149,30 @@ class CircuitController extends Controller
         return response()->json([
             'message' => 'success',
         ]);
+    }
+
+    public function update(Request $request, Circuit $circuit)
+    {
+        request()->validate([
+            'name' => 'required',
+            'alternative' => 'required',
+            'description' => 'required',
+        ]);
+
+        if ($request->file('audio')) {
+            Storage::delete('audios/' . $request->audio);
+            $audio = $request->file('audio');
+            $audioName = time() . $audio->getClientOriginalName();
+            $audio->storeAs('/audios', $audioName, 'public');
+        }
+
+        $circuit->update([
+            'name' => $request->name,
+            'alternative' => $request->alternative,
+            'description' => $request->description,
+        ]);
+
+        return back();
     }
 
     public function destroy(Circuit $circuit)

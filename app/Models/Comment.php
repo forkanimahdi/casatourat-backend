@@ -13,6 +13,7 @@ class Comment extends Model
         'visitor_id',
         'building_id',
         'content',
+        'status',
     ];
 
 

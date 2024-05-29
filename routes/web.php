@@ -4,7 +4,6 @@ use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Resources\CircuitResource;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

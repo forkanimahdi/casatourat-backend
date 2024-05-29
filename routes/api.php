@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api as api;
-use App\Http\Controllers\BuildingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,6 +8,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
+Route::get("/visitor", [api\VisitorController::class, "index"]);
 Route::post("/visitor", [api\VisitorController::class, "store"]);
 Route::put("/visitor", [api\VisitorController::class, "update"]);
 

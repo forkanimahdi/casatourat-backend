@@ -23,55 +23,56 @@ class AdminRegisterController extends Controller
 
     public function store(Request $request)
     {
-        request()->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'username' => 'required',
-            'email' => 'required',
-            'gender' => 'required',
-        ]);
-
-        $random_password = Str::random(10) . time();
-
-        $user = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email_address' => [
-                $request->email
-            ],
-            'username' => $request->username,
-            "password" => $random_password
-        ];
-
-        $headers = [
-            'Authorization' => 'Bearer sk_test_Al5MqrFlbGJ8KNRutKQJn7o3U6paXeO0zxEQc08qg0',
-            'Content-Type' => 'application/json'
-        ];
-
         try {
+            $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'username' => 'required',
+                'email' => 'required',
+                'gender' => 'required',
+            ]);
+
+            $random_password = Str::random(10) . time();
+
+            $user = [
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email_address' => [
+                    $request->email
+                ],
+                'username' => $request->username,
+                "password" => $random_password
+            ];
+
+            $headers = [
+                'Authorization' => 'Bearer ' . config("clerk.secret_key"),
+                'Content-Type' => 'application/json'
+            ];
+
             $response = Http::withHeaders($headers)->post('https://api.clerk.com/v1/users', $user);
+
             if ($response->ok()) {
+                Visitor::create([
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'email' => $request->email,
+                    'gender' => $request->gender,
+                    'role' => 'admin',
+                    'token' => $response->json()["id"],
+                ]);
+
+                User::create([
+                    'name' => $request->first_name,
+                    'email' => $request->email,
+                    'password' => Hash::make($random_password),
+                ]);
+
                 Mail::to($request->email)->send(new PasswordMail($random_password));
             }
+
+            return back();
         } catch (\Throwable $e) {
             dd($e, 'errorrrrrr shiiit');
         }
-
-        Visitor::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'gender' => $request->gender,
-            'role' => 'admin',
-            'token' => null
-        ]);
-
-        User::create([
-            'name' => $request->first_name,
-            'email' => $request->email,
-            'password' => Hash::make($random_password),
-        ]);
-
-        return back();
     }
 }

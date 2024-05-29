@@ -14,24 +14,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        models\Visitor::insert([
-            [
-                "first_name" => "Ahmed",
-                "last_name" => "Alaoui",
-                "email" => "ahmedalaoui@gmail.com",
-                "token" => "Ahmed12345",
-                "gender" => "male",
-                "role" => "user",
-            ],
-            [
-                "first_name" => "Salma",
-                "last_name" => "Alaoui",
-                "email" => "salmaalaoui@gmail.com",
-                "token" => "Salma12345",
-                "gender" => "female",
-                "role" => "admin",
-            ],
-        ]);
+        // models\Visitor::insert([
+        //     [
+        //         "first_name" => "Ahmed",
+        //         "last_name" => "Alaoui",
+        //         "email" => "ahmedalaoui@gmail.com",
+        //         "token" => "Ahmed12345",
+        //         "gender" => "male",
+        //         "role" => "user",
+        //     ],
+        //     [
+        //         "first_name" => "Salma",
+        //         "last_name" => "Alaoui",
+        //         "email" => "salmaalaoui@gmail.com",
+        //         "token" => "Salma12345",
+        //         "gender" => "female",
+        //         "role" => "admin",
+        //     ],
+        // ]);
 
         models\Circuit::insert([
             [

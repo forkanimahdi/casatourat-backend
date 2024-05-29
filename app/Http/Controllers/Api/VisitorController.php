@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\VisitorRequest;
+use App\Http\Resources\VisitorResource;
 use App\Models\Visitor;
 use App\TokenValidation;
 use Illuminate\Http\Request;
@@ -15,9 +16,11 @@ class VisitorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return $this->validateToken($request, function (Visitor $visitor) {
+            return new VisitorResource($visitor);
+        });
     }
 
     /**
@@ -33,6 +36,7 @@ class VisitorController extends Controller
                 "email",
                 "token",
                 "gender",
+                "age",
             ]),
             ARRAY_FILTER_USE_KEY,
         ));
@@ -61,9 +65,6 @@ class VisitorController extends Controller
                 fn ($key) => in_array($key, [
                     "first_name",
                     "last_name",
-                    "email",
-                    "token",
-                    "gender",
                 ]),
                 ARRAY_FILTER_USE_KEY,
             );

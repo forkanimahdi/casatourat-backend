@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models as models;
+use Carbon\Carbon;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -14,24 +15,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // models\Visitor::insert([
-        //     [
-        //         "first_name" => "Ahmed",
-        //         "last_name" => "Alaoui",
-        //         "email" => "ahmedalaoui@gmail.com",
-        //         "token" => "Ahmed12345",
-        //         "gender" => "male",
-        //         "role" => "user",
-        //     ],
-        //     [
-        //         "first_name" => "Salma",
-        //         "last_name" => "Alaoui",
-        //         "email" => "salmaalaoui@gmail.com",
-        //         "token" => "Salma12345",
-        //         "gender" => "female",
-        //         "role" => "admin",
-        //     ],
-        // ]);
+        models\User::insert([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('admin@gmail.com'),
+        ]);
+
+        models\Visitor::insert([
+            [
+                "first_name" => "Ahmed",
+                "last_name" => "Alaoui",
+                "email" => "ahmedalaoui@gmail.com",
+                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
+                "gender" => "male",
+                "role" => "admin",
+            ],
+        ]);
 
         models\Circuit::insert([
             [
@@ -83,12 +82,6 @@ class DatabaseSeeder extends Seeder
                 "latitude" => 33.592974,
                 "longitude" => -7.617694,
             ]
-        ]);
-
-        models\User::insert([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin@gmail.com'),
         ]);
 
         models\Path::insert([
@@ -163,5 +156,19 @@ class DatabaseSeeder extends Seeder
                 "longitude" => -7.621138
             ]
         ]);
+
+        models\Event::insert([[
+            'title' => "Les Journées du Patrimoine de Casablanca 13ème édition",
+            'description' => "La 13e édition des Journées du Patrimoine de Casablanca auront lieu du 13 au 19 mai 2024. Une invitation à voyager dans le temps et l'espace, révélant la splendeur architecturale et urbanistique de la métropole à travers 5 circuits guidés et une programmation culturelle d'une richesse inégalée, sous le thème évocateur de \"Casablanca, patrimoine en mouvement\".",
+            'start' => Carbon::now(),
+            'end' => Carbon::now(),
+            'image' => "event1.jpg",
+        ], [
+            'title' => "fdjhc",
+            'description' => "fdjhc",
+            'start' => Carbon::now(),
+            'end' => Carbon::now(),
+            'image' => "event1.jpg",
+        ]]);
     }
 }

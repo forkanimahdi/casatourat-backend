@@ -25,3 +25,4 @@ Route::post('/comment', [api\CommentController::class, 'store']);
 Route::put('/comment/{comment}', [api\CommentController::class, 'update']);
 Route::delete('/comment/{comment}', [api\CommentController::class, 'destroy']);
 
+Route::get("/events", [api\EventController::class, "index"]);

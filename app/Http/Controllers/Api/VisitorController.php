@@ -78,7 +78,8 @@ class VisitorController extends Controller
             $visitor->update($data);
 
             return response()->json([
-                'message' => "Vistor successfully updated."
+                'message' => "Vistor successfully updated.",
+                'data' => new VisitorResource($visitor),
             ], 200);
         });
     }

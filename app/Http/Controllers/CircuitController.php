@@ -112,13 +112,11 @@ class CircuitController extends Controller
 
         if ($circuit->published) {
             Http::post('https://app.nativenotify.com/api/notification', [
-                "appId" => 21328,
-                "appToken" => "TwOsi07V6IvVsAbrH9HDif",
+                "appId" => 21462,
+                "appToken" => "iIpwyGVqc27BSuZOCRmH8r",
                 "title" => "casa guide",
                 "body" => "a new circuit has been created",
                 "dateSent" => "5-20-2024 9:43AM",
-                "pushData" => ["yourProperty" => "yourPropertyValue"],
-                "bigPictureURL" => "Big picture URL as a string"
             ]);
         }
         return back();

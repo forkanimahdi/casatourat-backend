@@ -32,4 +32,9 @@ class Visitor extends Model
     {
         return $this->belongsToMany(Building::class, "comments");
     }
+
+    public function visits()
+    {
+        return $this->belongsToMany(Building::class, 'achievements');
+    }
 }

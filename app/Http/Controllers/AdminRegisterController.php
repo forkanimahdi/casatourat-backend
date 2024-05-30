@@ -72,7 +72,8 @@ class AdminRegisterController extends Controller
 
             return back();
         } catch (\Throwable $e) {
-            dd($e, 'errorrrrrr shiiit');
+            dump('error', $e);
+            return abort(404, 'something went wrong');
         }
     }
 }

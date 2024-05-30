@@ -23,6 +23,8 @@
                             <input type="text" class="d-none" name="building_id" value="{{ $building->id }}">
                             <button class="btn btn-danger">unassign building</button>
                         </form>
+                        @include('building.partials.update_building_tab')
+
                     </div>
                 </div>
             @endforeach
@@ -42,6 +44,8 @@
                             @method('DELETE')
                             <button class="btn btn-danger">delete building</button>
                         </form>
+                        @include('building.partials.update_building_tab')
+
                     </div>
                 </div>
             @endforeach

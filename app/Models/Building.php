@@ -40,4 +40,9 @@ class Building extends Model
     {
         return $this->belongsToMany(Visitor::class, 'comments')->withPivot('content', 'id');
     }
+
+    public function building_achievements()
+    {
+        return $this->belongsToMany(Visitor::class, 'achievements');
+    }
 }

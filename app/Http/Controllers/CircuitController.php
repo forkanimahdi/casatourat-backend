@@ -158,9 +158,11 @@ class CircuitController extends Controller
         ]);
 
         if ($request->file('audio')) {
-            Storage::delete('audios/' . $request->audio);
+            Storage::disk('public')->delete('audios/' . $circuit->audio);
             $audio = $request->file('audio');
             $audioName = time() . $audio->getClientOriginalName();
+            $circuit->audio = $audioName;
+            $circuit->save();
             $audio->storeAs('/audios', $audioName, 'public');
         }
 
@@ -175,7 +177,6 @@ class CircuitController extends Controller
 
     public function destroy(Circuit $circuit)
     {
-
         foreach ($circuit->buildings as $building) {
             $building->update([
                 'circuit_id' => null

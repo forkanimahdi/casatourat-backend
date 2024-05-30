@@ -26,3 +26,6 @@ Route::put('/comment/{comment}', [api\CommentController::class, 'update']);
 Route::delete('/comment/{comment}', [api\CommentController::class, 'destroy']);
 
 Route::get("/events", [api\EventController::class, "index"]);
+
+Route::post('/achievement', [api\AchievementController::class, 'store']);
+Route::get('/achievement', [api\AchievementController::class, 'index']);

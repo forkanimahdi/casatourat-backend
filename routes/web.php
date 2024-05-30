@@ -25,20 +25,26 @@ Route::post('circuit/path_post', [CircuitController::class, 'path_post'])->name(
 Route::get('circuit/assign_building/map/{id}', [CircuitController::class, 'assign_building_index'])->name('assign_building.index');
 Route::put('circuit/assign_building/{buildign}', [CircuitController::class, 'assign_building'])->name('circuit.assign_building');
 Route::put('circuit/unassign_building', [CircuitController::class, 'unassign_building'])->name('circuit.unassign_building');
-
 Route::put('circuit/update_draft/{circuit}', [CircuitController::class, 'update_draft'])->name('circuit.update_draft');
-
 Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])->name('circuit.destroy');
-
 Route::get('circuit/update/map/{circuit}', [CircuitController::class, 'update_map'])->name('circuit.update_map');
 Route::put('circuit/update_circuit/{id}', [CircuitController::class, 'update_circuit']);
 Route::put('circuit/update/{circuit}', [CircuitController::class, 'update'])->name('circuit.update');
+
+
+
+
 
 // & building routes:
 Route::get('building', [BuildingController::class, 'index'])->name('building.index');
 Route::get('building/create', [BuildingController::class, 'create'])->name('building.create');
 Route::post('building/store', [BuildingController::class, 'store'])->name('building.store');
 Route::delete('building/destroy/{id}', [BuildingController::class, 'destroy'])->name('building.destroy');
+Route::put('buildings/update/{building}', [BuildingController::class, 'update'])->name('building.update');
+Route::post('building/image/{building}', [BuildingController::class, 'store_image'])->name('building.store_image');
+Route::put('building/image/{image}', [BuildingController::class, 'update_image'])->name('building.update_image');
+Route::delete('building/image/{image}', [BuildingController::class, 'destory_image'])->name('building.destory_image');
+
 
 // & add account routes:
 Route::get('/register_user', [AdminRegisterController::class, 'index'])->name('register_user.index')->middleware('auth');

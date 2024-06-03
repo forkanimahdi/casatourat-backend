@@ -27,8 +27,7 @@
         @include('layouts.side_bare')
         <!-- Page Content -->
         <main class="bg-purple-300 w-full overflow-y-auto h-screen">
-
-            @yield('content')
+            {{ $slot }}
         </main>
     </div>
 </body>

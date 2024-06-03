@@ -23,6 +23,9 @@
                     <h3 class="text-black">all circuits</h3>
                     <a href="{{ route('circuit.index') }}">show</a>
 
+                    <h3 class="text-black">create account</h3>
+                    <a href="{{ route('register_user.index') }}">create</a>
+
                 </div>
             </div>
         </div>

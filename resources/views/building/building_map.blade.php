@@ -11,8 +11,6 @@
     @include('building.partials.add_building_modal')
     {{-- @include('building.partials.delete_building_modal') --}}
 
-
-
     {{ $buildings }}
 
     <script>
@@ -58,6 +56,7 @@
                 infowindow.open(map, marker)
                 marker.addListener('click', function() {
                     try {
+                        console.log(marker.data);
                         const response = axios.delete(`/building/destroy/` + marker.data.id, {
                             headers: {
                                 'x-access-token': document.querySelector('meta[name="csrf-token"]')

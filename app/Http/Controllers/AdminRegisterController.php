@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Psy\Exception\ThrowUpException;
 
+use function PHPUnit\Framework\throwException;
 
 class AdminRegisterController extends Controller
 {
@@ -49,31 +51,27 @@ class AdminRegisterController extends Controller
                 'Content-Type' => 'application/json'
             ];
 
-            $response = Http::withHeaders($headers)->post('https://api.clerk.com/v1/users', $user);
+            $response = Http::withHeaders($headers)->post('https://api.clerk.com/v1/user', $user);
+            
+            Visitor::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'gender' => $request->gender,
+                'role' => 'admin',
+                'token' => $response->json()["id"],
+            ]);
 
-            if ($response->ok()) {
-                Visitor::create([
-                    'first_name' => $request->first_name,
-                    'last_name' => $request->last_name,
-                    'email' => $request->email,
-                    'gender' => $request->gender,
-                    'role' => 'admin',
-                    'token' => $response->json()["id"],
-                ]);
-
-                User::create([
-                    'name' => $request->first_name,
-                    'email' => $request->email,
-                    'password' => Hash::make($random_password),
-                ]);
-
-                Mail::to($request->email)->send(new PasswordMail($random_password));
-            }
-
+            User::create([
+                'name' => $request->first_name,
+                'email' => $request->email,
+                'password' => Hash::make($random_password),
+            ]);
+            Mail::to($request->email)->send(new PasswordMail($random_password));
             return back();
         } catch (\Throwable $e) {
             dump('error', $e);
-            return abort(404, 'something went wrong');
+            return abort(404);
         }
     }
 }

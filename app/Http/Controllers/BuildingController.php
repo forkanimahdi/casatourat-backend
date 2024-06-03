@@ -128,6 +128,8 @@ class BuildingController extends Controller
     {
         $building = Building::where('id', $id)->first();
         $building->delete();
-        return back();
+        return response()->json([
+            'message' => 'building deleted successfully'
+        ]);
     }
 }

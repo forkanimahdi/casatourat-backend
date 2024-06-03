@@ -1,6 +1,10 @@
 <x-app-layout>
     <h2>select your circuit on the map</h2>z
-    <div id="map" style="width: 100%; height: 400px;"></div>
+    <div id="map" style="width: 100%; height: 500px;">
+        <div class="w-8 h-8 bg-black z-20">
+            <h1>content</h1>
+        </div>
+    </div>
     <button id="submit" class="border px-2 py-1 rounded-md test-[1.2rem] bg-gray-500 text-white">add circuit</button>
 
     <p class="text-white">{{ $circuit->paths }}</p>

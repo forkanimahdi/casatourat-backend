@@ -7,7 +7,6 @@
                     <h3 class="text-black">create the circuit</h3>
                     <a href="{{ route('circuit.create') }}">create</a>
 
-
                     <h3 class="text-black">create account</h3>
                     <a href="{{ route('register_user.index') }}">create</a>
 

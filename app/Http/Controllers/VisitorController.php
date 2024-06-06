@@ -12,7 +12,8 @@ class VisitorController extends Controller
      */
     public function index()
     {
-        //
+        $visitors = Visitor::all();
+        return view("visitors.index", compact('visitors'));
     }
 
     /**
@@ -28,7 +29,7 @@ class VisitorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**

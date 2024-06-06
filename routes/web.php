@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VisitorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,13 +48,19 @@ Route::delete('building/image/{image}', [BuildingController::class, 'destory_ima
 
 
 // & add account routes:
-Route::get('/register_user', [AdminRegisterController::class, 'index'])->name('register_user.index')->middleware('auth');
-Route::post('/register_user', [AdminRegisterController::class, 'store'])->name('register_user.store')->middleware('auth');
+Route::get('/register_user', [AdminRegisterController::class, 'index'])->name('register_user.index');
+Route::post('/register_user', [AdminRegisterController::class, 'store'])->name('register_user.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// users
+Route::name("users")->group(function () {
+    Route::get('/users', [VisitorController::class, 'index'])->name('.index');
+    Route::post('/users', [VisitorController::class, 'store'])->name('.store');
 });
 
 require __DIR__ . '/auth.php';

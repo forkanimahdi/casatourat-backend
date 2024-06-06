@@ -25,10 +25,29 @@ class DatabaseSeeder extends Seeder
             [
                 "first_name" => "Ahmed",
                 "last_name" => "Alaoui",
-                "email" => "ahmedalaoui@gmail.com",
+                "email" => "ahmed@alaoui.com",
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "male",
                 "role" => "admin",
+                "created_at" => Carbon::now(),
+            ],
+            [
+                "first_name" => "Mustapha",
+                "last_name" => "Benchar",
+                "email" => "mustaphabenchar@gmail.com",
+                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
+                "gender" => "male",
+                "role" => "user",
+                "created_at" => Carbon::now(),
+            ],
+            [
+                "first_name" => "Salma",
+                "last_name" => "Alaoui",
+                "email" => "salma@alaoui.com",
+                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
+                "gender" => "female",
+                "role" => "admin",
+                "created_at" => Carbon::now(),
             ],
         ]);
 

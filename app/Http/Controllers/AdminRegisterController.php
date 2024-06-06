@@ -51,7 +51,11 @@ class AdminRegisterController extends Controller
                 'Content-Type' => 'application/json'
             ];
 
-            $response = Http::withHeaders($headers)->post('https://api.clerk.com/v1/user', $user);
+            $response = Http::withHeaders($headers)->post('https://api.clerk.com/v1/users', $user);
+
+            if (!$response->ok()) {
+                dump($response);
+            }
             
             Visitor::create([
                 'first_name' => $request->first_name,
@@ -68,6 +72,7 @@ class AdminRegisterController extends Controller
                 'password' => Hash::make($random_password),
             ]);
             Mail::to($request->email)->send(new PasswordMail($random_password));
+            
             return back();
         } catch (\Throwable $e) {
             dump('error', $e);

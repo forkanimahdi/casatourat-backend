@@ -20,8 +20,7 @@ Route::get('/circuit', [CircuitController::class, 'index'])->name('circuit.index
 // & circuit routes:
 Route::get('circuit/create', [CircuitController::class, 'create'])->name('circuit.create');
 Route::post('circuit/store', [CircuitController::class, 'post'])->name('circuit.post');
-Route::get('circuit/map/{circuit}', [CircuitController::class, 'circuit_map_index'])->name('circuit.map_index');
-Route::post('circuit/path_post', [CircuitController::class, 'path_post'])->name('circuit.path_post');
+Route::get('circuit/show/{circuit}', [CircuitController::class, 'show'])->name('circuit.show');
 Route::get('circuit/assign_building/map/{id}', [CircuitController::class, 'assign_building_index'])->name('assign_building.index');
 Route::put('circuit/assign_building/{buildign}', [CircuitController::class, 'assign_building'])->name('circuit.assign_building');
 Route::put('circuit/unassign_building', [CircuitController::class, 'unassign_building'])->name('circuit.unassign_building');

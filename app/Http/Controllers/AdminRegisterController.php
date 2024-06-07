@@ -36,26 +36,27 @@ class AdminRegisterController extends Controller
 
             $random_password = Str::random(10) . time();
 
-            $user = [
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'email_address' => [
-                    $request->email
-                ],
-                'username' => $request->username,
-                "password" => $random_password
-            ];
+            // $user = [
+            //     'first_name' => $request->first_name,
+            //     'last_name' => $request->last_name,
+            //     'email_address' => [
+            //         $request->email
+            //     ],
+            //     'username' => $request->username,
+            //     "password" => $random_password
+            // ];
 
-            $headers = [
-                'Authorization' => 'Bearer ' . config("clerk.secret_key"),
-                'Content-Type' => 'application/json'
-            ];
+            // $headers = [
+            //     'Authorization' => 'Bearer ' . config("clerk.secret_key"),
+            //     'Content-Type' => 'application/json'
+            // ];
 
-            $response = Http::withHeaders($headers)->post('https://api.clerk.com/v1/users', $user);
+            // $response = Http::withHeaders($headers)->post('https://api.clerk.com/v1/users', $user);
 
-            if (!$response->ok()) {
-                dump($response);
-            }
+            // if (!$response->ok()) {
+            //     dump($response);
+            // }
+            $response = 10;
             
             Visitor::create([
                 'first_name' => $request->first_name,
@@ -63,7 +64,8 @@ class AdminRegisterController extends Controller
                 'email' => $request->email,
                 'gender' => $request->gender,
                 'role' => 'admin',
-                'token' => $response->json()["id"],
+                // 'token' => $response->json()["id"],
+                'token' => $response,
             ]);
 
             User::create([
@@ -71,12 +73,15 @@ class AdminRegisterController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($random_password),
             ]);
-            Mail::to($request->email)->send(new PasswordMail($random_password));
-            
+            // Mail::to($request->email)->send(new PasswordMail($random_password));
             return back();
         } catch (\Throwable $e) {
             dump('error', $e);
             return abort(404);
         }
+    }
+    public function destroy (Visitor $staff) {
+        $staff->delete();
+        return back();
     }
 }

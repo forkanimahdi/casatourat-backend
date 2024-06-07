@@ -14,6 +14,7 @@ class Comment extends Model
         'building_id',
         'content',
         'status',
+        'mark_read',
     ];
 
 

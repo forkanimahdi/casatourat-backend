@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.notif_body::-webkit-scrollbar {
+        width: 5px;
+}
+.notif_body::-webkit-scrollbar-track-piece {
+        background-color:#fff ;
+}
+.notif_body::-webkit-scrollbar-thumb {
+        background-color: #646464;
+}

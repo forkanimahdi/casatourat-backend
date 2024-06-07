@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminRegisterController;
+use App\Http\Controllers\Api\VisitorController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,8 +49,8 @@ Route::delete('building/image/{image}', [BuildingController::class, 'destory_ima
 
 
 // & add account routes:
-Route::get('/register_user', [AdminRegisterController::class, 'index'])->name('register_user.index');
-Route::post('/register_user', [AdminRegisterController::class, 'store'])->name('register_user.store');
+Route::get('/register_user', [AdminRegisterController::class, 'index'])->name('register_user.index')->middleware('auth');
+Route::post('/register_user', [AdminRegisterController::class, 'store'])->name('register_user.store')->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -62,4 +64,14 @@ Route::name("users")->group(function () {
     Route::post('/users', [VisitorController::class, 'store'])->name('.store');
 });
 
+
+// & staff routes :
+Route::get('/staff', [StaffController::class,'index'])->name('staff.index')->middleware('auth');
+
+// & comments : 
+Route::get('/notiffication/{review}', [CommentController::class, 'show'])->name('notif.show');
+Route::get('/notiffication', [CommentController::class, 'index'])->name('notif.index');
+Route::delete('/comments/delete/{review}',[CommentController::class, 'destroy'])->name('notif.delete');
+Route::post('create/notif', [CommentController::class, 'store'])->name('create_comment');
+Route::put('/update/notif/{review}', [CommentController::class, 'update'])->name('update.notif');
 require __DIR__ . '/auth.php';

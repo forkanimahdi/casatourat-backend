@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Comment;
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $reviews = Comment::orderBy('created_at', 'desc')->get();
+        $notif = Comment::where('mark_read', false)->get();
+        view()->share(['reviews' => $reviews, 'notif' => $notif]);
     }
 }

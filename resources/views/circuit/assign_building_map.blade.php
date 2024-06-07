@@ -14,6 +14,7 @@
                 the circuit
             </button>
         </form>
+        <h4 class="text-alpha text-center ">{{ $circuit->name }}</h4>
         <p class="text-gray-500 font-bold text-center m-0 py-2">BUILDINGS</p>
         <div class="overflow-y-auto scrollbar-hide [&::-webkit-scrollbar]:hidden max-h-[100%] pb-10">
             @if (count($buildings) > 0)

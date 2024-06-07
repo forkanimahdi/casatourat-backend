@@ -4,13 +4,15 @@
             <div
                 class="border border-white w-[22%] h-fit p-3 hover:bg-white hover:scale-105 shadow-lg rounded-3xl group transi duration-500">
                 <div class="h-[10vh] relative ">
-                    <img class="w-[5vw] h-[5vw] rounded-full absolute hover:z-10"
-                        src="{{ asset('storage/images/' . $circuit->buildings[0]->images[0]->path) }}"
-                        alt="image_building">
-                    @if (count($circuit->buildings) > 2)
-                        <img class="absolute top-0 left-8 border-4 border-gray-200 group-hover:border-white duration-500 w-[5vw] h-[5vw] rounded-full"
-                            src="{{ asset('storage/images/' . $circuit->buildings[1]->images[0]->path) }}"
+                    @if (count($circuit->buildings) > 0)
+                        <img class="w-[5vw] h-[5vw] rounded-full absolute hover:z-10"
+                            src="{{ asset('storage/images/' . $circuit->buildings[0]->images[0]->path) }}"
                             alt="image_building">
+                        @if (count($circuit->buildings) > 2)
+                            <img class="absolute top-0 left-8 border-4 border-gray-200 group-hover:border-white duration-500 w-[5vw] h-[5vw] rounded-full"
+                                src="{{ asset('storage/images/' . $circuit->buildings[1]->images[0]->path) }}"
+                                alt="image_building">
+                        @endif
                     @endif
                 </div>
                 <div class="pt-8">

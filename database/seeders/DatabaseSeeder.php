@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models as models;
+use App\Models\Building;
 use Carbon\Carbon;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -101,6 +103,29 @@ class DatabaseSeeder extends Seeder
                 "latitude" => 33.592974,
                 "longitude" => -7.617694,
             ]
+        ]);
+
+        DB::table('images')->insert([
+            [
+                'path' => 'image1.jpg',
+                'imagable_type' => Building::class,
+                'imagable_id' => 1
+            ],
+            [
+                'path' => 'image2.jpg',
+                'imagable_type' => Building::class,
+                'imagable_id' => 2
+            ],
+            [
+                'path' => 'image3.jpg',
+                'imagable_type' => Building::class,
+                'imagable_id' => 3
+            ],
+            [
+                'path' => 'image4.jfif',
+                'imagable_type' => Building::class,
+                'imagable_id' => 4
+            ],
         ]);
 
         models\Path::insert([

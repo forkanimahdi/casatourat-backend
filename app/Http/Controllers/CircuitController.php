@@ -7,6 +7,7 @@ use App\Models\Circuit;
 use App\Models\Path;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 class CircuitController extends Controller
@@ -24,6 +25,16 @@ class CircuitController extends Controller
 
     public function post(Request $request)
     {
+        // $data = $request->json()->all();
+        // if ($request->hasFile('audio')) {
+        //     return [
+        //         'aud' => $request->file('audio')->getClientOriginalName(),
+        //         'des' => $request->description,
+        //         'cord' => $request->get('cordinates')
+        //     ];
+        // }
+        // return 'noooo';
+
         request()->validate([
             'name' => 'required',
             'alternative' => 'required',
@@ -42,46 +53,29 @@ class CircuitController extends Controller
             'audio' => $audioName
         ]);
 
-        return redirect()->route('circuit.map_index', compact('circuit'));
-    }
-
-    public function circuit_map_index(Circuit $circuit)
-    {
-        return view('circuit.circuit_map', compact('circuit'));
-    }
-
-    public function path_post(Request $request)
-    {
-        // ! method 1
-        // $validator = Validator::make($request->json()->all(), [
-        //     '*.circuit_id' => 'nullable|integer', // Adjust validation as needed
-        //     '*.latitude' => 'required|numeric|between:-90,90',
-        //     '*.longitude' => 'required|numeric|between:-180,180',
-        // ]);
-        // if ($validator->fails()) {
-        //     return response()->json($validator->errors() . 'hahahahhahah', 422);
-        // }
-        // ! method 2
-        $request->validate([
-            '*.circuit_id' => 'required',
-            '*.latitude' => 'required|numeric|between:-90,90',
-            '*.longitude' => 'required|numeric|between:-180,180',
-        ]);
-        $circuit = $request->json()->all();
-        foreach ($circuit as $path) {
+        $paths = json_decode($request->get('cordinates'), true);
+        foreach ($paths as $path) {
             Path::create([
-                'circuit_id' => $path['circuit_id'],
+                'circuit_id' => $circuit->id,
                 'latitude' => $path['latitude'],
                 'longitude' => $path['longitude'],
             ]);
         }
-        return response()->json(['route_to_building' => '/circuit/assign_building/map/' . $circuit[0]['circuit_id']]);
+
+        return response()->json(['route_to_building' => '/circuit/assign_building/map/' . $circuit->id]);
+    }
+
+    public function show(Circuit $circuit)
+    {
+        return view('circuit.circuit_show', compact('circuit'));
     }
 
     public function assign_building_index(string $id)
     {
         $path_of_circuit = Path::select('latitude AS lat', 'longitude AS lng')->where('circuit_id', $id)->get();
-        $buildings = Building::all()->where('circuit_id', null);
+        $buildings = Building::where('circuit_id', null)->latest()->get();
+        // $buildings = Building::all();
+        // dd($buildings);
         $circuit = Circuit::where('id', $id)->first();
         return view('circuit.assign_building_map', compact('path_of_circuit', 'buildings', 'id', 'circuit'));
     }

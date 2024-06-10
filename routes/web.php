@@ -34,10 +34,6 @@ Route::get('circuit/update/map/{circuit}', [CircuitController::class, 'update_ma
 Route::put('circuit/update_circuit/{id}', [CircuitController::class, 'update_circuit']);
 Route::put('circuit/update/{circuit}', [CircuitController::class, 'update'])->name('circuit.update');
 
-
-
-
-
 // & building routes:
 Route::get('building', [BuildingController::class, 'index'])->name('building.index');
 Route::get('building/create', [BuildingController::class, 'create'])->name('building.create');
@@ -47,7 +43,6 @@ Route::put('buildings/update/{building}', [BuildingController::class, 'update'])
 Route::post('building/image/{building}', [BuildingController::class, 'store_image'])->name('building.store_image');
 Route::put('building/image/{image}', [BuildingController::class, 'update_image'])->name('building.update_image');
 Route::delete('building/image/{image}', [BuildingController::class, 'destory_image'])->name('building.destory_image');
-
 
 // & add account routes:
 Route::get('/register_user', [AdminRegisterController::class, 'index'])->name('register_user.index')->middleware('auth');

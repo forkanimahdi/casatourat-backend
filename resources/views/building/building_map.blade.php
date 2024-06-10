@@ -27,7 +27,6 @@
             }
         })
 
-
         function initMap() {
             let allCicruits = [];
             const casablanca = {

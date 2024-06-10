@@ -29,7 +29,7 @@ function initMap() {
     });
 
     map.addListener('click', function (event) {
-        const svgMarkerBuilding = '/storage/markers/path_marker.svg';
+        const svgMarkerPath = '/storage/markers/path_marker.svg';
         const marker = new google.maps.Marker({
             position: {
                 lat: event.latLng.lat(),
@@ -37,7 +37,7 @@ function initMap() {
             },
             map: map,
             icon: {
-                url: svgMarkerBuilding,
+                url: svgMarkerPath,
                 scaledSize: new google.maps.Size(40, 40),
                 anchor: new google.maps.Point(20, 40),
             }

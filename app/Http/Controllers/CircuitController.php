@@ -74,8 +74,6 @@ class CircuitController extends Controller
     {
         $path_of_circuit = Path::select('latitude AS lat', 'longitude AS lng')->where('circuit_id', $id)->get();
         $buildings = Building::where('circuit_id', null)->latest()->get();
-        // $buildings = Building::all();
-        // dd($buildings);
         $circuit = Circuit::where('id', $id)->first();
         return view('circuit.assign_building_map', compact('path_of_circuit', 'buildings', 'id', 'circuit'));
     }
@@ -118,38 +116,28 @@ class CircuitController extends Controller
 
     public function update_map(Circuit $circuit)
     {
+
         return view('circuit.circuit_update_map', compact('circuit'));
     }
 
-    public function update_circuit(Request $request, string $id)
+    public function update(Request $request, string $id)
     {
-        $circuitPaths = Path::where('circuit_id', $id)->get();
+        // if ($request->hasFile('name')) {
+        //     return [
+        //         'name' => $request->name,
+        //         'des' => $request->description,
+        //         'cord' => $request->get('cordinates')
+        //     ];
+        // }
+        // return 'noooo' . $request->name . 'hahah';
 
-        foreach ($circuitPaths as $path) {
-            $path->delete();
-        }
-
-        $circuit = $request->json()->all();
-        foreach ($circuit as $path) {
-            Path::create([
-                'circuit_id' => $path['circuit_id'],
-                'latitude' => $path['latitude'],
-                'longitude' => $path['longitude'],
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'success',
-        ]);
-    }
-
-    public function update(Request $request, Circuit $circuit)
-    {
         request()->validate([
             'name' => 'required',
             'alternative' => 'required',
             'description' => 'required',
         ]);
+
+        $circuit = Circuit::where('id', $id)->first();
 
         if ($request->file('audio')) {
             Storage::disk('public')->delete('audios/' . $circuit->audio);
@@ -166,7 +154,24 @@ class CircuitController extends Controller
             'description' => $request->description,
         ]);
 
-        return back();
+
+        $circuitPaths = Path::where('circuit_id', $id)->get();
+        foreach ($circuitPaths as $path) {
+            $path->delete();
+        }
+
+        $new_paths = json_decode($request->get('cordinates'), true);
+        foreach ($new_paths as $path) {
+            Path::create([
+                'circuit_id' => $path['circuit_id'],
+                'latitude' => $path['latitude'],
+                'longitude' => $path['longitude'],
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'circuit updated successfully'
+        ]);
     }
 
     public function destroy(Circuit $circuit)
@@ -176,8 +181,7 @@ class CircuitController extends Controller
                 'circuit_id' => null
             ]);
         }
-
         $circuit->delete();
-        return back();
+        return redirect()->route('dashboard');
     }
 }

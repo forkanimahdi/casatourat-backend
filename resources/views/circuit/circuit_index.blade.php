@@ -1,8 +1,15 @@
 <x-app-layout>
-    <div class="flex flex-wrap gap-x-5 gap-y-3 mx-auto py-5 justify-center bg-gray-200 h-[100vh] ">
+    <x-slot name="header">
+        <div class="flex justify-between items-center w-full">
+            <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
+                all circuits
+            </h2>
+        </div>
+    </x-slot>
+    <div class="flex flex-wrap gap-x-5 gap-y-3 mx-auto py-5 justify-center min-h-[100vh] bg-gray-200">
         @foreach ($circuits as $circuit)
             <div
-                class="border border-white w-[22%] h-fit p-3 hover:bg-white hover:scale-105 shadow-lg rounded-3xl group transi duration-500">
+                class="border border-white w-[22%] h-fit p-3 hover:bg-white hover:scale-[1.02] shadow-lg rounded-3xl group transi duration-500">
                 <div class="h-[10vh] relative ">
                     @if (count($circuit->buildings) > 0)
                         <img class="w-[5vw] h-[5vw] rounded-full absolute hover:z-10"
@@ -27,6 +34,9 @@
                 </div>
             </div>
         @endforeach
+        
+        
+        
     </div>
 </x-app-layout>
 

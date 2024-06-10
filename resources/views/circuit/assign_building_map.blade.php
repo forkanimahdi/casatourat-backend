@@ -1,8 +1,15 @@
 <x-app-layout>
+    <x-slot name="header">
+        <div class="flex justify-between items-center w-full">
+            <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
+                assign building
+            </h2>
+        </div>
+    </x-slot>
     @include('circuit.partials.unassign_building_modal')
-    <div id="map" class="h-[100vh] relative"></div>
+    <div id="map" class="h-[85vh] relative"></div>
     <div
-        class="absolute top-[13%] left-[18%] bg-white shadow-md rounded-xl max-h-[80%] w-[21%] px-2 py-1 flex flex-col justify-between items-center ">
+        class="absolute top-[25%] left-[18%] bg-white shadow-md rounded-xl max-h-[80%] w-[21%] px-2 py-1 flex flex-col justify-between items-center ">
         <div
             class="absolute left-0 bottom-0 h-[50%] w-full z-10 rounded-xl bg-gradient-to-t from-white pointer-events-none">
         </div>
@@ -51,7 +58,7 @@
     </div>
 
     <script>
-        paths = @json($path_of_circuit).map(path => {
+        let paths = @json($path_of_circuit).map(path => {
             return {
                 ...path,
                 lat: Number(path.lat),
@@ -59,7 +66,7 @@
             }
         })
 
-        building_of_circuit = @json($circuit->buildings).map(building => {
+        let building_of_circuit = @json($circuit->buildings).map(building => {
             return {
                 ...building,
                 path: {

@@ -46,7 +46,7 @@
             </form>
             @foreach ($building->images as $image)
                 <div class="border border-blue-500">
-                    <img src="{{ asset('storage/buildings/' . $image->path) }}" width="50" alt="">
+                    <img src="{{ asset('storage/images/' . $image->path) }}" width="50" alt="">
                     <form action="{{ route('building.destory_image', $image) }}" method="post">
                         @csrf
                         @method('DELETE')

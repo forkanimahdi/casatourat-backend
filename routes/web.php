@@ -31,10 +31,13 @@ Route::get('circuit/assign_building/map/{id}', [CircuitController::class, 'assig
 Route::put('circuit/assign_building/{buildign}', [CircuitController::class, 'assign_building'])->name('circuit.assign_building');
 Route::put('circuit/unassign_building', [CircuitController::class, 'unassign_building'])->name('circuit.unassign_building');
 Route::put('circuit/update_draft/{circuit}', [CircuitController::class, 'update_draft'])->name('circuit.update_draft');
-Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])->name('circuit.destroy');
 Route::get('circuit/update/map/{circuit}', [CircuitController::class, 'update_map'])->name('circuit.update_map');
 Route::put('circuit/update_circuit/{id}', [CircuitController::class, 'update_circuit']);
-Route::put('circuit/update/{circuit}', [CircuitController::class, 'update'])->name('circuit.update');
+// Route::put('circuit/update/{circuit}', [CircuitController::class, 'update'])->name('circuit.update');
+Route::post('circuit/update/{id}', [CircuitController::class, 'update'])->name('circuit.update');
+Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])->name('circuit.destroy');
+
+
 
 // & building routes:
 Route::get('building', [BuildingController::class, 'index'])->name('building.index');

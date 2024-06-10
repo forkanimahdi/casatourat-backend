@@ -3,13 +3,13 @@ function initMap() {
     let allCicruits = [];
     const svgMarkerBuilding = '/storage/markers/building_marker.svg';
 
-    const casablanca = {
-        lat: 33.57,
-        lng: -7.60
+    const circuit = {
+        lat: paths[1].lat,
+        lng: paths[1].lng
     }
     const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 9,
-        center: casablanca,
+        zoom: 15,
+        center: circuit,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     });
 

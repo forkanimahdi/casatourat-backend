@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
     <title>{{ config('app.name', 'Casa Guide') }}</title>
 
@@ -21,7 +22,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen flex bg-gray-100 ">
+    <div class="min-h-screen flex bg-white ">
 
         <!-- Side Bar -->
         @include('layouts.side_bare')
@@ -164,9 +165,12 @@
 
         {{-- <!-- Page Content -->
         <main class="w-full overflow-y-auto h-screen">
+        <!-- Page Content -->
+        <main class=" w-full overflow-y-auto h-screen">
             {{ $slot }}
         </main> --}}
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <div id="test"></div>
 </body>
 <script>

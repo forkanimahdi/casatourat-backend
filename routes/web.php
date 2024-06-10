@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\AdminRegisterController;
-use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
-use App\Http\Controllers\CommentController;
+use App\Http\Controllers\EventController as ControllersEventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api as api;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\VisitorController;
 
 Route::get('/', function () {
 
@@ -47,6 +49,16 @@ Route::delete('building/image/{image}', [BuildingController::class, 'destory_ima
 // & add account routes:
 Route::get('/register_user', [AdminRegisterController::class, 'index'])->name('register_user.index')->middleware('auth');
 Route::post('/register_user', [AdminRegisterController::class, 'store'])->name('register_user.store')->middleware('auth');
+
+// * Events :
+Route::get('/event', [ControllersEventController::class, 'index'])->name('events.index');
+Route::get('/event/update/{event}', [ControllersEventController::class, 'show'])->name('events.show');
+// * add
+Route::post('/event/post', [ControllersEventController::class, 'post'])->name('event.post');
+// * update
+Route::put('/event/update/{event}' , [ControllersEventController::class , 'update'])->name('events.update');
+// * delete
+Route::delete('event/delete/{event}' , [ControllersEventController::class , 'destroy'])->name('events.destroy');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

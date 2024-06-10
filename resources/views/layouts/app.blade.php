@@ -55,7 +55,7 @@
                                     <select class="bg-transparent border-none focus:ring-0" name="filter"
                                         id="mySelect">
                                         {{-- <option value="">Choose a status</option> --}}
-                                        {{-- <option class="filterOption" selected value="all">All</option> --}}
+                                        <option class="filterOption" selected value="all">All</option>
                                         <option class="filterOption" value="alert">Alert</option>
                                         <option class="filterOption" value="warning">Warning</option>
                                         <option class="filterOption" value="satisfying">Satisfying</option>

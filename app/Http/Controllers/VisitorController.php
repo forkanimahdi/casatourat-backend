@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Visitor;
+use App\Models as models;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades as facades;
+use App\Mail\PasswordMail;
+use Illuminate\Support\Str;
 
 class VisitorController extends Controller
 {
@@ -12,8 +15,7 @@ class VisitorController extends Controller
      */
     public function index()
     {
-        $visitors = Visitor::all();
-        return view("visitors.index", compact('visitors'));
+        return view("visitors.index");
     }
 
     /**
@@ -29,13 +31,56 @@ class VisitorController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'gender' => 'required',
+        ]);
+
+        $random_password = Str::random(10) . time();
+
+        $response = facades\Http::withHeaders([
+            'Authorization' => 'Bearer ' . config("clerk.secret_key"),
+            'Content-Type' => 'application/json'
+        ])->post('https://api.clerk.com/v1/user', [
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email_address' => [
+                $request->email
+            ],
+            "password" => $random_password
+        ]);
+
+        if (!$response->ok()) {
+            throw $response->toException();
+        }
+
+        models\Visitor::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'gender' => $request->gender,
+            'role' => 'admin',
+            'token' => $response->json()["id"],
+            'age' => 'adult',
+        ]);
+
+        models\User::create([
+            'name' => $request->first_name,
+            'email' => $request->email,
+            'password' => facades\Hash::make($random_password),
+        ]);
+
+        facades\Mail::to($request->email)->send(new PasswordMail($random_password));
+
+        return back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Visitor $visitor)
+    public function show(models\Visitor $visitor)
     {
         //
     }
@@ -43,7 +88,7 @@ class VisitorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Visitor $visitor)
+    public function edit(models\Visitor $visitor)
     {
         //
     }
@@ -51,7 +96,7 @@ class VisitorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Visitor $visitor)
+    public function update(Request $request, models\Visitor $visitor)
     {
         //
     }
@@ -59,7 +104,7 @@ class VisitorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Visitor $visitor)
+    public function destroy(models\Visitor $visitor)
     {
         //
     }

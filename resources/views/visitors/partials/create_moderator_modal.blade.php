@@ -12,10 +12,10 @@
                 </button>
             </div>
 
-            <form class="px-8" action="" method="POST">
+            <form class="px-8 pt-[0.5rem]" action="" method="POST">
                 @csrf
                 <!-- First & Last Name -->
-                <div class="mt-6 flex flex-wrap gap-3">
+                <div class="mt-[0.75rem] flex flex-wrap gap-3">
                     <div class="flex-1 flex flex-col">
                         <label class="font-medium" for="first_name">First Name</label>
                         <input class="rounded-lg" name="first_name" id="first_name" type="text" required>
@@ -28,13 +28,13 @@
                 </div>
 
                 <!-- Email -->
-                <div class="mt-6 flex-1 flex flex-col">
+                <div class="mt-[0.75rem] flex-1 flex flex-col">
                     <label class="font-medium" for="email">Email</label>
                     <input class="rounded-lg" name="email" id="email" type="text" required>
                 </div>
 
                 <!-- Gender -->
-                <div class="mt-6 flex-1 flex flex-col">
+                <div class="mt-[0.75rem] flex-1 flex flex-col">
                     <label class="font-medium" for="gender">Gender</label>
                     <div class="flex justify-between gap-3.5">
                         <input class="peer/male" type="radio" name="gender" value="male" id="male" hidden required>

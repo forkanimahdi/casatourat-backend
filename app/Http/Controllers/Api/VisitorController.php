@@ -14,13 +14,11 @@ class VisitorController extends Controller
     use TokenValidation;
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource.w
      */
-    public function index(Request $request)
+    public function index()
     {
-        return $this->validateToken($request, function (Visitor $visitor) {
-            return new VisitorResource($visitor);
-        });
+        return response()->json(Visitor::all());
     }
 
     /**
@@ -49,9 +47,11 @@ class VisitorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        return $this->validateToken($request, function (Visitor $visitor) {
+            return new VisitorResource($visitor);
+        });
     }
 
     /**

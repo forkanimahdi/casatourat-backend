@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\AdminRegisterController;
-use App\Http\Controllers\Api\VisitorController;
+use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api as api;
 
 Route::get('/', function () {
 
@@ -74,4 +75,7 @@ Route::get('/notiffication', [CommentController::class, 'index'])->name('notif.i
 Route::delete('/comments/delete/{review}',[CommentController::class, 'destroy'])->name('notif.delete');
 Route::post('create/notif', [CommentController::class, 'store'])->name('create_comment');
 Route::put('/update/notif/{review}', [CommentController::class, 'update'])->name('update.notif');
+
+Route::get("/visitors", [api\VisitorController::class, "index"])->middleware(['auth', 'verified']);
+
 require __DIR__ . '/auth.php';

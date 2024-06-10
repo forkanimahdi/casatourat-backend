@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
                 "role" => "admin",
                 "created_at" => Carbon::now(),
             ],
+            
         ]);
 
         models\Circuit::insert([

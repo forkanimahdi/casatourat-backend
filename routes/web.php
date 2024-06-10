@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VisitorController;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
+// Route::get('/dashboard', [Controller::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/circuit', [CircuitController::class, 'index'])->name('circuit.index');
 // & circuit routes:
 Route::get('circuit/create', [CircuitController::class, 'create'])->name('circuit.create');
@@ -31,8 +32,6 @@ Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])
 Route::get('circuit/update/map/{circuit}', [CircuitController::class, 'update_map'])->name('circuit.update_map');
 Route::put('circuit/update_circuit/{id}', [CircuitController::class, 'update_circuit']);
 Route::put('circuit/update/{circuit}', [CircuitController::class, 'update'])->name('circuit.update');
-
-
 
 
 

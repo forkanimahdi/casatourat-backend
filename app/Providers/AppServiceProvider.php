@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Comment;
+use App\Models\Visitor;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,5 +25,11 @@ class AppServiceProvider extends ServiceProvider
         $reviews = Comment::orderBy('created_at', 'desc')->get();
         $notif = Comment::where('mark_read', false)->get();
         view()->share(['reviews' => $reviews, 'notif' => $notif]);
+
+
+        $visitors = Visitor::all();
+        view()->share([
+            "visitors" => $visitors,
+        ]);
     }
 }

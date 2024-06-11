@@ -45,7 +45,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource.we
      */
     public function show(string $token, )
     {

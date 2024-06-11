@@ -1,7 +1,15 @@
 <x-app-layout>
-    <div id="map" class="h-[100vh] relative"></div>
+    <x-slot name="header">
+        <div class="flex justify-between items-center w-full">
+            <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
+                create circuit
+            </h2>
+        </div>
+    </x-slot>
+
+    <div id="map" class="h-[85vh] relative"></div>
     <form id="myForm" enctype="multipart/form-data "
-        class=" bg-white w-fit absolute top-[15%] left-[18%] px-3 py-4 rounded-xl flex flex-col gap-3 shadow-md">
+        class=" bg-white w-fit absolute top-[25%] left-[18%] px-3 py-4 rounded-xl flex flex-col gap-3 shadow-md">
         @csrf
         <div class="flex flex-col gap-1">
             <label class="text-gray-400 ps-1" for="">Name:</label>
@@ -20,8 +28,9 @@
         </div>
         <div class="flex flex-col gap-1">
             <label class="text-gray-400 ps-1" for="">Audio:</label>
-            <input class="rounded-xl border text-gray-400 px-2 py-2 border-gray-300 bg-gray-50 file:border-0 file:bg-transparent file:text-alpha file:text-sm file:font-medium " required type="file" placeholder="Audio"
-                id="audio" name="audio">
+            <input
+                class="rounded-xl border text-gray-400 px-2 py-2 border-gray-300 bg-gray-50 file:border-0 file:bg-transparent file:text-alpha file:text-sm file:font-medium "
+                required type="file" placeholder="Audio" id="audio" name="audio">
         </div>
         <div class="flex justify-center mt-4">
             <button class="bg-alpha text-white px-4 py-1 rounded-xl font-thin w-fit shadow-lg">submit</button>

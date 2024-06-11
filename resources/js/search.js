@@ -12,10 +12,11 @@ const styles = {
 
 const row = (visitor) => {
     return `
-        <tr class="w-ful flex items-center py-2 justify-around border-t border-gray-200">
-            <td class="flex-[100%] flex items-center gap-2">
+        <tr class="trow flex items-center cursor-pointer rounded-xl justify-around border-t border-gray-200">
+            <td class="flex-[100%] flex items-center gap-2 font-bold">
                 <div
-                    class="border-1 border-gray-200 size-9 rounded-full grid place-items-center bg-gray-100 text-xs">
+                    style="width: 2.25rem; height: 2.25rem; color: #002d55;"
+                    class="border-1 border-gray-200 size-9 rounded-full grid place-items-center bg-gray-100 text-xs font-normal">
                     ${visitor.first_name[0]}${visitor.last_name[0]}
                 </div>
                 ${visitor.first_name} ${visitor.last_name}
@@ -23,7 +24,7 @@ const row = (visitor) => {
             <td class="flex-[100%]">${visitor.email}</td>
             <td class="flex-[50%]">${visitor.gender}</td>
             <td class="flex-[50%]">
-                <span style="${styles[visitor.role]}" class="text-sm rounded-lg ${classes[visitor.role]}" >
+                <span style="${styles[visitor.role]} padding: 0.2rem 0.875rem;" class="text-sm rounded">
                     ${visitor.role}
                 </span>
             </td>

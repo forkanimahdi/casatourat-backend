@@ -34,6 +34,15 @@ class DatabaseSeeder extends Seeder
                 "created_at" => Carbon::now(),
             ],
             [
+                "first_name" => "akram",
+                "last_name" => "Alaoui",
+                "email" => "ahmed@alaoui.com",
+                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
+                "gender" => "male",
+                "role" => "admin",
+                "created_at" => Carbon::now(),
+            ],
+            [
                 "first_name" => "Mustapha",
                 "last_name" => "Benchar",
                 "email" => "mustaphabenchar@gmail.com",
@@ -51,21 +60,48 @@ class DatabaseSeeder extends Seeder
                 "role" => "admin",
                 "created_at" => Carbon::now(),
             ],
-        ]);
+            [
+                "first_name" => "wiss",
+                "last_name" => "wissalu",
+                "email" => "wiss@alaoui.com",
+                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
+                "gender" => "female",
+                "role" => "admin",
+                "created_at" => Carbon::now(),
+            ],
+            [
+                "first_name" => "kid",
+                "last_name" => "kids",
+                "email" => "wiss@alaoui.com",
+                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
+                "gender" => "child",
+                "role" => "admin",
+                "created_at" => Carbon::now(),
+            ],
+            [
+                "first_name" => "kid",
+                "last_name" => "kids",
+                "email" => "wiss@alaoui.com",
+                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
+                "gender" => "child",
+                "role" => "admin",
+                "created_at" => Carbon::now(),
+            ],
 
+        ]);
         models\Circuit::insert([
             [
                 "name" => "Bd Mohammed V",
                 "alternative" => "Bd Mohammed V Casablanca 20250",
                 "description" => "some text for the circuit Mohamed V description and much more",
-                "audio" => "1715861706-dgMt0eAw6X0TgojlYeQvqyCaYsMv6POFChfVi80s.mp3",
+                "audio" => "test_audio.mp3",
                 'published' => true
             ],
             [
                 "name" => "Place Mohammed V",
                 "alternative" => "Place Mohammed V Casablanca 20250",
                 "description" => "some text for the circuit Mohamed V description and much more",
-                "audio" => "1715861706-dgMt0eAw6X0TgojlYeQvqyCaYsMv6POFChfVi80s.mp3",
+                "audio" => "test_audio.mp3",
                 'published' => true
             ]
         ]);
@@ -75,7 +111,7 @@ class DatabaseSeeder extends Seeder
                 "circuit_id" => 1,
                 "name" => "jama3",
                 "description" => "anthor text for the building 1 description and much more",
-                "audio" => "1715861706-dgMt0eAw6X0TgojlYeQvqyCaYsMv6POFChfVi80s.mp3",
+                "audio" => "test_audio.mp3",
                 "latitude" => 33.593559,
                 "longitude" => -7.606806,
             ],
@@ -83,7 +119,7 @@ class DatabaseSeeder extends Seeder
                 "circuit_id" => 1,
                 "name" => "medina",
                 "description" => "anthor text for the building 1 description and much more",
-                "audio" => "1715861706-dgMt0eAw6X0TgojlYeQvqyCaYsMv6POFChfVi80s.mp3",
+                "audio" => "test_audio.mp3",
                 "latitude" => 33.594651,
                 "longitude" => -7.613034,
             ],
@@ -91,7 +127,7 @@ class DatabaseSeeder extends Seeder
                 "circuit_id" => 1,
                 "name" => "sa7t fna",
                 "description" => "anthor text for the building 1 description and much more",
-                "audio" => "1715861706-dgMt0eAw6X0TgojlYeQvqyCaYsMv6POFChfVi80s.mp3",
+                "audio" => "test_audio.mp3",
                 "latitude" => 33.595991,
                 "longitude" => -7.617869,
             ],
@@ -99,7 +135,7 @@ class DatabaseSeeder extends Seeder
                 "circuit_id" => 2,
                 "name" => "sa7a",
                 "description" => "anthor text for the building 1 description and much more",
-                "audio" => "1715861706-dgMt0eAw6X0TgojlYeQvqyCaYsMv6POFChfVi80s.mp3",
+                "audio" => "test_audio.mp3",
                 "latitude" => 33.592974,
                 "longitude" => -7.617694,
             ]

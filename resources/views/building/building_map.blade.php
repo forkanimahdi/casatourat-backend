@@ -10,9 +10,7 @@
 
     @include('building.partials.add_building_modal')
     {{-- @include('building.partials.delete_building_modal') --}}
-
-    {{ $buildings }}
-
+    
     <script>
         let markers = [];
         const svgMarkerBuilding = '/storage/markers/building_marker.svg';
@@ -26,7 +24,6 @@
                 }
             }
         })
-
 
         function initMap() {
             let allCicruits = [];

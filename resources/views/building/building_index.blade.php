@@ -45,7 +45,6 @@
                             <button class="btn btn-danger">delete building</button>
                         </form>
                         @include('building.partials.update_building_tab')
-
                     </div>
                 </div>
             @endforeach

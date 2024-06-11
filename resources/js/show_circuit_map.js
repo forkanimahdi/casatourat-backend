@@ -1,27 +1,42 @@
 
 function initMap() {
-    let allCicruits = [];
     const svgMarkerBuilding = '/storage/markers/building_marker.svg';
+    const svgMarkerPath = '/storage/markers/path_marker.svg';
 
-    const casablanca = {
-        lat: 33.57,
-        lng: -7.60
+    const circuit = {
+        lat: circuit_path[1].lat,
+        lng: circuit_path[1].lng
     }
     const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 9,
-        center: casablanca,
+        zoom: 15,
+        center: circuit,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true,
     });
 
     new google.maps.Polyline({
-        path: paths,
-        strokeColor: '#5A5A5A',
+        path: circuit_path,
+        strokeColor: '#002d55',
         strokeWeight: 4,
         map: map,
     });
 
+    // circuit_path.forEach(path => {
+    //     new google.maps.Marker({
+    //         position: {
+    //             lat: path.lat,
+    //             lng: path.lng,
+    //         },
+    //         map: map,
+    //         icon: {
+    //             url: svgMarkerPath,
+    //             scaledSize: new google.maps.Size(25, 25),
+    //             anchor: new google.maps.Point(10, 26),
+    //         },
+    //     });
+    // });
 
-    building_of_circuit.forEach(building => {
+    circuit_buildings.forEach(building => {
         const marker = new google.maps.Marker({
             position: building.path,
             map: map,
@@ -36,14 +51,10 @@ function initMap() {
             },
             title: building.name
         });
-        var infowindow = new google.maps.InfoWindow({
-            content: building.name
-        });
-        infowindow.open(map, marker)
-        marker.addListener('click', function () {
-            document.getElementById('building_id').value = marker.data.id
-            document.getElementById('unassign_building').click()
-        })
+        // var infowindow = new google.maps.InfoWindow({
+        //     content: building.name
+        // });
+        // infowindow.open(map, marker)
     });
 }
 

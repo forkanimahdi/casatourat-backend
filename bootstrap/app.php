@@ -37,4 +37,9 @@ return Application::configure(basePath: dirname(__DIR__))
                 return view("error");
             }
         });
+        // $exceptions->render(function (Throwable $throwable, Request $request) {
+        //     if (!$request->is('api/*')) {
+        //         return view("error");
+        //     }
+        // });
     })->create();

@@ -4,24 +4,25 @@ use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\EventController as ControllersEventController;
+use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api as api;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\dashboardController;
 
 Route::get('/', function () {
 
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['auth' , 'verified'])->name('dashboard');
 
+// Route::get('/dashboard', [Controller::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/circuit', [CircuitController::class, 'index'])->name('circuit.index');
 // & circuit routes:
 Route::get('circuit/create', [CircuitController::class, 'create'])->name('circuit.create');
@@ -31,10 +32,14 @@ Route::get('circuit/assign_building/map/{id}', [CircuitController::class, 'assig
 Route::put('circuit/assign_building/{buildign}', [CircuitController::class, 'assign_building'])->name('circuit.assign_building');
 Route::put('circuit/unassign_building', [CircuitController::class, 'unassign_building'])->name('circuit.unassign_building');
 Route::put('circuit/update_draft/{circuit}', [CircuitController::class, 'update_draft'])->name('circuit.update_draft');
-Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])->name('circuit.destroy');
 Route::get('circuit/update/map/{circuit}', [CircuitController::class, 'update_map'])->name('circuit.update_map');
 Route::put('circuit/update_circuit/{id}', [CircuitController::class, 'update_circuit']);
 Route::put('circuit/update/{circuit}', [CircuitController::class, 'update'])->name('circuit.update');
+
+// Route::put('circuit/update/{circuit}', [CircuitController::class, 'update'])->name('circuit.update');
+Route::post('circuit/update/{id}', [CircuitController::class, 'update'])->name('circuit.update');
+Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])->name('circuit.destroy');
+
 
 // & building routes:
 Route::get('building', [BuildingController::class, 'index'])->name('building.index');

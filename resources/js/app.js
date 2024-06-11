@@ -11,8 +11,6 @@ let csrf = document.querySelector('meta[name="csrf-token"]').content;
 let mySelect = document.getElementById("mySelect");
 let notif_bell = document.getElementById("notif_bell");
 let notif_body = document.getElementById("notif_body");
-let notifDiv = document.getElementById("notifications");
-
 function renderReviews(reviewsToRender) {
     notifDiv.innerHTML = ""; 
     reviewsToRender.map((review) => {

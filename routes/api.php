@@ -8,8 +8,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
-Route::get("/visitor", [api\VisitorController::class, "index"]);
+Route::get("/visitor", [api\VisitorController::class, "show"]);
 Route::post("/visitor", [api\VisitorController::class, "store"]);
 Route::put("/visitor", [api\VisitorController::class, "update"]);
 

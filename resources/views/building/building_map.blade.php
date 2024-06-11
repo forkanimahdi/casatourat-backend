@@ -10,11 +10,10 @@
 
     @include('building.partials.add_building_modal')
     {{-- @include('building.partials.delete_building_modal') --}}
-
-    {{ $buildings }}
-
+    
     <script>
         let markers = [];
+        const svgMarkerBuilding = '/storage/markers/building_marker.svg';
 
         let allBuildings = @json($buildings).map(building => {
             return {
@@ -25,7 +24,6 @@
                 }
             }
         })
-
 
         function initMap() {
             let allCicruits = [];
@@ -41,11 +39,17 @@
 
 
             allBuildings.forEach(building => {
+
                 const marker = new google.maps.Marker({
                     position: building.paths,
                     map: map,
                     data: {
                         id: building.id
+                    },
+                    icon: {
+                        url: svgMarkerBuilding,
+                        scaledSize: new google.maps.Size(45, 45),
+                        anchor: new google.maps.Point(20, 45),
                     }
                 });
 
@@ -76,6 +80,11 @@
                         lng: event.latLng.lng()
                     },
                     map: map,
+                    icon: {
+                        url: svgMarkerBuilding,
+                        scaledSize: new google.maps.Size(45, 45),
+                        anchor: new google.maps.Point(20, 45),
+                    }
                 });
                 document.getElementById('submit').click()
 

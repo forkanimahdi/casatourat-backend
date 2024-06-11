@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('building_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->longText('content');
             $table->enum('status', ['satisfying', 'warning', 'alert']);
+            $table->boolean('mark_read')->default(false);
             $table->timestamps();
         });
     }

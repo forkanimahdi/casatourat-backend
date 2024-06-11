@@ -6,8 +6,8 @@
             </h2>
 
             <button onclick="addModeratorAdmin.show()"
-                class="bg-alpha text-white px-[1rem] py-2.5 rounded-xl font-medium">
-                + add moderator
+                class="bg-alpha text-white px-[1.75rem] py-[0.5rem] rounded-xl font-medium">
+                + add admin
             </button>
             @include('visitors.partials.create_moderator_modal')
         </div>
@@ -55,35 +55,10 @@
                     </tr>
                 </thead>
 
-                <tbody id="table">
-                    @foreach ($visitors as $visitor)
-                        <tr class="w-ful flex items-center py-2 justify-around border-t border-gray-200">
-                            <td class="flex-[100%] flex items-center gap-2">
-                                <div
-                                    class="border border-gray-200 size-9 rounded-full grid place-items-center bg-gray-100 text-xs">
-                                    {{ $visitor->first_name[0] . $visitor->last_name[0] }}
-                                </div>
-                                {{ $visitor->first_name . ' ' . $visitor->last_name }}
-                            </td>
-                            <td class="flex-[100%]">{{ $visitor->email }}</td>
-                            <td class="flex-[50%]">{{ $visitor->gender }}</td>
-                            <td class="flex-[50%]">
-                                <span @class([
-                                    'text-sm text py-1.5 px-2.5 rounded-lg',
-                                    'bg-emerald-100 text-green-700' => $visitor->role == 'admin',
-                                    'bg-sky-100 text-blue-600' => $visitor->role == 'user',
-                                ])>{{ $visitor->role }}</span>
-                            </td>
-                            <td class="flex-[50%]">{{ $visitor->created_at->toFormattedDateString() }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
+                <tbody id="table"></tbody>
             </table>
         </div>
     </div>
 </x-app-layout>
 
-<script>
-    const visitors = @json($visitors);
-</script>
 @vite('resources/js/search.js')

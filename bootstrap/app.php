@@ -32,4 +32,9 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 405);
             }
         });
+        $exceptions->render(function (Throwable $throwable, Request $request) {
+            if (!$request->is('api/*')) {
+                return view("error");
+            }
+        });
     })->create();

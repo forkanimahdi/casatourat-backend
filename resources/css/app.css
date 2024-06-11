@@ -1,3 +1,97 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.notif_body::-webkit-scrollbar {
+        width: 5px;
+}
+.notif_body::-webkit-scrollbar-track-piece {
+        background-color:#fff ;
+}
+.notif_body::-webkit-scrollbar-thumb {
+        background-color: #646464;
+}
+/* .nav-button {
+    transition: color 0.2s !important;
+}
+
+
+#nav-content-highlight{
+    transition: top 0.2s !important;
+}
+
+#nav-content-highlight:before,
+#nav-content-highlight:after {
+    content: "" !important;
+    position: absolute !important;
+    right: 0 !important;
+    bottom: 24px !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    box-shadow: 16px 16px 0 0 rgb(243 244 246) !important;
+}
+
+#nav-content-highlight:after {
+    top: 24px !important;
+    box-shadow: 16px -16px rgb(243 244 246) !important;
+}
+
+
+
+.nav-button:nth-of-type(1):hover {
+    color: rgb(30 58 138) !important;
+}
+
+.nav-button:nth-of-type(1):hover~#nav-content-highlight {
+    top: 16px !important;
+}
+
+.nav-button:nth-of-type(2):hover {
+    color: rgb(30 58 138) !important;
+}
+
+.nav-button:nth-of-type(2):hover~#nav-content-highlight {
+    top: 70px !important;
+}
+
+.nav-button:nth-of-type(3):hover {
+    color: rgb(30 58 138) !important;
+}
+
+.nav-button:nth-of-type(3):hover~#nav-content-highlight {
+    top: 124px !important;
+}
+
+.nav-button:nth-of-type(4):hover {
+    color: rgb(30 58 138) !important;
+}
+
+.nav-button:nth-of-type(4):hover~#nav-content-highlight {
+    top: 178px !important;
+}
+
+.nav-button:nth-of-type(5):hover {
+    color: rgb(30 58 138) !important;
+}
+
+.nav-button:nth-of-type(5):hover~#nav-content-highlight {
+    top: 232px !important;
+}
+
+.nav-button:nth-of-type(6):hover {
+    color: rgb(138, 73, 30) !important;
+}
+
+.nav-button:nth-of-type(6):hover~#nav-content-highlight {
+    top: 286px !important;
+}
+
+.nav-button:nth-of-type(7):hover {
+    color: rgb(30 58 138) !important;
+}
+
+.nav-button:nth-of-type(7):hover~#nav-content-highlight {
+    top: 340px !important;
+} */

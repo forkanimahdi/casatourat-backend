@@ -22,7 +22,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen flex bg-gray-100 ">
+    <div class="min-h-screen flex bg-white ">
 
         <!-- Side Bar -->
         @include('layouts.side_bare')

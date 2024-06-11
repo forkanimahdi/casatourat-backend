@@ -8,6 +8,7 @@ use App\Models\Path;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+
 use Illuminate\Support\Facades\Storage;
 
 class CircuitController extends Controller

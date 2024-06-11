@@ -95,3 +95,31 @@
 .nav-button:nth-of-type(7):hover~#nav-content-highlight {
     top: 340px !important;
 } */
+/* The entire scrollbar */
+::-webkit-scrollbar {
+        width: 12px; /* Width of the vertical scrollbar */
+        height: 12px; /* Height of the horizontal scrollbar */
+    }
+    
+    /* The track (background) of the scrollbar */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    
+    /* The draggable part of the scrollbar */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+    
+    /* When you hover over the scrollbar */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    
+    /* When you click on the scrollbar */
+    ::-webkit-scrollbar-thumb:active {
+        background: #333;
+    }
+    

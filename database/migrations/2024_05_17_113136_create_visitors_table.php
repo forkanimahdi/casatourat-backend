@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("last_name");
             $table->string("email");
             $table->string("token");
-            $table->enum("gender", ["female", "male"]);
+            $table->enum("gender", ["female", "male","child"]);
             $table->enum("age", ["adult", "minor"])->default("adult");
             $table->enum("role", ["admin", "user"])->default('user');
             $table->timestamps();

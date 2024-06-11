@@ -34,6 +34,15 @@ class DatabaseSeeder extends Seeder
                 "created_at" => Carbon::now(),
             ],
             [
+                "first_name" => "akram",
+                "last_name" => "Alaoui",
+                "email" => "ahmed@alaoui.com",
+                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
+                "gender" => "male",
+                "role" => "admin",
+                "created_at" => Carbon::now(),
+            ],
+            [
                 "first_name" => "Mustapha",
                 "last_name" => "Benchar",
                 "email" => "mustaphabenchar@gmail.com",
@@ -51,9 +60,35 @@ class DatabaseSeeder extends Seeder
                 "role" => "admin",
                 "created_at" => Carbon::now(),
             ],
-            
-        ]);
+            [
+                "first_name" => "wiss",
+                "last_name" => "wissalu",
+                "email" => "wiss@alaoui.com",
+                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
+                "gender" => "female",
+                "role" => "admin",
+                "created_at" => Carbon::now(),
+            ],
+            [
+                "first_name" => "kid",
+                "last_name" => "kids",
+                "email" => "wiss@alaoui.com",
+                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
+                "gender" => "child",
+                "role" => "admin",
+                "created_at" => Carbon::now(),
+            ],
+            [
+                "first_name" => "kid",
+                "last_name" => "kids",
+                "email" => "wiss@alaoui.com",
+                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
+                "gender" => "child",
+                "role" => "admin",
+                "created_at" => Carbon::now(),
+            ],
 
+        ]);
         models\Circuit::insert([
             [
                 "name" => "Bd Mohammed V",

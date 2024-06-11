@@ -56,6 +56,7 @@
             @endif
         </div>
     </div>
+    </div>
 
     <script>
         let paths = @json($path_of_circuit).map(path => {
@@ -76,5 +77,6 @@
             }
         })
     </script>
+    @vite(['resources/js/assign_building_map.js'])
     @vite(['resources/js/assign_building_map.js'])
 </x-app-layout>

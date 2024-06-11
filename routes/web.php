@@ -6,21 +6,21 @@ use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\EventController as ControllersEventController;
+use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api as api;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\dashboardController;
 
 Route::get('/', function () {
 
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['auth' , 'verified'])->name('dashboard');
 
 // Route::get('/dashboard', [Controller::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/circuit', [CircuitController::class, 'index'])->name('circuit.index');

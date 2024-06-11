@@ -7,7 +7,7 @@
         </div>
     </x-slot>
     @include('circuit.partials.unassign_building_modal')
-    <div id="map" class="h-[85vh] relative"></div>
+    <div id="map" class="h-[87vh] relative"></div>
     <div
         class="absolute top-[25%] left-[18%] bg-white shadow-md rounded-xl max-h-[80%] w-[21%] px-2 py-1 flex flex-col justify-between items-center ">
         <div

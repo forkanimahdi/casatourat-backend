@@ -38,7 +38,6 @@ Route::post('circuit/update/{id}', [CircuitController::class, 'update'])->name('
 Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])->name('circuit.destroy');
 
 
-
 // & building routes:
 Route::get('building', [BuildingController::class, 'index'])->name('building.index');
 Route::get('building/create', [BuildingController::class, 'create'])->name('building.create');

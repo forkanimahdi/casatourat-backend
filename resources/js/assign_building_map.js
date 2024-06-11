@@ -20,7 +20,6 @@ function initMap() {
         map: map,
     });
 
-
     building_of_circuit.forEach(building => {
         const marker = new google.maps.Marker({
             position: building.path,

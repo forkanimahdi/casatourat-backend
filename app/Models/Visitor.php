@@ -30,7 +30,7 @@ class Visitor extends Model
 
     public function comments()
     {
-        return $this->belongsToMany(Building::class, "comments");
+        return $this->belongsToMany(Building::class, "comments")->withPivot('content', 'id','status','created_at');
     }
 
     public function visits()

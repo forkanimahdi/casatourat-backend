@@ -43,7 +43,7 @@
                     </div>
                     <div class="d-none">
                         <input type="text" id="latitude" placeholder="latitude" name="latitude">
-                    </div>
+                    </div>^$$
                     <div class="d-none ">
                         <input type="text" id="longitude" placeholder="longitude" name="longitude">
                     </div>

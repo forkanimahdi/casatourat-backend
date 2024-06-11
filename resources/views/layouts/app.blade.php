@@ -14,12 +14,15 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     
     <!-- Scripts -->
-    <script async src="https://maps.googleapis.com/maps/api/js?key={{ config('map_api.api_key') }}&loading=async"></script>
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key={{ config('map_api.api_key') }}&loading=async">
+    </script>
+
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen flex bg-gray-100">
+    <div class="min-h-screen flex bg-white ">
 
         <!-- Side Bar -->
         @include('layouts.side_bare')
@@ -31,35 +34,53 @@
                     <div class="max-w-7xl py-[1rem] px-4 sm:px-6 lg:px-8 w-full">
                         {{ $header }}
                     </div>
-                    <div class="relative">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-5 cursor-pointer" id="notif_bell">
+                    <div class="mr-3 relative">
+                        <svg id="visite_icon"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6 cursor-pointer">
                             <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
                         </svg>
                         <div
                             class="w-4 h-4 bg-red-500 text-white flex justify-center items-center rounded-lg absolute -top-2 -right-2">
-                            <small class="mb-0 text-sm"> <small>{{ $notif->count() }}</small></small>
+                            {{-- <small class="mb-0 text-sm"> <small>{{ $notif->count() }}</small></small> --}}
                         </div>
+                        <div id="notif_visite"
+                            class="hidden absolute right-2 bg-gray-200 overflow-auto max-h-[60vh] w-[25vw] gap-2 flex-col p-2 z-50 ">
+                            <div id="visite_guide">
+                                <div class="bg-white w-full relative p-2 rounded flex gap-1 mb-2 cursor-pointer">
+                                    <p>Lionel Messi a demandé une visite guidée</p>
+                                </div>
+                                <div class="bg-white w-full relative p-2 rounded flex gap-1 mb-2 cursor-pointer">
+                                    <p>Lionel Messi a demandé une visite guidée</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-5 cursor-pointer" id="notif_bell">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                        </svg>
+                        <div
+                        class="w-4 h-4 bg-red-500 text-white flex justify-center items-center rounded-lg absolute -top-2 -right-2">
+                        <small class="mb-0 text-sm"><small>{{ $notif->count() }}</small></small>
+                        </div>
+                        <div id="pop_triangle" style='width:0; height:0; border-left: 10px solid transparent;  border-right: 10px solid transparent; border-bottom: 10px solid rgb(229 231 235);' class='hidden absolute right-0 top-6 z-50'></div>
                         <div id="notif_body"
-                            class="hidden notif_body bg-gray-200 overflow-auto max-h-[60vh] w-[25vw] absolute gap-2 flex-col p-2 right-2 z-50">
-                            <div class="flex items-center gap-1">
+                        class="hidden notif_body bg-gray-200 overflow-auto max-h-[60vh] w-[25vw] absolute gap-2 flex-col p-2 top-8 -right-1 z-40">
+                        <div class="flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
                                 </svg>
-                                <form action="">
-                                    <select class="bg-transparent border-none focus:ring-0" name="filter"
-                                        id="mySelect">
-                                        {{-- <option value="">Choose a status</option> --}}
-                                        <option class="filterOption" selected value="all">All</option>
-                                        <option class="filterOption" value="alert">Alert</option>
-                                        <option class="filterOption" value="warning">Warning</option>
-                                        <option class="filterOption" value="satisfying">Satisfying</option>
-                                    </select>
-                                    <button class="bg-alpha px-2 py-1 text-white rounded">Filtrer</button>
-                                </form>
+                                <select class="bg-transparent border-none focus:ring-0" name="filter" id="mySelect">
+                                    <option class="filterOption" selected value="all">All</option>
+                                    <option class="filterOption" value="alert">Alert</option>
+                                    <option class="filterOption" value="warning">Warning</option>
+                                    <option class="filterOption" value="satisfying">Satisfying</option>
+                                </select>
                             </div>
                             <div id="notifications">
 
@@ -103,7 +124,6 @@
                             </x-slot>
                         </x-dropdown>
                     </div>
-
                 </header>
             @endif
 
@@ -119,10 +139,9 @@
         </main> --}}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-
-    <script>
-        const reviews = @json($reviews)
-    </script>
+    <div id="test"></div>
 </body>
-
+<script>
+    const reviews = @json($reviews)
+</script>
 </html>

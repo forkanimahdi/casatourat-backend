@@ -38,7 +38,7 @@ class Building extends Model
 
     public function comments()
     {
-        return $this->belongsToMany(Visitor::class, 'comments')->withPivot('content', 'id');
+        return $this->belongsToMany(Visitor::class, 'comments')->withPivot('content', 'id','status');
     }
 
     public function building_achievements()

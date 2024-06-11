@@ -82,7 +82,7 @@ class VisitorController extends Controller
      */
     public function show(models\Visitor $visitor)
     {
-        //
+        return view('visitors.show', compact('visitor'));
     }
 
     /**

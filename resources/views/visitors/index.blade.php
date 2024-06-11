@@ -6,14 +6,14 @@
             </h2>
 
             <button onclick="addModeratorAdmin.show()"
-                class="bg-alpha text-white px-[1.75rem] py-[0.5rem] rounded-xl font-medium">
-                + add admin
+                class="bg-alpha text-[#fff] px-[1.75rem] py-[0.5rem] rounded-xl font-medium border-2 border-alpha hover:bg-transparent hover:font-semibold hover:text-alpha transition-all duration-600">
+                Add admin
             </button>
             @include('visitors.partials.create_moderator_modal')
         </div>
     </x-slot>
 
-    <div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 text-alpha">
+    <div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 text-alpha ">
         <div class="bg-white overflow- shadow-sm sm:rounded-lg px-6 py-3">
             <div class="flex mb-3 items-center justify-between">
                 <div class="w-1/3 flex items-center bg-gray-100 rounded-lg pl-2">

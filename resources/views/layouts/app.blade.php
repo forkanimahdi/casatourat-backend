@@ -14,15 +14,12 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key={{ config('map_api.api_key') }}&loading=async">
-    </script>
-
+    <script async src="https://maps.googleapis.com/maps/api/js?key={{ config('map_api.api_key') }}&loading=async"></script>
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen flex bg-white ">
+    <div class="min-h-screen flex bg-gray-100">
 
         <!-- Side Bar -->
         @include('layouts.side_bare')
@@ -169,9 +166,10 @@
         </main> --}}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <div id="test"></div>
+
+    <script>
+        const reviews = @json($reviews)
+    </script>
 </body>
-<script>
-    const reviews = @json($reviews)
-</script>
+
 </html>

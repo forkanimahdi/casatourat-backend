@@ -11,11 +11,13 @@ class BuildingController extends Controller
 {
     public function index()
     {
-        $unassigned_buildings = Building::where('circuit_id', null)->get();
-        $assigned_buildings = Building::where('circuit_id', '!=', null)->get();
-        return view('building.building_index', compact('unassigned_buildings', 'assigned_buildings'));
+        $buildings = Building::all();
+        return view('building.building_index', compact('buildings'));
     }
-
+    public function details(Building $building)
+    {
+        return view('building.buildings_show', compact('building'));
+    }
     public function create()
     {
         $buildings = Building::where('circuit_id', null)->get();

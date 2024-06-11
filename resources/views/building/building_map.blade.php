@@ -1,16 +1,20 @@
 <x-app-layout>
+    <x-slot name="header">
+        <div class="flex justify-between items-center w-full">
+            <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
+                Create a build
+            </h2>
+        </div>
+    </x-slot>
+    <div id="map" class="w-full h-[88vh]">
 
-    <h2>add buildings</h2>
-    <form action="">
-        <label for="" class="text-white">search for place</label>
-        <input type="text" name="map-input" placeholder="search" class="border border-black px-3 py-2">
-        <button class="btn btn-primary">search</button>
-    </form>
-    <div id="map" style="width: 100%; height: 400px;"></div>
+    </div>
 
     @include('building.partials.add_building_modal')
     {{-- @include('building.partials.delete_building_modal') --}}
     
+
+
     <script>
         let markers = [];
         const svgMarkerBuilding = '/storage/markers/building_marker.svg';

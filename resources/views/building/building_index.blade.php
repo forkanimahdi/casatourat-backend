@@ -1,52 +1,30 @@
 <x-app-layout>
-    <div class="grid grid-cols-2 gap-4">
-
-        <div class="">
-            <h1>assigned buildings</h1>
-            @foreach ($assigned_buildings as $building)
-                <div class="border border-black">
-                    <div>
-                        <p>name : {{ $building->name }}</p>
-                        <p>description : {{ $building->description }}</p>
-                        <p>assinged to circuit : {{ $building->circuit->name }}</p>
-                    </div>
-                    <div>
-                        <form action="{{ route('building.destroy', $building->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger">delete building</button>
-                        </form>
-
-                        <form action="{{ route('circuit.unassign_building') }}" method="post">
-                            @csrf
-                            @method('PUT')
-                            <input type="text" class="d-none" name="building_id" value="{{ $building->id }}">
-                            <button class="btn btn-danger">unassign building</button>
-                        </form>
-                        @include('building.partials.update_building_tab')
-
-                    </div>
-                </div>
-            @endforeach
+    <x-slot name="header">
+        <div class="flex justify-between items-center w-full">
+            <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
+                Create a build
+            </h2>
         </div>
-        <div>
-            <h1>unassigned buildings</h1>
-            @foreach ($unassigned_buildings as $building)
-                <div class="border border-black">
-                    <div>
-                        <p>name : {{ $building->name }}</p>
-                        <p>description : {{ $building->description }}</p>
+    </x-slot>
+    <div class="flex justify-center py-4">
+        <div class="w-[95%] flex flex-wrap gap-3">
+            @foreach ($buildings as $building)
+            <div class="w-1/3 p-4 bg-white max-w-sm rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:scale-105 transition duration-300">
 
-                    </div>
+                @foreach ($building->images as $image)
+                <img class="rounded-xl w-full h-[80%]" src="{{ asset('storage/images/' . $image->path) }}" alt="" />
+                @endforeach
+
+                <div class="flex justify-between items-center pt-3">
                     <div>
-                        <form action="{{ route('building.destroy', $building->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger">delete building</button>
-                        </form>
-                        @include('building.partials.update_building_tab')
+                        <h1 class=" text-2xl font-semibold">{{ $building->name }}</h1>
                     </div>
+                    <button>
+                        <a href="{{ route('building.detail', $building) }}" class="text-gray-100 no-underline text-md font-semibold bg-alpha py-2 px-4 rounded-lg shadow-md hover:shadow-lg hover:text-alpha hover:bg-gray-100 hover:border-2 hover:border-alpha transition duration-200 transform-gpu hover:scale-110 ">View</a>
+                    </button>
                 </div>
+                <!-- <p class="">{{ $building->description }}</p> -->
+            </div>
             @endforeach
         </div>
     </div>

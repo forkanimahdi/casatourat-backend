@@ -42,8 +42,9 @@ Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])
 
 
 // & building routes:
-Route::get('building', [BuildingController::class, 'index'])->name('building.index');
-Route::get('building/create', [BuildingController::class, 'create'])->name('building.create');
+Route::get('buildings', [BuildingController::class, 'index'])->name('building.index');
+Route::get('building/{building}', [BuildingController::class, 'details'])->name('building.detail');
+Route::get('buildings/create', [BuildingController::class, 'create'])->name('building.create');
 Route::post('building/store', [BuildingController::class, 'store'])->name('building.store');
 Route::delete('building/destroy/{id}', [BuildingController::class, 'destroy'])->name('building.destroy');
 Route::put('buildings/update/{building}', [BuildingController::class, 'update'])->name('building.update');
@@ -84,7 +85,7 @@ Route::get('/staff', [StaffController::class,'index'])->name('staff.index')->mid
 // & comments : 
 Route::get('/notiffication/{review}', [CommentController::class, 'show'])->name('notif.show');
 Route::get('/notiffication', [CommentController::class, 'index'])->name('notif.index');
-Route::delete('/comments/delete/{review}',[CommentController::class, 'destroy'])->name('notif.delete');
+Route::delete('/comments/delete/{r.eview}',[CommentController::class, 'destroy'])->name('notif.delete');
 Route::post('create/notif', [CommentController::class, 'store'])->name('create_comment');
 Route::put('/update/notif/{review}', [CommentController::class, 'update'])->name('update.notif');
 

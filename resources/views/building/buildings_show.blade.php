@@ -1,36 +1,23 @@
 <x-app-layout>
-    <div class="flex justify-center p-5">
-        <div class="w-full p-4 shadow rounded-2xl">
-            <div class="w-full flex">
-                <div class="bg-red-100 w-1/2 h-[80vh] rounded-xl ">
-
+    <div class="flex justify-center p-3 ">
+        <div class="w-full h-[95vh]  p-3 shadow rounded-2xl">
+            <div class="w-full h-full flex gap-4">
+                <div class="w-1/2 h-full p-3   flex justify-center items-center  rounded-xl ">
+                    @if ($building->images->isNotEmpty())
+                        <img id="displayed-image" class="rounded-xl w-full max-h-full " src="{{ asset('storage/images/' . $building->images->first()->path) }}" alt="img" />
+                    @else
+                    <div class="w-full h-full flex flex-col justify-center items-center">
+                        <h4 class="text-gray-500">There no images for this build</h4>
+                        <img class="rounded-xl w-2/3 h-1/2 " src="{{ asset('storage/images/upload.jpg') }}" alt="img" />
+                    </div>
+                    @endif
                 </div>
-                <div class=" p-3 w-1/2">
+                <div class="h-full  w-1/2">
                     @include('building.partials.update_building_tab')
                 </div>
             </div>
         </div>
 
-        <!-- <div class="">
-                <div class="border border-black">
-                    <div>
-                        <p>name : {{ $building->name }}</p>
-                        <p>description : {{ $building->description }}</p>
-                        @if ($building->circuit)
-                            <p>assinged to circuit : {{ $building->circuit->name }}</p>
-                        @endif
-                    </div>
-                    <div>
-                        <form action="{{ route('building.destroy', $building->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger">delete building</button>
-                        </form>
-
-                    
-
-                    </div>
-                </div>
-            </div> -->
     </div>
+
 </x-app-layout>

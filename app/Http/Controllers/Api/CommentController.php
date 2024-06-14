@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BuildingResource;
+use App\Http\Resources\VisitorResource;
 use App\TokenValidation;
 use App\Models as models;
 use App\Models\Comment;
@@ -12,30 +14,31 @@ use Illuminate\Support\Facades\DB;
 class CommentController extends Controller
 {
     use TokenValidation;
+    
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, string $building_id)
-    {
-        return $this->validateToken($request, function ($visitor) use ($building_id, $request) {
-            $building = models\Building::find($building_id);
-            if (!$building) {
-                return response()->json([
-                    'message' => "building with id '$building_id' not found"
-                ]);
-            }
-            return [
-                'comments' => $building->comments->map(fn ($building) => [
-                    'id' => $building->pivot->id,
-                    'content' => $building->pivot->content,
-                    'owner' => [
-                        'first_name' => $building->first_name,
-                        'last_name' => $building->last_name,
-                    ]
-                ]),
-            ];
-        });
-    }
+    // public function index(Request $request, string $building_id)
+    // {
+    //     return $this->validateToken($request, function ($visitor) use ($building_id, $request) {
+    //         $building = models\Building::find($building_id);
+    //         if (!$building) {
+    //             return response()->json([
+    //                 'message' => "building with id '$building_id' not found"
+    //             ]);
+    //         }
+    //         return [
+    //             'comments' => $building->comments->map(fn ($building) => [
+    //                 'id' => $building->pivot->id,
+    //                 'content' => $building->pivot->content,
+    //                 'owner' => [
+    //                     'first_name' => $building->first_name,
+    //                     'last_name' => $building->last_name,
+    //                 ]
+    //             ]),
+    //         ];
+    //     });
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -62,9 +65,14 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        // 
+        $reviews = Comment::orderByDesc("id")->get()->map(fn ($review) => [
+            ...$review->toArray(),
+            "visitor" => new VisitorResource($review->visitor),
+            "building_name" => $review->building->name,
+        ]);
+        return response()->json($reviews);
     }
 
     /**

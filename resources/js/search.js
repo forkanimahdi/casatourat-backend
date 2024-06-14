@@ -41,7 +41,7 @@ const row = (visitor) => {
 document.addEventListener("DOMContentLoaded", async function () {
     try {
         const { data } = await axios.get("/visitors");
-
+        
         sortby.innerText = "name";
 
         table.innerHTML = data.map((visitor) => row(visitor)).join("\n");

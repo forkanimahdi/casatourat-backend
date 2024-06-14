@@ -88,5 +88,6 @@ Route::post('create/notif', [CommentController::class, 'store'])->name('create_c
 Route::put('/update/notif/{review}', [CommentController::class, 'update'])->name('update.notif');
 
 Route::get("/visitors", [api\VisitorController::class, "index"])->middleware(['auth', 'verified']);
+Route::get('/reviews', [api\CommentController::class, "show"])->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';

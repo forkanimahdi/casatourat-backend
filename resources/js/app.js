@@ -1,5 +1,6 @@
 import "./bootstrap";
 import "../sass/app.scss";
+import "./media_Selector";
 
 import Alpine from "alpinejs";
 import axios from "axios";

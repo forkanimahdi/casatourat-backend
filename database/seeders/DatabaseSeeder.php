@@ -25,8 +25,7 @@ class DatabaseSeeder extends Seeder
 
         models\Visitor::insert([
             [
-                "first_name" => "Ahmed",
-                "last_name" => "Alaoui",
+                "full_name" => "Ahmed Alaoui",
                 "email" => "ahmed@alaoui.com",
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNPAC",
                 "gender" => "male",
@@ -34,17 +33,15 @@ class DatabaseSeeder extends Seeder
                 "created_at" => Carbon::now(),
             ],
             [
-                "first_name" => "akram",
-                "last_name" => "Alaoui",
-                "email" => "ahmed@alaoui.com",
+                "full_name" => "akram Alaoui",
+                "email" => "akram@alaoui.com",
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "male",
                 "role" => "admin",
                 "created_at" => Carbon::now(),
             ],
             [
-                "first_name" => "Mustapha",
-                "last_name" => "Benchar",
+                "full_name" => "Mustapha Benchar",
                 "email" => "mustaphabenchar@gmail.com",
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "male",
@@ -52,8 +49,7 @@ class DatabaseSeeder extends Seeder
                 "created_at" => Carbon::now(),
             ],
             [
-                "first_name" => "Salma",
-                "last_name" => "Alaoui",
+                "full_name" => "Salma Alaoui",
                 "email" => "salma@alaoui.com",
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "female",
@@ -61,8 +57,7 @@ class DatabaseSeeder extends Seeder
                 "created_at" => Carbon::now(),
             ],
             [
-                "first_name" => "wiss",
-                "last_name" => "wissalu",
+                "full_name" => "wiss wissalu",
                 "email" => "wiss@alaoui.com",
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "female",
@@ -70,8 +65,7 @@ class DatabaseSeeder extends Seeder
                 "created_at" => Carbon::now(),
             ],
             [
-                "first_name" => "kid",
-                "last_name" => "kids",
+                "full_name" => "kids",
                 "email" => "wiss@alaoui.com",
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "child",
@@ -79,8 +73,7 @@ class DatabaseSeeder extends Seeder
                 "created_at" => Carbon::now(),
             ],
             [
-                "first_name" => "kid",
-                "last_name" => "kids",
+                "full_name" => "kid",
                 "email" => "wiss@alaoui.com",
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "child",

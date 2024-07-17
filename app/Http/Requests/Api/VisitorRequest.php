@@ -12,8 +12,7 @@ class VisitorRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            "first_name" => "required",
-            "last_name" => "required",
+            "full_name" => "required",
             "email" => "required",
             "token" => "required",
             "gender" => "required|in:male,female",

@@ -98,21 +98,26 @@ class CircuitController extends Controller
 
     public function update_draft(Circuit $circuit)
     {
-        $currentValue = $circuit->published;
-        $circuit->update([
-            'published' => !$currentValue,
-        ]);
-
-        if ($circuit->published) {
-            Http::post('https://app.nativenotify.com/api/notification', [
-                "appId" => 21462,
-                "appToken" => "iIpwyGVqc27BSuZOCRmH8r",
-                "title" => "casa guide",
-                "body" => "a new circuit has been created",
-                "dateSent" => "5-20-2024 9:43AM",
+        try {
+            $currentValue = $circuit->published;
+            $circuit->update([
+                'published' => !$currentValue,
             ]);
+
+            if ($circuit->published) {
+                Http::post('https://app.nativenotify.com/api/notification', [
+                    "appId" => 21462,
+                    "appToken" => "iIpwyGVqc27BSuZOCRmH8r",
+                    "title" => "casa guide",
+                    "body" => "a new circuit has been created",
+                    "dateSent" => "5-20-2024 9:43AM",
+                ]);
+            }
+            return back();
+        } catch (\Throwable $e) {
+            dump('error', $e);
+            return abort(404, 'something went wrong');
         }
-        return back();
     }
 
     public function update_map(Circuit $circuit)

@@ -14,7 +14,7 @@ class CircuitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function indexx(Request $request)
     {
         return $this->validateToken($request, function ($visitor) {
             $circuits = $visitor->role == 'admin' ? Circuit::all() : Circuit::where('published', 1)->get();

@@ -15,19 +15,9 @@ class RateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, string $building_id)
+    public function index()
     {
-        return $this->validateToken($request, function () use ($building_id) {
-            $rates = models\Rate::where('building_id', $building_id)->get();
-            return $rates->map(fn ($rate) => [
-                'id' => $rate->id,
-                'rate' => $rate->value,
-                'visitor' => [
-                    'first_name' => $rate->visitor->first_name,
-                    'last_name' => $rate->visitor->last_name,
-                ],
-            ]);
-        });
+        //
     }
 
     /**
@@ -62,9 +52,19 @@ class RateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $building_id)
     {
-        //
+        return $this->validateToken($request, function () use ($building_id) {
+            $rates = models\Rate::where('building_id', $building_id)->get();
+            return $rates->map(fn ($rate) => [
+                'id' => $rate->id,
+                'rate' => $rate->value,
+                'visitor' => [
+                    'first_name' => $rate->visitor->first_name,
+                    'last_name' => $rate->visitor->last_name,
+                ],
+            ]);
+        });
     }
 
     /**

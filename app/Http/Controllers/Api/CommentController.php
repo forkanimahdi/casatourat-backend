@@ -15,26 +15,9 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, string $building_id)
+    public function index()
     {
-        return $this->validateToken($request, function ($visitor) use ($building_id, $request) {
-            $building = models\Building::find($building_id);
-            if (!$building) {
-                return response()->json([
-                    'message' => "building with id '$building_id' not found"
-                ]);
-            }
-            return [
-                'comments' => $building->comments->map(fn ($building) => [
-                    'id' => $building->pivot->id,
-                    'content' => $building->pivot->content,
-                    'owner' => [
-                        'first_name' => $building->first_name,
-                        'last_name' => $building->last_name,
-                    ]
-                ]),
-            ];
-        });
+        //
     }
 
     /**
@@ -62,9 +45,26 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $building_id)
     {
-        // 
+        return $this->validateToken($request, function ($visitor) use ($building_id, $request) {
+            $building = models\Building::find($building_id);
+            if (!$building) {
+                return response()->json([
+                    'message' => "building with id '$building_id' not found"
+                ]);
+            }
+            return [
+                'comments' => $building->comments->map(fn ($building) => [
+                    'id' => $building->pivot->id,
+                    'content' => $building->pivot->content,
+                    'owner' => [
+                        'first_name' => $building->first_name,
+                        'last_name' => $building->last_name,
+                    ]
+                ]),
+            ];
+        });
     }
 
     /**

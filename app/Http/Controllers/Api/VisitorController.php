@@ -34,6 +34,7 @@ class VisitorController extends Controller
                 "token",
                 "gender",
                 "birthday",
+                "avatar"
             ]),
             ARRAY_FILTER_USE_KEY,
         ));
@@ -66,6 +67,7 @@ class VisitorController extends Controller
                     "full_name",
                     "gender",
                     "birthday",
+                    "avatar"
                 ]),
                 ARRAY_FILTER_USE_KEY,
             );

@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNPAC",
                 "gender" => "male",
                 "role" => "admin",
+                "avatar" => 0,
                 "created_at" => Carbon::now(),
             ],
             [
@@ -38,6 +39,7 @@ class DatabaseSeeder extends Seeder
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "male",
                 "role" => "admin",
+                "avatar" => 1,
                 "created_at" => Carbon::now(),
             ],
             [
@@ -46,6 +48,7 @@ class DatabaseSeeder extends Seeder
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "male",
                 "role" => "user",
+                "avatar" => 3,
                 "created_at" => Carbon::now(),
             ],
             [
@@ -54,6 +57,7 @@ class DatabaseSeeder extends Seeder
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "female",
                 "role" => "admin",
+                "avatar" => 2,
                 "created_at" => Carbon::now(),
             ],
             [
@@ -62,6 +66,7 @@ class DatabaseSeeder extends Seeder
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "female",
                 "role" => "admin",
+                "avatar" => 7,
                 "created_at" => Carbon::now(),
             ],
             [
@@ -70,6 +75,7 @@ class DatabaseSeeder extends Seeder
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "child",
                 "role" => "admin",
+                "avatar" => 0,
                 "created_at" => Carbon::now(),
             ],
             [
@@ -78,6 +84,7 @@ class DatabaseSeeder extends Seeder
                 "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
                 "gender" => "child",
                 "role" => "admin",
+                "avatar" => 5,
                 "created_at" => Carbon::now(),
             ],
 
@@ -96,13 +103,6 @@ class DatabaseSeeder extends Seeder
                 "description" => "some text for the circuit Mohamed V description and much more",
                 "audio" => "test_audio.mp3",
                 'published' => true
-            ],
-            [
-                "name" => "test circuit",
-                "alternative" => "Place Mohammed V Casablanca 20250",
-                "description" => "some text for the circuit Mohamed V description and much more",
-                "audio" => "1715861706-dgMt0eAw6X0TgojlYeQvqyCaYsMv6POFChfVi80s.mp3",
-                'published' => false
             ]
         ]);
 

@@ -11,5 +11,6 @@ class VisitorResource extends BaseResource
         'gender',
         'role',
         'email',
+        'avatar'
     ];
 }

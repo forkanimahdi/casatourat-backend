@@ -16,11 +16,9 @@ class FavoriteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        return $this->validateToken($request, function (models\Visitor $visitor) {
-            return BuildingResource::collection($visitor->favorites);
-        });
+        //
     }
 
     /**
@@ -47,9 +45,11 @@ class FavoriteController extends Controller
     /**
      * Display the specified resource.we
      */
-    public function show(string $token, )
+    public function show(Request $request)
     {
-        //
+        return $this->validateToken($request, function (models\Visitor $visitor) {
+            return BuildingResource::collection($visitor->favorites);
+        });
     }
 
     /**

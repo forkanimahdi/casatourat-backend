@@ -15,12 +15,9 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        return $this->validateToken(
-            $request,
-            fn () => EventResource::collection(Event::all())
-        );
+        //
     }
 
     /**
@@ -34,9 +31,12 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        return $this->validateToken(
+            $request,
+            fn () => EventResource::collection(Event::all())
+        );
     }
 
     /**

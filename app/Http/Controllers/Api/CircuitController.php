@@ -14,12 +14,9 @@ class CircuitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function indexx(Request $request)
+    public function index()
     {
-        return $this->validateToken($request, function ($visitor) {
-            $circuits = $visitor->role == 'admin' ? Circuit::all() : Circuit::where('published', 1)->get();
-            return CircuitResource::collection($circuits);
-        });
+        //
     }
 
     /**
@@ -32,9 +29,12 @@ class CircuitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        return $this->validateToken($request, function ($visitor) {
+            $circuits = $visitor->role == 'admin' ? Circuit::all() : Circuit::where('published', 1)->get();
+            return CircuitResource::collection($circuits);
+        });
     }
 
     /**

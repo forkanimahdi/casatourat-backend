@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center w-full ">
+        <div class="flex justify-between items-center w-full">
             <h2 class="text-alpha font-semibold">
                 Create Event
             </h2>
@@ -17,7 +17,7 @@
     <div class="w-full h-full">
 
         <div class="eventscontainer w-full flex justify-center">
-            <div class="eventBody w-[90vw] h-fit bg-gray-100 rounded-xl">
+            <div class="eventBody w-[90vw] h-[100vh] bg-gray-100 rounded-xl">
                 {{-- Header --}}
                 <div class="eventheader flex flex-row-reverse justify-between px-4">
 

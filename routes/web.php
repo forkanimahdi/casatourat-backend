@@ -87,6 +87,7 @@ Route::get('/notiffication', [CommentController::class, 'index'])->name('notif.i
 Route::delete('/comments/delete/{r.eview}',[CommentController::class, 'destroy'])->name('notif.delete');
 Route::post('create/notif', [CommentController::class, 'store'])->name('create_comment');
 Route::put('/update/notif/{review}', [CommentController::class, 'update'])->name('update.notif');
+Route::put('/update/allnotif', [CommentController::class, 'asread'])->name('update.allnotif');
 
 Route::get("/visitors", [api\VisitorController::class, "index"])->middleware(['auth', 'verified']);
 Route::get('/reviews', [api\CommentController::class, "show"])->middleware(['auth', 'verified']);

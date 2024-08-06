@@ -18,7 +18,7 @@ class VisitorController extends Controller
      */
     public function index()
     {
-        return response()->json(Visitor::all());
+        return VisitorResource::collection(Visitor::all());
     }
 
     /**
@@ -29,18 +29,18 @@ class VisitorController extends Controller
         Visitor::create(array_filter(
             $request->all(),
             fn ($key) => in_array($key, [
-                "first_name",
-                "last_name",
+                "full_name",
                 "email",
                 "token",
                 "gender",
-                "age",
+                "birthday",
             ]),
             ARRAY_FILTER_USE_KEY,
         ));
 
         return response()->json([
-            'message' => "Vistor successfully created."
+            'message' => "Vistor successfully created.",
+            'data' => new VisitorResource(Visitor::where("token", $request->token)->first()),
         ], 201);
     }
 
@@ -63,8 +63,9 @@ class VisitorController extends Controller
             $data = array_filter(
                 $request->all(),
                 fn ($key) => in_array($key, [
-                    "first_name",
-                    "last_name",
+                    "full_name",
+                    "gender",
+                    "birthday",
                 ]),
                 ARRAY_FILTER_USE_KEY,
             );

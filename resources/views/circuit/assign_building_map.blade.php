@@ -78,5 +78,4 @@
         })
     </script>
     @vite(['resources/js/assign_building_map.js'])
-    @vite(['resources/js/assign_building_map.js'])
 </x-app-layout>

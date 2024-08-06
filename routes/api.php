@@ -16,7 +16,7 @@ Route::get("/favorites", [api\FavoriteController::class, "index"]);
 Route::post("/favorites/{building}", [api\FavoriteController::class, "store"]);
 Route::delete("/favorites/{building}", [api\FavoriteController::class, "destroy"]);
 
-Route::get('/circuits', [api\CircuitController::class, 'index']);
+Route::get('/circuits', [api\CircuitController::class, 'indexx']);
 Route::get('/rate/{building}', [api\RateController::class, 'index']);
 Route::post('/rate', [api\RateController::class, 'store']);
 Route::get('/comment/{building}', [api\CommentController::class, 'index']);

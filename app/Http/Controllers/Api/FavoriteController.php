@@ -37,7 +37,7 @@ class FavoriteController extends Controller
                     ], 404);
                 }
 
-                $visitor->favorites()->attach($building);
+                $visitor->favorites()->attach($building); 
             }
         );
     }

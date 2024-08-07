@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("full_name");
             $table->string("email");
             $table->string("token");
+            $table->integer("avatar")->default(0);
             $table->enum("gender", ["female", "male", "child"]);
             $table->dateTime("birthday")->nullable();
             $table->enum("role", ["admin", "user"])->default('user');

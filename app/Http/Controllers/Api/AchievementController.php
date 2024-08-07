@@ -15,10 +15,11 @@ class AchievementController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        return $this->validateToken($request, fn ($visitor) => BuildingResource::collection($visitor->visits));
+        //
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -49,9 +50,9 @@ class AchievementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        return $this->validateToken($request, fn ($visitor) => BuildingResource::collection($visitor->visits));
     }
 
     /**

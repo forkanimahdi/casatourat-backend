@@ -18,27 +18,10 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index(Request $request, string $building_id)
-    // {
-    //     return $this->validateToken($request, function ($visitor) use ($building_id, $request) {
-    //         $building = models\Building::find($building_id);
-    //         if (!$building) {
-    //             return response()->json([
-    //                 'message' => "building with id '$building_id' not found"
-    //             ]);
-    //         }
-    //         return [
-    //             'comments' => $building->comments->map(fn ($building) => [
-    //                 'id' => $building->pivot->id,
-    //                 'content' => $building->pivot->content,
-    //                 'owner' => [
-    //                     'first_name' => $building->first_name,
-    //                     'last_name' => $building->last_name,
-    //                 ]
-    //             ]),
-    //         ];
-    //     });
-    // }
+    public function index()
+    {
+        //
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -65,14 +48,26 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Request $request, string $building_id)
     {
-        $reviews = Comment::orderByDesc("id")->get()->map(fn ($review) => [
-            ...$review->toArray(),
-            "visitor" => new VisitorResource($review->visitor),
-            "building_name" => $review->building->name,
-        ]);
-        return response()->json($reviews);
+        return $this->validateToken($request, function ($visitor) use ($building_id, $request) {
+            $building = models\Building::find($building_id);
+            if (!$building) {
+                return response()->json([
+                    'message' => "building with id '$building_id' not found"
+                ]);
+            }
+            return [
+                'comments' => $building->comments->map(fn ($building) => [
+                    'id' => $building->pivot->id,
+                    'content' => $building->pivot->content,
+                    'owner' => [
+                        'first_name' => $building->first_name,
+                        'last_name' => $building->last_name,
+                    ]
+                ]),
+            ];
+        });
     }
 
     /**

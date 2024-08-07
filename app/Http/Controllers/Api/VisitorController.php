@@ -40,6 +40,7 @@ class VisitorController extends Controller
         ));
 
         return response()->json([
+            'token' => $request->token,
             'message' => "Vistor successfully created.",
             'data' => new VisitorResource(Visitor::where("token", $request->token)->first()),
         ], 201);
@@ -67,7 +68,8 @@ class VisitorController extends Controller
                     "full_name",
                     "gender",
                     "birthday",
-                    "avatar"
+                    "avatar",
+                    'email'
                 ]),
                 ARRAY_FILTER_USE_KEY,
             );

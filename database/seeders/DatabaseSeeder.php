@@ -60,33 +60,7 @@ class DatabaseSeeder extends Seeder
                 "avatar" => 2,
                 "created_at" => Carbon::now(),
             ],
-            [
-                "full_name" => "wiss wissalu",
-                "email" => "wiss@alaoui.com",
-                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
-                "gender" => "female",
-                "role" => "admin",
-                "avatar" => 7,
-                "created_at" => Carbon::now(),
-            ],
-            [
-                "full_name" => "kids",
-                "email" => "wiss@alaoui.com",
-                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
-                "gender" => "child",
-                "role" => "admin",
-                "avatar" => 0,
-                "created_at" => Carbon::now(),
-            ],
-            [
-                "full_name" => "kid",
-                "email" => "wiss@alaoui.com",
-                "token" => "user_2h8hFGAhZ0PSDW5ZXhwshjotNAC",
-                "gender" => "child",
-                "role" => "admin",
-                "avatar" => 5,
-                "created_at" => Carbon::now(),
-            ],
+
 
         ]);
         models\Circuit::insert([

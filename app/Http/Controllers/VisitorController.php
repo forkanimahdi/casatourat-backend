@@ -15,7 +15,8 @@ class VisitorController extends Controller
      */
     public function index()
     {
-        return view("visitors.index");
+        $visitors = models\Visitor::all();
+        return view("visitors.index", compact('visitors'));
     }
 
     /**

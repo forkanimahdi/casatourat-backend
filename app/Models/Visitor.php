@@ -19,9 +19,14 @@ class Visitor extends Model
         "avatar"
     ];
 
-    public function favorites()
+    public function favorite_building()
     {
-        return $this->belongsToMany(Building::class, "favorites");
+        return $this->belongsToMany(Building::class, "favorite_building");
+    }
+
+    public function favorite_circuit()
+    {
+        return $this->belongsToMany(Circuit::class, 'favorite_circuit');
     }
 
     public function rates()

@@ -11,9 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('favorites', function (Blueprint $table) {
+        Schema::create('favorite_building', function (Blueprint $table) {
             $table->id();
             $table->foreignId("building_id")->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId("visitor_id")->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->timestamps();
+        });
+
+        Schema::create('favorite_circuit', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("circuit_id")->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId("visitor_id")->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

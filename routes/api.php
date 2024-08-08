@@ -13,8 +13,10 @@ Route::post("/visitor", [api\VisitorController::class, "store"]);
 Route::put("/visitor", [api\VisitorController::class, "update"]);
 
 Route::get("/favorites", [api\FavoriteController::class, "show"]);
-Route::post("/favorites/{building}", [api\FavoriteController::class, "store"]);
-Route::delete("/favorites/{building}", [api\FavoriteController::class, "destroy"]);
+Route::post("/favorites/building/{building}", [api\FavoriteController::class, "store"])->name('favorite.building');
+Route::post("/favorites/circuit/{circuit}", [api\FavoriteController::class, "store"])->name('favorite.circuit');
+Route::delete("/favorites/building/{building}", [api\FavoriteController::class, "destroy"])->name('unfavorite.building');
+Route::delete("/favorites/circuit/{circuit}", [api\FavoriteController::class, "destroy"])->name('unfavorite.circuit');
 
 Route::get('/circuits', [api\CircuitController::class, 'show']);
 

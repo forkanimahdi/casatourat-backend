@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 class EventResource extends BaseResource
 {
     protected $attributes = [
+        'id',
         'title',
         'description',
-        'start',
-        'end',
-        'image',
+        'latitude',
+        'longitude'
     ];
 
     /**
@@ -23,6 +23,7 @@ class EventResource extends BaseResource
     {
         return [
             ...parent::toArray($request),
+            'images' => $this->resource->images->map(fn ($image) => $image->path),
             'start' => $this->resource->start->format("d M Y H:i a"),
             'end' => $this->resource->end->format("d M Y H:i a"),
         ];

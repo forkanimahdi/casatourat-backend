@@ -39,7 +39,7 @@
                             </svg>
                             Upload Image
                         </label>
-                        <input id="image" class="rounded w-3/4 d-none" type="file" placeholder="image" multiple name="image[]">
+                        <input id="image" class="rounded w-3/4 d-none" type="file" placeholder="image" multiple name="image[]" accept="image/*">
                     </div>
                     <div class="d-none">
                         <input type="text" id="latitude" placeholder="latitude" name="latitude">

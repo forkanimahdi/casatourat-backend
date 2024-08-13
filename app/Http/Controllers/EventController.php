@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use LDAP\Result;
 
 class EventController extends Controller
 {
-    //
+
     public function index()
     {
         $events = Event::all();
@@ -17,7 +19,12 @@ class EventController extends Controller
 
     public function show(Request $request, Event $event)
     {
-        return view("Event.partials.update_event", compact('event'));
+        return view("Event.partials.show_event", compact('event'));
+    }
+
+    public function edit(Request $request, Event $event)
+    {
+        return view('Event.partials.update_event', compact('event'));
     }
 
     public function post(Request $request)
@@ -27,23 +34,29 @@ class EventController extends Controller
             'description' => 'required',
             'start' => 'required',
             'end' => 'required',
-            'image' => 'required'
+            'image.*' => 'required|mimes:png,jpg'
         ]);
 
+        $images = $request->file('image');
+        if ($images) {
 
-        if ($request->image) {
-            $image = $request->file('image');
-            $imageName = time() . $image->getClientOriginalName();
-            $image->storeAs('images', $imageName, 'public');
+            $event = Event::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'start' => $request->start,
+                'end' => $request->end,
+                'latitude' => $request->event_lat,
+                'longitude' => $request->event_long
+            ]);
+
+            foreach ($images as  $image) {
+                $imageName = time() .  $image->getClientOriginalName();
+                $event->images()->create([
+                    'path' => $imageName
+                ]);
+                $image->storeAs('images', $imageName, 'public');
+            }
         }
-
-        Event::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'start' => $request->start,
-            'end' => $request->end,
-            'image' => $imageName,
-        ]);
 
         return back();
     }
@@ -76,8 +89,18 @@ class EventController extends Controller
         return back();
     }
 
-    public function destroy(Request $request, Event $event)
+    public function destroy(Event $event)
     {
+        // delete the bookings that has this event
+        Booking::where('event_id', $event->id)->delete();
+
+        // delete the images
+        foreach ($event->images as $img) {
+            Storage::disk('public')->delete('images/' . $img->path);
+            $img->delete();
+        }
+
+        // delete the event itself
         $event->delete();
         return back();
     }

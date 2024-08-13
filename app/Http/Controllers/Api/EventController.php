@@ -35,7 +35,7 @@ class EventController extends Controller
     {
         return $this->validateToken(
             $request,
-            fn () => EventResource::collection(Event::all())
+            fn () => EventResource::collection(Event::orderBy('created_at', 'desc')->get())
         );
     }
 

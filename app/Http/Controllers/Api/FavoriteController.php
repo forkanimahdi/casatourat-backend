@@ -31,11 +31,11 @@ class FavoriteController extends Controller
             $request,
             function (models\Visitor $visitor) use ($item_id) {
 
-                // find route name
+                // find route name (building or circuit)
                 $routeName = request()->route()->getName();
 
 
-                // find model
+                // find model based on route name
                 if (strpos($routeName, 'building') !== false) {
                     $model = models\Building::class;
                     $modelName = 'Building';

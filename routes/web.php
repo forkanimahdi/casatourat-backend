@@ -56,7 +56,8 @@ Route::post('/register_user', [AdminRegisterController::class, 'store'])->name('
 
 // * Events :
 Route::get('/event', [EventController::class, 'index'])->name('events.index');
-Route::get('/event/update/{event}', [EventController::class, 'show'])->name('events.show');
+Route::get('/event/show/{event}', [EventController::class, 'show'])->name('events.show');
+Route::get('/event/update/{event}', [EventController::class, 'edit'])->name('events.edit');
 // * add
 Route::post('/event/post', [EventController::class, 'post'])->name('event.post');
 // * update
@@ -81,7 +82,7 @@ Route::name("users")->group(function () {
 // & staff routes :
 Route::get('/staff', [StaffController::class,'index'])->name('staff.index')->middleware('auth');
 
-// & comments : 
+// & comments :
 Route::get('/notiffication/{review}', [CommentController::class, 'show'])->name('notif.show');
 Route::get('/notiffication', [CommentController::class, 'index'])->name('notif.index');
 Route::delete('/comments/delete/{r.eview}',[CommentController::class, 'destroy'])->name('notif.delete');

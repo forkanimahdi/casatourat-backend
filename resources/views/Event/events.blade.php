@@ -4,11 +4,11 @@
             <h2 class="text-alpha font-semibold">
                 Create Event
             </h2>
-                <button data-modal-target="default-modal" data-modal-toggle="default-modal"
-                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-alpha dark:hover:bg-alpha dark:focus:ring-blue-800"
-                    type="button">
-                    Add Event
-                </button>
+            <button data-modal-target="default-modal" data-modal-toggle="default-modal"
+                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-alpha dark:hover:bg-alpha dark:focus:ring-blue-800"
+                type="button">
+                Add Event
+            </button>
         </div>
 
 
@@ -23,93 +23,9 @@
 
 
                     <!-- Main modal -->
-                    <div id="default-modal" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-[110vw] md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                        <div class="relative p-4 w-full max-w-[40vw] max-h-full mx-auto">
-                            <!-- Modal content -->
-                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 ">
-                                <!-- Modal header -->
-                                <div
-                                    class="flex items-center justify-between p-4 md:p-5 rounded-t dark:border-gray-600">
-                                    <h3 class="text-2xl text-alpha font-normal">
-                                        Add Event
-                                    </h3>
-                                    <button type="button"
-                                        class="text-gray-400 bg-transparent hover:bg-gray-800 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-alpha"
-                                        data-modal-hide="default-modal">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                </div>
-                                <!-- Modal body -->
-                                <div class="p-4 md:p-5 space-y-4">
 
-                                    {{-- inputs --}}
-                                    <form action="{{ route('event.post') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="flex w-full justify-between">
-                                            <div class="firstinput flex flex-col py-2 w-full">
-                                                <label for="name" class=" py-1">Name</label>
-                                                <input type="text" name="title" placeholder="insert event name"
-                                                    class="rounded-lg border border-alpha w-full">
-                                            </div>
-                                        </div>
+                    @include('Event.partials.add_event')
 
-                                        <div class=" flex w-full justify-between">
-                                            <div class="firstinput flex flex-col py-2">
-                                                <label for="startDate" class=" py-1">Start Date</label>
-                                                <input type="datetime-local" name="start" placeholder="00/00/0000"
-                                                    class="rounded-lg border border-alpha">
-                                            </div>
-
-                                            <div class="firstinput flex flex-col py-2">
-                                                <label for="endDate" class=" py-1">End Date</label>
-                                                <input type="datetime-local" name="end" placeholder="00/00/0000"
-                                                    class="rounded-lg border border-alpha">
-                                            </div>
-                                        </div>
-
-                                        <div class=" flex flex-col w-full py-2">
-                                            <label for="message" class="block mb-2 text-sm text-gray-900">Your
-                                                message</label>
-                                            <textarea name="description" id="message" rows="4"
-                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="Your message..."></textarea>
-
-                                        </div>
-
-                                        {{-- ImageInput start --}}
-                                        <div class="py-2">
-                                            <label class="block text-gray-700">Select Images:</label>
-                                            <input name="image" type="file" id="file-input" accept="image/*"
-                                                multiple class="mt-2 p-2 border border-gray-300 rounded-lg w-full">
-                                        </div>
-                                        <div class="preview mt-4 flex flex-wrap"></div>
-                                        {{-- Image Input final --}}
-                                        <button
-                                            class="text-white bg-alpha hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-alpha dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            Create</button>
-                                    </form>
-
-
-
-
-
-                                </div>
-                                <!-- Modal footer -->
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        {{-- <h3 class="font-normal text-alpha">Current Events :</h3> --}}
-                    </div>
 
                 </div>
                 {{-- Body --}}
@@ -120,13 +36,12 @@
                         <div
                             class=" bg-gray-100 shadow-lg rounded-lg overflow-hidden my-4 mr-2 ml-[14px] w-[19vw] hover:scale-105 hover:border hover:bg-white transition-all duration-200">
                             <img class="w-full h-56 object-cover object-center"
-                                src='{{ asset('storage/images/' . $event->image) }}' alt="avatar">
+                                src='{{ asset('storage/images/' . $event->images[0]->path) }}' alt="event image">
                             <div class="flex items-center justify-center px-6 py-[12px] bg-alpha">
                                 <h1 class=" text-white font-semibold text-lg">{{ $event->title }}</h1>
                             </div>
                             <div class="py-4 px-6">
-                                {{-- <textarea disabled
-                                        class="py-2 text-md text-gray-700 w-full border-none bg-gray-100 rounded-xl transition-all hover:bg-white duration-500">{{ $event->description }}</textarea> --}}
+
                                 <div class="flex rounded-xl mt-2 text-gray-900">
                                     <div class="timediv flex flex-col py-1">
                                         <p class="text-center font-semibold">Start</p>
@@ -138,29 +53,46 @@
                                         <h1 class=" text-sm  font-normal text-center">{{ $event->end }}</h1>
                                     </div>
                                 </div>
-                                <div class="w-full flex justify-end pt-2">
+                                <div class="w-full flex justify-between pt-2">
+
                                     <form method="POST" class="mr-1">
                                         @csrf
                                         <a href="{{ route('events.show', $event) }}"
-                                            class="px-2 py-2 mr-1 bg-alpha rounded-full text-white flex"> <svg
-                                                xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-                                                fill="currentColor">
+                                            class="px-2 py-2 mr-1 bg-alpha rounded-full text-white flex">
+                                            <svg fill="#ffffff" width="800px" class="h-5 w-5" viewBox="0 0 32 32"
+                                                version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                                <title>See Event</title>
                                                 <path
-                                                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                                            </svg></a>
-                                    </form>
-
-                                    <form action={{ route('events.destroy', $event->id) }} method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="px-2 py-2 bg-red-500 rounded-full text-white flex"> <svg
-                                                xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                viewBox="0 0 20 20" fill="currentColor">
-                                                <path
-                                                    d="M8 3V2h4v1h5v2H3V3h5zm1 0h2V2H9v1zM4 6h12v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm2 0v10h8V6H6z" />
+                                                    d="M0 16q0.064 0.128 0.16 0.352t0.48 0.928 0.832 1.344 1.248 1.536 1.664 1.696 2.144 1.568 2.624 1.344 3.136 0.896 3.712 0.352 3.712-0.352 3.168-0.928 2.592-1.312 2.144-1.6 1.664-1.632 1.248-1.6 0.832-1.312 0.48-0.928l0.16-0.352q-0.032-0.128-0.16-0.352t-0.48-0.896-0.832-1.344-1.248-1.568-1.664-1.664-2.144-1.568-2.624-1.344-3.136-0.896-3.712-0.352-3.712 0.352-3.168 0.896-2.592 1.344-2.144 1.568-1.664 1.664-1.248 1.568-0.832 1.344-0.48 0.928zM10.016 16q0-2.464 1.728-4.224t4.256-1.76 4.256 1.76 1.76 4.224-1.76 4.256-4.256 1.76-4.256-1.76-1.728-4.256zM12 16q0 1.664 1.184 2.848t2.816 1.152 2.816-1.152 1.184-2.848-1.184-2.816-2.816-1.184-2.816 1.184l2.816 2.816h-4z">
+                                                </path>
                                             </svg>
-                                        </button>
+
+                                        </a>
                                     </form>
+                                    <div class="flex items-center gap-2">
+                                        <form method="POST" class="mr-1">
+                                            @csrf
+                                            <a href="{{ route('events.edit', $event) }}"
+                                                class="px-2 py-2 mr-1 bg-alpha rounded-full text-white flex"> <svg
+                                                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                    <path
+                                                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                                </svg></a>
+                                        </form>
+
+                                        <form action={{ route('events.destroy', $event->id) }} method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="px-2 py-2 bg-red-500 rounded-full text-white flex"> <svg
+                                                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                    <path
+                                                        d="M8 3V2h4v1h5v2H3V3h5zm1 0h2V2H9v1zM4 6h12v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm2 0v10h8V6H6z" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
 
 
                                 </div>
@@ -177,4 +109,76 @@
 
 
     </div>
+
+
+
+    <script>
+        let markers = [];
+        const svgMarkerBuilding = '/storage/markers/building_marker.svg';
+
+        let allEvents = @json($events).map(event => {
+            return {
+                ...event,
+                paths: {
+                    lat: Number(event.latitude),
+                    lng: Number(event.longitude),
+                }
+            }
+        })
+
+        function initMap() {
+            const casablanca = {
+                lat: 33.57,
+                lng: -7.60
+            }
+            const map = new google.maps.Map(document.getElementById('event_map'), {
+                zoom: 10,
+                center: casablanca,
+                mapTypeId: google.maps.MapTypeId.HYBRID
+            });
+
+
+            allEvents.forEach(event => {
+
+                const marker = new google.maps.Marker({
+                    position: event.paths,
+                    map: map,
+                    data: {
+                        id: event.id,
+                    },
+                    icon: {
+                        scaledSize: new google.maps.Size(45, 45),
+                        anchor: new google.maps.Point(20, 45),
+                    }
+                });
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: event.title
+                });
+
+                markers.push(marker)
+                infowindow.open(map, marker)
+            });
+
+            map.addListener('click', function(event) {
+                const marker = new google.maps.Marker({
+                    position: {
+                        lat: event.latLng.lat(),
+                        lng: event.latLng.lng()
+                    },
+                    map: map,
+                    icon: {
+                        scaledSize: new google.maps.Size(45, 45),
+                        anchor: new google.maps.Point(20, 45),
+                    }
+                });
+                document.getElementById('event_lat').value = event.latLng.lat()
+                document.getElementById('event_long').value = event.latLng.lng()
+
+                document.getElementById('event_create').click();
+            });
+        }
+
+        window.onload = initMap;
+    </script>
 </x-app-layout>

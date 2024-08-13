@@ -30,5 +30,10 @@ Route::delete('/comment/{comment}', [api\CommentController::class, 'destroy']);
 
 Route::get("/events", [api\EventController::class, "show"]);
 
+// For the visitor to book or unbook an event
+Route::get('/bookings', [api\BookingController::class, 'show'])->name('bookings.show');
+Route::post('bookings/{event}', [api\BookingController::class, 'store'])->name('bookings.store');
+Route::delete('bookings/{event}', [api\BookingController::class, 'destroy'])->name('bookings.destroy');
+
 Route::get('/achievement', [api\AchievementController::class, 'show']);
 Route::post('/achievement', [api\AchievementController::class, 'store']);

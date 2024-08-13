@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Event extends Model
 {
@@ -19,7 +20,8 @@ class Event extends Model
         'description',
         'start',
         'end',
-        'image',
+        'latitude',
+        'longitude'
     ];
 
     /**
@@ -33,5 +35,16 @@ class Event extends Model
             'start' => 'datetime',
             'end' => 'datetime',
         ];
+    }
+
+
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imagable');
+    }
+
+    public function bookings()
+    {
+        return $this->belongsToMany(Visitor::class, 'bookings')->withTimestamps();
     }
 }

@@ -43,4 +43,10 @@ class Visitor extends Model
     {
         return $this->belongsToMany(Building::class, 'achievements');
     }
+
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'bookings')->withTimestamps();
+    }
 }

@@ -211,18 +211,18 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
-        models\Event::insert([[
-            'title' => "Les Journées du Patrimoine de Casablanca 13ème édition",
-            'description' => "La 13e édition des Journées du Patrimoine de Casablanca auront lieu du 13 au 19 mai 2024. Une invitation à voyager dans le temps et l'espace, révélant la splendeur architecturale et urbanistique de la métropole à travers 5 circuits guidés et une programmation culturelle d'une richesse inégalée, sous le thème évocateur de \"Casablanca, patrimoine en mouvement\".",
-            'start' => Carbon::now(),
-            'end' => Carbon::now(),
-            'image' => "event1.jpg",
-        ], [
-            'title' => "fdjhc",
-            'description' => "fdjhc",
-            'start' => Carbon::now(),
-            'end' => Carbon::now(),
-            'image' => "event1.jpg",
-        ]]);
+        // models\Event::insert([[
+        //     'title' => "Les Journées du Patrimoine de Casablanca 13ème édition",
+        //     'description' => "La 13e édition des Journées du Patrimoine de Casablanca auront lieu du 13 au 19 mai 2024. Une invitation à voyager dans le temps et l'espace, révélant la splendeur architecturale et urbanistique de la métropole à travers 5 circuits guidés et une programmation culturelle d'une richesse inégalée, sous le thème évocateur de \"Casablanca, patrimoine en mouvement\".",
+        //     'start' => Carbon::now(),
+        //     'end' => Carbon::now(),
+        //     'image' => "event1.jpg",
+        // ], [
+        //     'title' => "fdjhc",
+        //     'description' => "fdjhc",
+        //     'start' => Carbon::now(),
+        //     'end' => Carbon::now(),
+        //     'image' => "event1.jpg",
+        // ]]);
     }
 }

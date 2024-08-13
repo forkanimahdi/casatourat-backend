@@ -53,7 +53,7 @@
         <div>
             <img src={{ asset("assets/images/edit_pic.png") }} alt="" class="w-[35vw]">
         </div>
-    </section>        
+    </section>
     </div>
 
 

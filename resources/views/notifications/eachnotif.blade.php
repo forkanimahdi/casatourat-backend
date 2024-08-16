@@ -8,8 +8,8 @@
     </x-slot>
     <div class="w-full pt-14 px-9 flex justify-center items-center">
         <div class="w-20% bg-white p-10 rounded">
-            <p><span class="font-bold">Lionel messi</span> added a review for building <span
-                    class="font-bold">Mahkama</span></p>
+            <p><span class="font-bold">{{ $review->visitor->first_name . ' ' . $review->visitor->last_name }}</span> added a review for building <span
+                    class="font-bold">{{ $review->building->name }}</span></p>
             <div
                 class="{{ $review->status == 'alert' ? 'bg-red-300 text-red-700' : ($review->status == 'satisfying' ? 'bg-emerald-300 text-emerald-700' : 'bg-amber-300 text-amber-700') }} rounded-lg px-2 py-1 w-fit mb-2">
                 {{ $review->status }}

@@ -35,9 +35,14 @@ class CommentController extends Controller
         ]);
         return back();
     }
-    // public function search(Request $request) {
-    //     $search = $request->input('filter');
-    //     $results = Comment::where('status', $search)->get();
-    //     return view()
-    // }
+
+    public function asread() {
+        $reviews = Comment::where('mark_read', false)->get();
+        foreach ($reviews as $review) {
+            $review->update([
+                'mark_read' => !$review->mark_read,
+            ]);
+        }
+        return back();
+    }
 }

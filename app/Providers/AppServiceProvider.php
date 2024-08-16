@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Building;
 use App\Models\Comment;
 use App\Models\Visitor;
 use Carbon\Carbon;
@@ -24,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $reviews = Comment::orderBy('created_at', 'desc')->get();
         $notif = Comment::where('mark_read', false)->get();
-        view()->share(['reviews' => $reviews, 'notif' => $notif]);
+        $buildings = Building::all();
+        view()->share(['reviews' => $reviews, 'notif' => $notif, 'buildings' => $buildings]);
 
 
         $visitors = Visitor::all();

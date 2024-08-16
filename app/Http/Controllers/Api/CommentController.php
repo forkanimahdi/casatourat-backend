@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BuildingResource;
+use App\Http\Resources\VisitorResource;
 use App\TokenValidation;
 use App\Models as models;
 use App\Models\Comment;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 class CommentController extends Controller
 {
     use TokenValidation;
+    
     /**
      * Display a listing of the resource.
      */

@@ -46,7 +46,8 @@
         color: #fff;
 
         svg {
-            display: block;
+            visibility: visible !important;
+
         }
     }
 }

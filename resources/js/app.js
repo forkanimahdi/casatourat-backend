@@ -19,7 +19,7 @@ let notifBodyVisite = document.getElementById("notif_visite");
 let map_icon = document.getElementById("visite_icon");
 let pop = document.getElementById("pop_triangle");
 let pop_map = document.getElementById("pop_triangle_map");
-let selectedReview ;
+let selectedReview;
 console.log(notifBodyVisite);
 
 const colors = {
@@ -28,8 +28,7 @@ const colors = {
     warning: "rgb(245 158 11)",
 };
 
-
-const { data } = await axios.get("/reviews");
+// const { data } = await axios.get("/reviews");
 // console.log(data);
 // let sis = document.getElementById("messi")
 // let vis = document.getElementById("ronaldo")
@@ -41,10 +40,19 @@ const { data } = await axios.get("/reviews");
 // vis.addEventListener('click', () => {
 //     sis.innerHTML=review.id
 // })
+console.log(buildings);
 
 function renderReviews(reviewsToRender) {
     notifDiv.innerHTML = "";
+
     reviewsToRender.map((review) => {
+        let buildingName = buildings.filter(
+            (building) => building.id == review.building_id
+        );
+        let visitorName = visitors.filter(
+            (visitor) => visitor.id == review.visitor_id
+        );
+        console.log(visitorName);
         console.log(review);
         notifDiv.innerHTML += ` 
         <div id="review-${
@@ -59,11 +67,9 @@ function renderReviews(reviewsToRender) {
                         <div class="w-full px-2">
                         <div class="flex justify-between items-center w-full">
                         <p class="mb-0">
-                        <span class="font-bold">${review.visitor.first_name} ${
-            review.visitor.last_name
-        }</span> added a review for <span class="font-bold">${
-            review.building_name
-        }</span>
+                        <span class="font-bold">${visitorName[0].full_name}</span> added a review for <span class="font-bold">${
+                            buildingName[0].name
+                        }</span>
                         </p>
                         <div class="flex justify-start items-center">
                             <form action="/update/notif/${
@@ -100,21 +106,28 @@ function renderReviews(reviewsToRender) {
         `;
     });
     reviewsToRender.forEach((review) => {
-        document.getElementById(`review-${review.id}`).addEventListener("click", () => {
-                selectedReview = review; 
+        document
+            .getElementById(`review-${review.id}`)
+            .addEventListener("click", () => {
+                selectedReview = review;
                 if (selectedReview) {
                     // console.log(selectedReview);
-                    document.getElementById('exampleModalLabel').innerHTML = selectedReview.status
-                    document.getElementById('exampleModalLabel').style.color = colors[selectedReview.status]
-                    document.getElementById('modal-body-head').innerText = `${selectedReview.visitor.first_name} ${selectedReview.visitor.last_name} - ${selectedReview.building_name}`;
-                    document.getElementById('modal-body-content').innerText = selectedReview.content;
+                    document.getElementById("exampleModalLabel").innerHTML =
+                        selectedReview.status;
+                    document.getElementById("exampleModalLabel").style.color =
+                        colors[selectedReview.status];
+                    document.getElementById(
+                        "modal-body-head"
+                    ).innerText = `hamza`;
+                    document.getElementById("modal-body-content").innerText =
+                        selectedReview.content;
                     document.querySelector(".modal-footer").innerHTML = `
                     <form action="/update/notif/${selectedReview.id}" method="POST">
                         <input type="hidden" name="_token" value="${csrf}" autocomplete="off">
                         <input type="hidden" name="_method" value="PUT">
-                        <button class="bg-alpha px-3 py-2 rounded text-white" >Close</button>
+                        <button class="bg-alpha px-3 py-2 rounded text-white" >Mark as Read</button>
                     </form>
-                    `
+                    `;
                 }
             });
     });
@@ -124,7 +137,7 @@ const notifBtn = document.querySelector(".test");
 
 console.log(notifBtn);
 
-renderReviews(data);
+renderReviews(reviews);
 
 mySelect.addEventListener("input", function () {
     let filteredReviews;

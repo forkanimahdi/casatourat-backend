@@ -41,7 +41,7 @@
                                         <input type="text" class="d-none" value="{{ $building->id }}"
                                             name="building_id">
                                         <button
-                                            class="border border-white px-3 py-1 rounded-full text-white font-medium">Unassing</button>
+                                            class="border border-white px-3 py-1 rounded-full text-white font-medium">Unassign</button>
                                     </form>
                                 </div>
                             </div>

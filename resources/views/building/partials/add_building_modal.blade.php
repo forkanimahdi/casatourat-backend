@@ -30,7 +30,7 @@
                             </svg>
                             Upload Audio
                         </label>
-                        <input id="audio" class="rounded w-3/4 d-none" type="file" placeholder="audio" name="audio">
+                        <input id="audio" class="rounded w-3/4 d-none" type="file" placeholder="audio" name="audio" accept="audio/*" >
                     </div>
                     <div class="flex flex-col py-2 cursor-pointer items-center bg-alpha rounded text-gray-100 w-3/4">
                         <label for="image" class="w-3/4 font-bolder text-base flex gap-2">

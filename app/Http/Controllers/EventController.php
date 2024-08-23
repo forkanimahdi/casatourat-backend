@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Event;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use LDAP\Result;
@@ -27,7 +28,7 @@ class EventController extends Controller
         return view('Event.partials.update_event', compact('event'));
     }
 
-    public function post(Request $request)
+    public function store(Request $request)
     {
         request()->validate([
             'title' => 'required',
@@ -69,21 +70,25 @@ class EventController extends Controller
             'description' => 'required',
             'start' => 'required',
             'end' => 'required',
-            'image' => 'required'
         ]);
 
-        if ($request->image) {
-            $image = $request->file('image');
-            $imageName = time() . $image->getClientOriginalName();
-            $image->storeAs('images', $imageName, 'public');
+        $images = $request->file('image');
+        if ($images) {
+            foreach ($images as $image) {
+                $imageName = time() . $image->getClientOriginalName();
+                $event->images()->create([
+                    'path' => $imageName
+                ]);
+                $image->storeAs('images', $imageName, 'public');
+            }
         }
+
 
         $event->update([
             'title' => $request->title,
             'description' => $request->description,
             'start' => $request->start,
             'end' => $request->end,
-            'image' => $imageName,
         ]);
 
         return back();
@@ -102,6 +107,16 @@ class EventController extends Controller
 
         // delete the event itself
         $event->delete();
+        return back();
+    }
+
+
+    public function destory_image(Event $event, Image $image)
+    {
+        if (count($event->images) > 1) {
+            Storage::disk('public')->delete('images/' . $image->path);
+            $image->delete();
+        }
         return back();
     }
 }

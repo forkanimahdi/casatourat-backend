@@ -11,10 +11,10 @@ class BuildingController extends Controller
 {
     public function index()
     {
-        $buildings = Building::all();
+        $buildings = Building::latest()->get();
         return view('building.building_index', compact('buildings'));
     }
-    public function details(Building $building)
+    public function show(Building $building)
     {
         return view('building.buildings_show', compact('building'));
     }
@@ -57,7 +57,7 @@ class BuildingController extends Controller
             ]);
             $image->storeAs('images', $imageName, 'public');
         }
-        return back();
+        return redirect()->route('building.index');
     }
 
     public function update(Request $request, Building $building)
@@ -126,12 +126,18 @@ class BuildingController extends Controller
         return back();
     }
 
-    public function destroy(string $id)
+    public function destroy(Building $building)
     {
-        $building = Building::where('id', $id)->first();
+        // delete the images
+        foreach ($building->images as $image) {
+            $this->destory_image($image);
+        }
+
+        // delete the audio
+        Storage::disk('public')->delete('audios/' . $building->audio);
+
+
         $building->delete();
-        return response()->json([
-            'message' => 'building deleted successfully'
-        ]);
+        return redirect()->route('building.index');
     }
 }

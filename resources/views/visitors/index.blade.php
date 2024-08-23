@@ -13,10 +13,8 @@
         </div>
     </x-slot>
 
-
     <div x-data='
     {{-- Searching --}}
-
     {searchQuery: "",
     {{-- search function: return true if any of the conditions are met --}}
                 matchesSearch(visitor) {
@@ -84,47 +82,40 @@
                     </svg>
 
                     {{-- change the variable to whatever is in the input --}}
-                    <input x-model="searchQuery" placeholder="search by name or email" type="search" name="search"
+                    <input x-model="searchQuery" placeholder="Name, Email or Role" type="search" name="search"
                         id="search"
                         class="border-none bg-transparent w-full placeholder:text-alpha outline-none focus:border-none focus:ring-0 focus:outline-none text-sm">
-                </div>
-
-                <div class="relative">
-                    {{-- <button id="sortbtn" @click="sortdialog.show = !sortdialog.show" class="flex items-center gap-1">
-                        <div>Sort by: <span x-text="sortCriteria ? sortCriteria : 'Select'"></span></div>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.75"
-                            stroke="currentColor" class="size-3 text-blue-500">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                        </svg>
-                    </button>
-
-                    <dialog x-ref="sortdialog" id="sortdialog"
-                        class="top-full bg-white shadow-md py-1.5 rounded-lg text-alpha font-medium left-auto mt-1">
-                        <div @click="sortTable('name')"
-                            class="sortitem lowercase pl-[2rem] pr-[3rem] py-1 cursor-pointer">Name</div>
-                        <div @click="sortTable('email')"
-                            class="sortitem lowercase pl-[2rem] pr-[3rem] py-1 cursor-pointer">Email</div>
-                        <div @click="sortTable('created_at')"
-                            class="sortitem lowercase pl-[2rem] pr-[3rem] py-1 cursor-pointer">Created Date</div>
-                        <div @click="sortTable('gender')"
-                            class="sortitem lowercase pl-[2rem] pr-[3rem] py-1 cursor-pointer">Gender</div>
-                    </dialog> --}}
                 </div>
             </div>
 
             <table class="w-full">
                 <thead>
+                    {{-- To Avoid Repitition of the svg each time --}}
+                    @php
+                        $headers = [
+                            ['key' => 'name', 'label' => 'Name'],
+                            ['key' => 'email', 'label' => 'Email'],
+                            ['key' => 'gender', 'label' => 'Gender'],
+                            ['key' => 'role', 'label' => 'Role'],
+                            ['key' => 'created_at', 'label' => 'Sign Up Date'],
+                        ];
+                    @endphp
                     <tr>
-                        <th @click="sortTable('name')" class="cursor-pointer capitalize text-[#002d55] text-lg">Name
-                        </th>
-                        <th @click="sortTable('email')" class="cursor-pointer capitalize text-[#002d55] text-lg">Email
-                        </th>
-                        <th @click="sortTable('gender')" class="cursor-pointer capitalize text-[#002d55] text-lg">Gender
-                        </th>
-                        <th @click="sortTable('role')" class="cursor-pointer capitalize text-[#002d55] text-lg">Role
-                        </th>
-                        <th @click="sortTable('created_at')" class="cursor-pointer capitalize text-[#002d55] text-lg">
-                            Created Date</th>
+                        @foreach ($headers as $header)
+                            <th @click="sortTable('{{ $header['key'] }}')"
+                                class="cursor-pointer capitalize text-[#002d55] text-lg">
+                                <div class="flex items-center gap-1">
+                                    {{ $header['label'] }}
+                                    <svg width="21px" height="21px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 18L16 6M16 6L20 10.125M16 6L12 10.125" stroke="#1C274C"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8 6L8 18M8 18L12 13.875M8 18L4 13.875" stroke="#1C274C"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </th>
+                        @endforeach
                     </tr>
                 </thead>
 
@@ -134,14 +125,16 @@
                             <td x-text="visitor.full_name"></td>
                             <td x-text="visitor.email"></td>
                             <td x-text="visitor.gender"></td>
-                            <td x-text="visitor.role"></td>
+                            <td x-text="visitor.role"
+                            :class="visitor.role == 'admin' ? 'bg-[#d1fae5] text-[#15803d]' : 'bg-[#e0f2fe] text-[#2563eb]'"></td>
+
                             <td x-text="formatDate(visitor.created_at)"></td>
                         </tr>
                     </template>
                 </tbody>
             </table>
+
         </div>
     </div>
 </x-app-layout>
 
-@vite('resources/js/search.js')

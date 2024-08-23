@@ -39,13 +39,11 @@ Route::post('circuit/update/{id}', [CircuitController::class, 'update'])->name('
 Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])->name('circuit.destroy');
 
 
-// & building routes:
-Route::get('buildings', [BuildingController::class, 'index'])->name('building.index');
-Route::get('building/{building}', [BuildingController::class, 'details'])->name('building.detail');
-Route::get('buildings/create', [BuildingController::class, 'create'])->name('building.create');
-Route::post('building/store', [BuildingController::class, 'store'])->name('building.store');
-Route::delete('building/destroy/{id}', [BuildingController::class, 'destroy'])->name('building.destroy');
-Route::put('buildings/update/{building}', [BuildingController::class, 'update'])->name('building.update');
+// & building routes: this is a simplified way to put all the routes in one place
+Route::resource('building', BuildingController::class)->except([
+    'edit'
+]);
+
 Route::post('building/image/{building}', [BuildingController::class, 'store_image'])->name('building.store_image');
 Route::put('building/image/{image}', [BuildingController::class, 'update_image'])->name('building.update_image');
 Route::delete('building/image/{image}', [BuildingController::class, 'destory_image'])->name('building.destory_image');
@@ -54,16 +52,13 @@ Route::delete('building/image/{image}', [BuildingController::class, 'destory_ima
 Route::get('/register_user', [AdminRegisterController::class, 'index'])->name('register_user.index')->middleware('auth');
 Route::post('/register_user', [AdminRegisterController::class, 'store'])->name('register_user.store')->middleware('auth');
 
+
 // * Events :
-Route::get('/event', [EventController::class, 'index'])->name('events.index');
-Route::get('/event/show/{event}', [EventController::class, 'show'])->name('events.show');
-Route::get('/event/update/{event}', [EventController::class, 'edit'])->name('events.edit');
-// * add
-Route::post('/event/post', [EventController::class, 'post'])->name('event.post');
-// * update
-Route::put('/event/update/{event}' , [EventController::class , 'update'])->name('events.update');
-// * delete
-Route::delete('event/delete/{event}' , [EventController::class , 'destroy'])->name('events.destroy');
+Route::resource('events', EventController::class)->except([
+    'create'
+]);
+Route::delete('events/{event}/delete_image/{image}', [EventController::class, 'destory_image'])->name('events.delete_image');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -72,11 +67,9 @@ Route::middleware('auth')->group(function () {
 });
 
 // users
-Route::name("users")->group(function () {
-    Route::get('/users', [VisitorController::class, 'index'])->name('.index');
-    Route::post('/users', [VisitorController::class, 'store'])->name('.store');
-    Route::get('/users/{visitor}', [VisitorController::class, 'show'])->name('.show');
-});
+Route::resource('users', VisitorController::class)->except([
+    'create', 'edit', 'update', 'destroy'
+]);
 
 
 // & staff routes :

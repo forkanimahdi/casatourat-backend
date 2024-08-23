@@ -24,9 +24,17 @@
                 {{-- inputs --}}
 
 
-                <div id="event_map" x-show="!open" class="w-full h-[88vh]"></div>
+                <div  x-show="!open">
+                    <div id="event_map" class="h-[50vh] w-full"></div>
+                    <div class="flex justify-end">
+                        <button x-on:click="open = true" type="button"
+                            class="text-white bg-alpha hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-alpha dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-4">
+                            Previous
+                        </button>
+                    </div>
+                </div>
 
-                <form x-show='open' action="{{ route('event.post') }}" method="POST" enctype="multipart/form-data">
+                <form x-show='open' action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="flex w-full justify-between">
                         <div class="firstinput flex flex-col py-2 w-full">
@@ -62,7 +70,7 @@
                     {{-- ImageInput start --}}
                     <div class="py-2">
                         <label class="block text-gray-700">Select Images:</label>
-                        <input multiple name="image[]" type="file" id="file-input" accept="image/*" multiple
+                        <input multiple name="image[]" type="file" id="file-input" accept="image/png, image/jpeg"  multiple
                             class="mt-2 p-2 border border-gray-300 rounded-lg w-full">
                     </div>
                     <div class="preview mt-4 flex flex-wrap"></div>

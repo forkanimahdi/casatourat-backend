@@ -29,18 +29,8 @@ const colors = {
 };
 
 // const { data } = await axios.get("/reviews");
-// console.log(data);
-// let sis = document.getElementById("messi")
-// let vis = document.getElementById("ronaldo")
 
-// function handlereview(params) {
-//     console.log(params);
-// }
-// handlereview();
-// vis.addEventListener('click', () => {
-//     sis.innerHTML=review.id
-// })
-console.log(buildings);
+// * reviews && buildings && visitors are sent from app.blade.php <script></script>
 
 function renderReviews(reviewsToRender) {
     notifDiv.innerHTML = "";
@@ -142,9 +132,9 @@ renderReviews(reviews);
 mySelect.addEventListener("input", function () {
     let filteredReviews;
     if (mySelect.value === "all") {
-        filteredReviews = data;
+        filteredReviews = reviews;
     } else {
-        filteredReviews = data.filter(
+        filteredReviews = reviews.filter(
             (review) => review.status == mySelect.value
         );
     }

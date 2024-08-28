@@ -11,6 +11,7 @@ use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api as api;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\GuidedVisitController;
 
 Route::get('/', function () {
 
@@ -85,5 +86,9 @@ Route::put('/update/allnotif', [CommentController::class, 'asread'])->name('upda
 
 Route::get("/visitors", [api\VisitorController::class, "index"])->middleware(['auth', 'verified']);
 Route::get('/reviews', [api\CommentController::class, "show"])->middleware(['auth', 'verified']);
+
+
+Route::get('/guided_visits', [GuidedVisitController::class, 'index'])->name('guided.index');
+Route::post('/guided_visits/clearance/{visit}', [GuidedVisitController::class, 'clearance'])->name('guided.clearance');
 
 require __DIR__ . '/auth.php';

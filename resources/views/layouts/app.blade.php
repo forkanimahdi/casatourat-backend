@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="light">
 
 <head>
     <meta charset="utf-8">
@@ -36,22 +36,29 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
                         </svg>
-                        <div
-                            class="w-4 h-4 bg-red-500 text-white flex justify-center items-center rounded-lg absolute -top-2 -right-2">
-                            {{-- <small class="mb-0 text-sm"> <small>{{ $notif->count() }}</small></small> --}}
-                        </div>
+
+                        @if ($pending)
+                            <div
+                                class="w-4 h-4 bg-red-500 text-white flex justify-center items-center rounded-lg absolute -top-2 -right-2">
+                                {{-- <small class="mb-0 text-sm"> <small>{{ $notif->count() }}</small></small> --}}
+                            </div>
+                        @endif
                         <div id="pop_triangle_map"
                             style='width:0; height:0; border-left: 10px solid transparent;  border-right: 10px solid transparent; border-bottom: 10px solid rgb(229 231 235);'
                             class='hidden absolute right-0 top-6 z-50'></div>
                         <div id="notif_visite"
                             class="hidden absolute top-8 -right-1 bg-gray-200 overflow-auto max-h-[60vh] w-[25vw] gap-2 flex-col p-2 z-50 ">
                             <div id="visite_guide">
-                                <div class="bg-white w-full relative p-2 rounded flex gap-1 mb-2 cursor-pointer">
-                                    <p>Lionel Messi a demandé une visite guidée</p>
-                                </div>
-                                <div class="bg-white w-full relative p-2 rounded flex gap-1 mb-2 cursor-pointer">
-                                    <p>Lionel Messi a demandé une visite guidée</p>
-                                </div>
+                                @foreach ($guided as $visit)
+                                    @if ($visit->pending)
+                                        <div
+                                            class="bg-white w-full relative p-2 rounded flex gap-1 mb-2 cursor-pointer">
+                                            <p>{{ $visit->visitor->full_name }} a demandé une visite guidée le
+                                                {{ \Carbon\Carbon::parse($visit->date)->locale('fr')->translatedFormat('l j F') }}
+                                            </p>
+                                        </div>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -71,9 +78,12 @@
                         <div id="notif_body"
                             class="hidden notif_body bg-gray-200 overflow-auto max-h-[60vh] w-[25vw] absolute gap-2 flex-col p-2 top-8 -right-1 z-40">
                             <div class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-alpha">
-                                    <path fill-rule="evenodd" d="M3.792 2.938A49.069 49.069 0 0 1 12 2.25c2.797 0 5.54.236 8.209.688a1.857 1.857 0 0 1 1.541 1.836v1.044a3 3 0 0 1-.879 2.121l-6.182 6.182a1.5 1.5 0 0 0-.439 1.061v2.927a3 3 0 0 1-1.658 2.684l-1.757.878A.75.75 0 0 1 9.75 21v-5.818a1.5 1.5 0 0 0-.44-1.06L3.13 7.938a3 3 0 0 1-.879-2.121V4.774c0-.897.64-1.683 1.542-1.836Z" clip-rule="evenodd" />
-                                  </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="size-6 text-alpha">
+                                    <path fill-rule="evenodd"
+                                        d="M3.792 2.938A49.069 49.069 0 0 1 12 2.25c2.797 0 5.54.236 8.209.688a1.857 1.857 0 0 1 1.541 1.836v1.044a3 3 0 0 1-.879 2.121l-6.182 6.182a1.5 1.5 0 0 0-.439 1.061v2.927a3 3 0 0 1-1.658 2.684l-1.757.878A.75.75 0 0 1 9.75 21v-5.818a1.5 1.5 0 0 0-.44-1.06L3.13 7.938a3 3 0 0 1-.879-2.121V4.774c0-.897.64-1.683 1.542-1.836Z"
+                                        clip-rule="evenodd" />
+                                </svg>
                                 <select class="bg-gray-50 rounded border-none focus:ring-0" name="filter"
                                     id="mySelect">
                                     <option class="filterOption" selected value="all">All</option>
@@ -134,7 +144,8 @@
             {{ $slot }}
         </main> --}}
     </div>
-    <div     class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="exampleModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -157,4 +168,5 @@
     const buildings = @json($buildings);
     const visitors = @json($visitors)
 </script>
+
 </html>

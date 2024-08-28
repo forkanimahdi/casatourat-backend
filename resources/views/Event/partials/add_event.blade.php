@@ -40,7 +40,7 @@
                         <div class="firstinput flex flex-col py-2 w-full">
                             <label for="name" class=" py-1">Name</label>
                             <input type="text" name="title" placeholder="insert event name"
-                                class="rounded-lg border border-alpha w-full">
+                                class="input input-bordered w-full">
                         </div>
                     </div>
 
@@ -48,13 +48,13 @@
                         <div class="firstinput flex flex-col py-2">
                             <label for="startDate" class=" py-1">Start Date</label>
                             <input type="datetime-local" name="start" placeholder="00/00/0000"
-                                class="rounded-lg border border-alpha">
+                                class="input input-bordered">
                         </div>
 
                         <div class="firstinput flex flex-col py-2">
                             <label for="endDate" class=" py-1">End Date</label>
                             <input type="datetime-local" name="end" placeholder="00/00/0000"
-                                class="rounded-lg border border-alpha">
+                                class="input input-bordered">
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                         <label for="message" class="block mb-2 text-sm text-gray-900">Your
                             message</label>
                         <textarea name="description" id="message" rows="4"
-                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="textarea textarea-bordered"
                             placeholder="Your message..."></textarea>
 
                     </div>
@@ -71,7 +71,7 @@
                     <div class="py-2">
                         <label class="block text-gray-700">Select Images:</label>
                         <input multiple name="image[]" type="file" id="file-input" accept="image/png, image/jpeg"  multiple
-                            class="mt-2 p-2 border border-gray-300 rounded-lg w-full">
+                            class="mt-2 file-input file-input-bordered w-full">
                     </div>
                     <div class="preview mt-4 flex flex-wrap"></div>
                     {{-- Image Input final --}}

@@ -37,3 +37,6 @@ Route::delete('bookings/{event}', [api\BookingController::class, 'destroy'])->na
 
 Route::get('/achievement', [api\AchievementController::class, 'show']);
 Route::post('/achievement', [api\AchievementController::class, 'store']);
+
+// Visitor to Request a Guided Visit
+Route::post('/guided/', [api\GuidedVisitController::class, 'store']);

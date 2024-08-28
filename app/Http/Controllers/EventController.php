@@ -35,7 +35,7 @@ class EventController extends Controller
             'description' => 'required',
             'start' => 'required',
             'end' => 'required',
-            'image.*' => 'required|mimes:png,jpg'
+            'image.*' => 'required|mimes:png,jpg,jpeg'
         ]);
 
         $images = $request->file('image');

@@ -9,11 +9,11 @@
             @method('PUT')
             <div class="flex flex-col gap-1">
                 <label for="" class='font-medium '>Buinding name</label>
-                <input class="rounded-xl" type="text" required value="{{ $building->name }}" placeholder="name" name="name">
+                <input class="rounded-xl input input-bordered" type="text" required value="{{ $building->name }}" placeholder="name" name="name">
             </div>
             <div class="flex flex-col gap-1">
                 <label for="" class='font-medium '>Building description</label>
-                <input class="rounded-xl " type="text" required value="{{ $building->description }}" placeholder="description" name="description">
+                <input class="rounded-xl input input-bordered " type="text" required value="{{ $building->description }}" placeholder="description" name="description">
             </div>
             <div class="flex  gap-1">
                 <label for="Build-audio" class='  font-bolder w-1/2 text-base px-3 py-2 cursor-pointer text-gray-100 bg-alpha hover:text-alpha hover:bg-gray-100 border-2 border-alpha duration-500 rounded-xl flex items-center gap-2'>

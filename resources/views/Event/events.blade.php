@@ -34,28 +34,25 @@
                 <div class="flex flex-wrap py-4">
                     @foreach ($events as $event)
                         <div
-                            class=" bg-gray-100 shadow-lg rounded-lg overflow-hidden my-4 mr-2 ml-[14px] w-[19vw] hover:scale-105 hover:border hover:bg-white transition-all duration-200">
+                            class="group bg-gray-100 relative shadow-lg rounded-lg overflow-hidden my-4 mr-2 ml-[14px] w-[25vw]">
                             <img class="w-full h-56 object-cover object-center"
                                 src='{{ asset('storage/images/' . $event->images[0]->path) }}' alt="event image">
-                            <div class="flex items-center justify-center px-6 py-[12px] bg-alpha">
-                                <h1 class=" text-white font-semibold text-lg">{{ $event->title }}</h1>
-                            </div>
-                            <div class="py-4 px-6">
+                            <p
+                                class="absolute top-[10px] left-[10px] text-white font-semibold text-lg bg-alpha px-2 py-1 rounded-lg">
+                                {{ $event->title }}
+                            </p>
 
-                                <div class="flex rounded-xl mt-2 text-gray-900">
-                                    <div class="timediv flex flex-col py-1">
-                                        <p class="text-center font-semibold">Start</p>
-                                        <h1 class="px-2 text-sm font-normal text-center">{{ $event->start }}
-                                        </h1>
-                                    </div>
-                                    <div class="flex flex-col items-center text-gray-900 py-1">
-                                        <p class="text-center font-semibold">End</p>
-                                        <h1 class=" text-sm  font-normal text-center">{{ $event->end }}</h1>
-                                    </div>
-                                </div>
-                                <div class="w-full flex justify-between pt-2">
+                            <p
+                                class="absolute top-[10px] right-[10px] text-white font-semibold text-lg bg-alpha px-2 py-1 rounded-lg">
+                                {{ substr($event->start, 0, 10) }}
+                            </p>
 
-                                    <form method="POST" class="mr-1">
+                            <div
+                                class="glass w-full absolute bottom-0 left-0 z-10 group-hover:h-[30%] h-[0%] duration-150 flex items-center">
+
+                                <div class="w-full group-hover:flex items-center justify-between px-2 hidden ">
+
+                                    <form method="POST">
                                         @csrf
                                         <a href="{{ route('events.show', $event) }}"
                                             class="px-2 py-2 mr-1 bg-alpha rounded-full text-white flex">
@@ -94,10 +91,10 @@
                                         </form>
                                     </div>
 
-
                                 </div>
-
                             </div>
+
+
                         </div>
                     @endforeach
 

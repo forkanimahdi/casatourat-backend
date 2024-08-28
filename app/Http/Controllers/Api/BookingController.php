@@ -79,7 +79,7 @@ class BookingController extends Controller
 
                 if (!$bookedEvents->first()) {
                     return response()->json([
-                        'message' => "Visitor hasn't Favorited",
+                        'message' => "Visitor hasn't Booked",
                     ], 404);
                 }
 

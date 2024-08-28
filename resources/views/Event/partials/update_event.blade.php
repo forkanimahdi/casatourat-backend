@@ -12,25 +12,25 @@
             <div class="flex flex-col py-2 px-3">
                 <label for="" class="py-1 px-1">Title:</label>
                 <input type="text" id="title" name="title" placeholder="insert name"
-                    value="{{ $event->title }}" class="rounded-xl border border-alpha w-[30vw]">
+                    value="{{ $event->title }}" class="input input-bordered">
             </div>
 
             <div class="flex flex-col py-2 px-3">
                 <label for="" class="py-1 px-1">Start Date</label>
                 <input type="datetime-local" id="start" name="start" placeholder="insert name"
-                    value="{{ $event->start }}" class="rounded-xl border border-alpha w-[30vw]">
+                    value="{{ $event->start }}" class="input input-bordered">
             </div>
 
-            <div class="flex flex-col py-2 px-3">
+            <div class="flex flex-col py-2 px-3" >
                 <label for="" class="py-1 px-1">End Date</label>
                 <input type="datetime-local" id="end" name="end" placeholder="insert name"
-                    value="{{ $event->end }}" class="rounded-xl border border-alpha w-[30vw]">
+                    value="{{ $event->end }}" class="input input-bordered">
             </div>
 
             <div class="flex flex-col py-2 px-3">
                 <label for="" class="py-1 px-1">Description</label>
                 <textarea rows="4" type="text" id="description" name="description"
-                    class="rounded-xl border border-alpha w-[30vw] h-[20vh]">{{ $event->description }}
+                    class="textarea textarea-bordered w-[30vw] h-[20vh]">{{ $event->description }}
                     </textarea>
             </div>
 
@@ -38,10 +38,10 @@
             <div class="flex flex-col py-2 px-3">
                 <label class="block text-gray-700" for="addImage">Add an Image: </label>
                 <input multiple name="image[]" type="file" id="addImage" accept="image/*" multiple
-                    class="mt-2 p-2 border border-gray-300 rounded-lg w-full">
+                    class="mt-2 file-input file-input-bordered">
             </div>
-            <div class="flex justify-center py-2 w-full">
-                <button type="submit" class="bg-alpha w-full px-4 py-2 rounded-full text-white">Save</button>
+            <div class="flex justify-center py-2">
+                <button type="submit" class="bg-alpha btn-block py-2 rounded text-white">Save</button>
             </div>
         </form>
 
@@ -49,14 +49,14 @@
             {{-- With alpine, the user can preview the image before updating it --}}
             {{-- The code is experimental and not needed. Tell me to delete it if it creates any problems later --}}
             @foreach ($event->images as $index => $image)
-                <div class="p-2 flex justify-between relative h-[200px] w-[200px]" x-data="{
+                <div class="p-2 flex justify-between relative h-[200px] w-[250px]" x-data="{
                     imagePreview: '{{ asset('storage/images/' . $image->path) }}',
                     file: null,
                     hasImagePreview: {{ $image->path ? 'false' : 'true' }}
                 }">
 
                     <!-- Display the image preview -->
-                    <img :src="imagePreview" class="rounded-xl selected-img aspect-square" alt="">
+                    <img :src="imagePreview" class="rounded-xl w-full selected-img aspect-square" alt="">
 
                     <div class="flex gap-2 items-center absolute top-[15px] right-[10px]">
                         {{-- the id is for updating which form --}}
@@ -117,12 +117,6 @@
 
         </div>
 
-
-
-
-        {{-- <div>
-                <img src={{ asset('assets/images/edit_pic.png') }} alt="" class="w-[35vw]">
-            </div> --}}
     </section>
 
 </x-app-layout>

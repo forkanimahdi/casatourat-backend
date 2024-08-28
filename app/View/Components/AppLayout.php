@@ -4,6 +4,8 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 use Illuminate\View\View;
+use App\Models as models;
+
 
 class AppLayout extends Component
 {
@@ -12,6 +14,8 @@ class AppLayout extends Component
      */
     public function render(): View
     {
-        return view('layouts.app');
+        $guided = models\GuidedVisit::all();
+        $pending = models\GuidedVisit::where('pending', true)->first();
+        return view('layouts.app', compact('guided', 'pending'));
     }
 }

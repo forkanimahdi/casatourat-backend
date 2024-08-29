@@ -29,6 +29,7 @@ Route::put('/comment/{comment}', [api\CommentController::class, 'update']);
 Route::delete('/comment/{comment}', [api\CommentController::class, 'destroy']);
 
 Route::get("/events", [api\EventController::class, "show"]);
+Route::get("/visitorNotifications", [api\VisitorNotificationController::class, 'show']);
 
 // For the visitor to book or unbook an event
 Route::get('/bookings', [api\BookingController::class, 'show'])->name('bookings.show');

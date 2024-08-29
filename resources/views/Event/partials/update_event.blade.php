@@ -11,26 +11,26 @@
             @method('PUT')
             <div class="flex flex-col py-2 px-3">
                 <label for="" class="py-1 px-1">Title:</label>
-                <input type="text" id="title" name="title" placeholder="insert name"
-                    value="{{ $event->title }}" class="input input-bordered">
+                <input class="rounded" type="text" id="title" name="title" placeholder="insert name"
+                    value="{{ $event->title }}" class="r">
             </div>
 
             <div class="flex flex-col py-2 px-3">
                 <label for="" class="py-1 px-1">Start Date</label>
-                <input type="datetime-local" id="start" name="start" placeholder="insert name"
-                    value="{{ $event->start }}" class="input input-bordered">
+                <input class="rounded" type="datetime-local" id="start" name="start" placeholder="insert name"
+                    value="{{ $event->start }}" class="r">
             </div>
 
             <div class="flex flex-col py-2 px-3" >
                 <label for="" class="py-1 px-1">End Date</label>
-                <input type="datetime-local" id="end" name="end" placeholder="insert name"
-                    value="{{ $event->end }}" class="input input-bordered">
+                <input class="rounded" type="datetime-local" id="end" name="end" placeholder="insert name"
+                    value="{{ $event->end }}" class="r">
             </div>
 
             <div class="flex flex-col py-2 px-3">
                 <label for="" class="py-1 px-1">Description</label>
                 <textarea rows="4" type="text" id="description" name="description"
-                    class="textarea textarea-bordered w-[30vw] h-[20vh]">{{ $event->description }}
+                    class="rounded w-[30vw] h-[20vh]">{{ $event->description }}
                     </textarea>
             </div>
 
@@ -38,10 +38,10 @@
             <div class="flex flex-col py-2 px-3">
                 <label class="block text-gray-700" for="addImage">Add an Image: </label>
                 <input multiple name="image[]" type="file" id="addImage" accept="image/*" multiple
-                    class="mt-2 file-input file-input-bordered">
+                    class="mt-2 border-2 rounded w-full bg-white">
             </div>
-            <div class="flex justify-center py-2">
-                <button type="submit" class="bg-alpha btn-block py-2 rounded text-white">Save</button>
+            <div class="flex justify-center py-2 w-full">
+                <button type="submit" class="bg-alpha btn-block py-2 rounded text-white w-full">Save</button>
             </div>
         </form>
 

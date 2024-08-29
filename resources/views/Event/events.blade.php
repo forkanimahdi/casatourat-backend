@@ -28,7 +28,6 @@
 
 
                 </div>
-                {{-- Body --}}
 
                 {{-- Card --}}
                 <div class="flex flex-wrap py-4">
@@ -37,18 +36,20 @@
                             class="group bg-gray-100 relative shadow-lg rounded-lg overflow-hidden my-4 mr-2 ml-[14px] w-[25vw]">
                             <img class="w-full h-56 object-cover object-center"
                                 src='{{ asset('storage/images/' . $event->images[0]->path) }}' alt="event image">
-                            <p
-                                class="absolute top-[10px] left-[10px] text-white font-semibold text-lg bg-alpha px-2 py-1 rounded-lg">
-                                {{ $event->title }}
-                            </p>
+                            <div class="absolute bottom-0 flex justify-around bg-black/50 py-2 w-full">
+                                <p
+                                    class=" m-0 text-white font-semibold text-lg bg-alpha px-2 py-1 rounded-lg">
+                                    {{ $event->title }}
+                                </p>
 
-                            <p
-                                class="absolute top-[10px] right-[10px] text-white font-semibold text-lg bg-alpha px-2 py-1 rounded-lg">
-                                {{ substr($event->start, 0, 10) }}
-                            </p>
+                                <p
+                                    class="m-0 text-white font-semibold text-lg bg-alpha px-2 py-1 rounded-lg">
+                                    {{ substr($event->start, 0, 10) }}
+                                </p>
+                            </div>
 
                             <div
-                                class="glass w-full absolute bottom-0 left-0 z-10 group-hover:h-[30%] h-[0%] duration-150 flex items-center">
+                                class="w-full absolute top-0 left-0 z-10 group-hover:h-[30%] h-[0%] duration-150 flex items-center">
 
                                 <div class="w-full group-hover:flex items-center justify-between px-2 hidden ">
 

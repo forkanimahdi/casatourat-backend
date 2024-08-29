@@ -48,18 +48,18 @@
                             class='hidden absolute right-0 top-6 z-50'></div>
                         <div id="notif_visite"
                             class="hidden absolute top-8 -right-1 bg-gray-200 overflow-auto max-h-[60vh] w-[25vw] gap-2 flex-col p-2 z-50 ">
-                            <div id="visite_guide">
-                                @foreach ($guided as $visit)
-                                    @if ($visit->pending)
+                            @foreach ($guided as $visit)
+                                @if ($visit->pending)
+                                    <a id="visite_guide" href="{{route('guided.index')}}" class="text-black no-underline">
                                         <div
                                             class="bg-white w-full relative p-2 rounded flex gap-1 mb-2 cursor-pointer">
                                             <p>{{ $visit->visitor->full_name }} a demandé une visite guidée le
                                                 {{ \Carbon\Carbon::parse($visit->date)->locale('fr')->translatedFormat('l j F') }}
                                             </p>
                                         </div>
-                                    @endif
-                                @endforeach
-                            </div>
+                                    </a>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                     <div class="relative">

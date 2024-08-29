@@ -59,4 +59,9 @@ class Visitor extends Model
     {
         return $this->hasMany(GuidedVisit::class);
     }
+
+    public function visitor_notifications()
+    {
+        return $this->hasMany(VisitorNotification::class);
+    }
 }

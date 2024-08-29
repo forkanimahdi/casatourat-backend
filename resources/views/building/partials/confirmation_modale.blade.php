@@ -12,7 +12,7 @@
                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                     </svg>
                     <h2 class="text-xl font-bold py-4 ">Are you sure?</h3>
-                        <p class="text-sm text-gray-500 px-8">Do you really want to delete your account?
+                        <p class="text-sm text-gray-500 px-8">Do you really want to delete this building?
                             This process cannot be undone</p>
                 </div>
                 <div class="flex items-center justify-center gap-3 w-full">
@@ -20,7 +20,7 @@
                     <form action="{{ route('building.destroy', $building->id) }}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button class="cursor-pointer p-2 font-semiboldz text-gray-100 no-underline  bg-red-500  rounded-lg shadow-md hover:shadow-lg hover:text-red-500 hover:bg-gray-100 border-2 border-red-500 transition duration-500 ">delete building</button>
+                        <button class="cursor-pointer p-2 font-semiboldz text-gray-100 no-underline  bg-red-500  rounded-lg shadow-md hover:shadow-lg hover:text-red-500 hover:bg-gray-100 border-2 border-red-500 transition duration-500 ">Delete Building</button>
                     </form>
                 </div>
                 <button class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" onclick="modalHandler()" aria-label="close modal" role="button">
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="w-full flex justify-center " id="button">
-        <button class="cursor-pointer p-2 font-semiboldz text-gray-100 no-underline  bg-red-500  rounded-lg shadow-md hover:shadow-lg hover:text-red-500 hover:bg-gray-100 border-2 border-red-500 transition duration-500 " onclick="modalHandler(true)">delete building</button>
+        <button class="cursor-pointer p-2 font-semiboldz text-gray-100 no-underline  bg-red-500  rounded-lg shadow-md hover:shadow-lg hover:text-red-500 hover:bg-gray-100 border-2 border-red-500 transition duration-500 " onclick="modalHandler(true)">Delete Building</button>
     </div>
     <script>
         let modal = document.getElementById("modal");

@@ -41,9 +41,7 @@ Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])
 
 
 // & building routes: this is a simplified way to put all the routes in one place
-Route::resource('building', BuildingController::class)->except([
-    'edit'
-]);
+Route::resource('building', BuildingController::class);
 
 Route::post('building/image/{building}', [BuildingController::class, 'store_image'])->name('building.store_image');
 Route::put('building/image/{image}', [BuildingController::class, 'update_image'])->name('building.update_image');

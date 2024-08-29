@@ -4,39 +4,41 @@
 
 
 .notif_body::-webkit-scrollbar {
-        width: 5px;
+    width: 5px;
 }
+
 .notif_body::-webkit-scrollbar-track-piece {
-        background-color:#fff ;
+    background-color: #fff;
 }
+
 .notif_body::-webkit-scrollbar-thumb {
-        background-color: #646464;
+    background-color: #646464;
 }
 
 /* The entire scrollbar */
 ::-webkit-scrollbar {
-        width: 12px; 
-        height: 12px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 10px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
-    
-    ::-webkit-scrollbar-thumb:active {
-        background: #333;
-    }
-    
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #333;
+}
+
 
 .trow {
     padding: 0.75rem;
@@ -50,4 +52,8 @@
 
         }
     }
+}
+
+input[type="file"]::file-selector-button {
+    background-color: rgba(0, 45, 85, 87.5%);
 }

@@ -40,21 +40,21 @@
                         <div class="firstinput flex flex-col py-2 w-full">
                             <label for="name" class=" py-1">Name</label>
                             <input type="text" name="title" placeholder="insert event name"
-                                class="input input-bordered w-full">
+                                class="rounded  w-full">
                         </div>
                     </div>
 
-                    <div class=" flex w-full justify-between">
-                        <div class="firstinput flex flex-col py-2">
+                    <div class=" flex gap-2 w-full justify-between">
+                        <div class="firstinput w-full flex flex-col py-2">
                             <label for="startDate" class=" py-1">Start Date</label>
                             <input type="datetime-local" name="start" placeholder="00/00/0000"
-                                class="input input-bordered">
+                                class="rounded  ">
                         </div>
 
-                        <div class="firstinput flex flex-col py-2">
+                        <div class="firstinput w-full flex flex-col py-2">
                             <label for="endDate" class=" py-1">End Date</label>
                             <input type="datetime-local" name="end" placeholder="00/00/0000"
-                                class="input input-bordered">
+                                class="rounded ">
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                         <label for="message" class="block mb-2 text-sm text-gray-900">Your
                             message</label>
                         <textarea name="description" id="message" rows="4"
-                            class="textarea textarea-bordered"
+                            class="rounded "
                             placeholder="Your message..."></textarea>
 
                     </div>
@@ -71,7 +71,7 @@
                     <div class="py-2">
                         <label class="block text-gray-700">Select Images:</label>
                         <input multiple name="image[]" type="file" id="file-input" accept="image/png, image/jpeg"  multiple
-                            class="mt-2 file-input file-input-bordered w-full">
+                            class="mt-2 border-2 rounded w-full">
                     </div>
                     <div class="preview mt-4 flex flex-wrap"></div>
                     {{-- Image Input final --}}

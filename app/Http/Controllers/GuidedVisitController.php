@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models as models;
 use App\Models\GuidedVisit;
+use Carbon\Carbon;
 
 class GuidedVisitController extends Controller
 {
@@ -28,6 +29,16 @@ class GuidedVisitController extends Controller
         if ($action === 'approve' || $action === 'deny') {
             $visit->update($updateValues);
         }
+
+        $res = $action === "approve" ? "approved" : "denied";
+
+        // Create a notification for the visitor
+        models\VisitorNotification::create([
+            'visitor_id' => $visit->visitor->id,
+            'type' => 'guide',
+            'title' => $action,
+            'content' => 'Your request for The guided visit on ' .  Carbon::parse($visit->date)->format('l j F') . ' has been ' . $res,
+        ]);
 
         return back();
     }

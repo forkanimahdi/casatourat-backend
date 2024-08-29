@@ -60,6 +60,11 @@ class BuildingController extends Controller
         return redirect()->route('building.index');
     }
 
+    public function edit(Building $building)
+    {
+        return view('building.buildings_show', compact('building'));
+    }
+
     public function update(Request $request, Building $building)
     {
         request()->validate([
@@ -78,6 +83,17 @@ class BuildingController extends Controller
             $building->audio = $audioName;
             $building->save();
             $audio->storeAs('audios', $audioName, 'public');
+        }
+
+        $images = $request->file('image');
+        if ($images) {
+            foreach ($images as $image) {
+                $imageName = time() . $image->getClientOriginalName();
+                $building->images()->create([
+                    'path' => $imageName
+                ]);
+                $image->storeAs('images', $imageName, 'public');
+            }
         }
 
         return back();

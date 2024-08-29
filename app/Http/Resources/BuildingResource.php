@@ -25,12 +25,13 @@ class BuildingResource extends BaseResource
     {
         return [
             ...parent::toArray($request),
-            'images' => $this->resource->images->map(fn ($image) => $image->path),
+            'images' => $this->resource->images->map(fn($image) => $image->path),
             'coordinate' => [
                 'latitude' => $this->resource->latitude,
                 'longitude' => $this->resource->longitude
             ],
             'average_rate' => $this->resource->rates->avg('value') ?? 0,
+            'visited' => $this->resource->is_visited_by($request->header('Token')),
         ];
     }
 }

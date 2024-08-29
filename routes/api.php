@@ -40,3 +40,11 @@ Route::post('/achievement', [api\AchievementController::class, 'store']);
 
 // Visitor to Request a Guided Visit
 Route::post('/guided/', [api\GuidedVisitController::class, 'store']);
+
+// When a building get visited
+Route::controller(api\VisitedBuildingsController::class)->name("visited_buildings")->group(
+    function () {
+        Route::get("/visited_buildings", "show");
+        Route::post("/visited_buildings/{building}", "store");
+    }
+);

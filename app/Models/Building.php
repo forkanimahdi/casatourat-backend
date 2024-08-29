@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\DB;
 
@@ -38,11 +39,26 @@ class Building extends Model
 
     public function comments()
     {
-        return $this->belongsToMany(Visitor::class, 'comments')->withPivot('content', 'id','status');
+        return $this->belongsToMany(Visitor::class, 'comments')->withPivot('content', 'id', 'status');
     }
 
     public function building_achievements()
     {
         return $this->belongsToMany(Visitor::class, 'achievements');
+    }
+
+    public function visitors()
+    {
+        return $this->belongsToMany(Visitor::class, 'visited_buildings');
+    }
+
+    public function is_visited_by(string $token)
+    {
+        foreach ($this->visitors as $visitor) {
+            if ($visitor->token == $token) {
+                return true;
+            }
+        }
+        return false;
     }
 }

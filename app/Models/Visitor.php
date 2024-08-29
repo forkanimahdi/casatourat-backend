@@ -50,6 +50,11 @@ class Visitor extends Model
         return $this->belongsToMany(Event::class, 'bookings')->withTimestamps();
     }
 
+    public function visited_buildings()
+    {
+        return $this->belongsToMany(Building::class, 'visited_buildings');
+    }
+
     public function guided_visits()
     {
         return $this->hasMany(GuidedVisit::class);

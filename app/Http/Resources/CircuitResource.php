@@ -39,7 +39,7 @@ class CircuitResource extends BaseResource
             ...parent::toArray($request),
             'path' => PathResource::collection($this->resource->paths),
             'new' => $this->isNew($this->resource->updated_at) ?? false,
-            'buildings' => BuildingResource::collection(($this->resource->buildings)),
+            'buildings' => BuildingResource::collection($this->resource->buildings),
         ];
     }
 }

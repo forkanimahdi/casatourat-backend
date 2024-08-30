@@ -46,6 +46,10 @@ class Building extends Model
     {
         return $this->belongsToMany(Visitor::class, 'achievements');
     }
+    public function customizeCircuit()
+    {
+        return $this->belongsToMany(CustomizeCircuit::class, 'building_customize_circuits');
+    }
 
     public function visitors()
     {

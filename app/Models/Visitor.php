@@ -43,8 +43,6 @@ class Visitor extends Model
     {
         return $this->belongsToMany(Building::class, 'achievements');
     }
-
-
     public function events()
     {
         return $this->belongsToMany(Event::class, 'bookings')->withTimestamps();
@@ -63,5 +61,8 @@ class Visitor extends Model
     public function visitor_notifications()
     {
         return $this->hasMany(VisitorNotification::class);
+    }
+    public function cutomizeCircuits() {
+        return $this->hasMany(CustomizeCircuit::class);
     }
 }

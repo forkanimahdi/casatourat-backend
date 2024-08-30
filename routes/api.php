@@ -49,3 +49,6 @@ Route::controller(api\VisitedBuildingsController::class)->name("visited_building
         Route::post("/visited_buildings/{building}", "store");
     }
 );
+Route::post('/customize', [api\CustomizeCircuitController::class, 'store']);
+Route::get('/customize', [api\CustomizeCircuitController::class, 'show']);
+Route::delete('/customize/delete/{customCircuit}', [api\CustomizeCircuitController::class, 'destroy']);

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
+use App\Http\Controllers\CustomizeCircuitController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EventController;
@@ -23,6 +24,8 @@ Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['au
 
 // Route::get('/dashboard', [Controller::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/circuit', [CircuitController::class, 'index'])->name('circuit.index');
+Route::get('/circuit/customize', [CustomizeCircuitController::class, 'index'])->name('customize');
+Route::post('/circuit/customize/store', [CustomizeCircuitController::class, 'store'])->name('customize.store');
 // & circuit routes:
 Route::get('circuit/create', [CircuitController::class, 'create'])->name('circuit.create');
 Route::post('circuit/store', [CircuitController::class, 'post'])->name('circuit.post');

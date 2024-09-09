@@ -39,14 +39,12 @@ class VisitorController extends Controller
             'gender' => 'required',
         ]);
 
-        $random_password = Str::random(10) . time();
+        $random_password = Str::random(10);
 
         $response = facades\Http::withHeaders([
             'Authorization' => 'Bearer ' . config("clerk.secret_key"),
             'Content-Type' => 'application/json'
-        ])->post('https://api.clerk.com/v1/user', [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+        ])->post('https://api.clerk.com/v1/users', [
             'email_address' => [
                 $request->email
             ],
@@ -58,13 +56,11 @@ class VisitorController extends Controller
         }
 
         models\Visitor::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'full_name' => sprintf("%s %s", ucfirst(strtolower($request->first_name)), ucfirst(strtolower($request->last_name))),
             'email' => $request->email,
             'gender' => $request->gender,
             'role' => 'admin',
             'token' => $response->json()["id"],
-            'age' => 'adult',
         ]);
 
         models\User::create([
@@ -107,6 +103,7 @@ class VisitorController extends Controller
      */
     public function destroy(models\Visitor $visitor)
     {
-        //
+        $visitor->delete();
+        return back();
     }
 }

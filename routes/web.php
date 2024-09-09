@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
 use App\Http\Controllers\CustomizeCircuitController;
@@ -49,11 +48,6 @@ Route::resource('building', BuildingController::class);
 Route::post('building/image/{building}', [BuildingController::class, 'store_image'])->name('building.store_image');
 Route::put('building/image/{image}', [BuildingController::class, 'update_image'])->name('building.update_image');
 Route::delete('building/image/{image}', [BuildingController::class, 'destory_image'])->name('building.destory_image');
-
-// & add account routes:
-Route::get('/register_user', [AdminRegisterController::class, 'index'])->name('register_user.index')->middleware('auth');
-Route::post('/register_user', [AdminRegisterController::class, 'store'])->name('register_user.store')->middleware('auth');
-
 
 // * Events :
 Route::resource('events', EventController::class)->except([

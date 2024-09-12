@@ -36,15 +36,15 @@
                             class="group bg-gray-100 relative shadow-lg rounded-lg overflow-hidden my-4 mr-2 ml-[14px] w-[25vw]">
                             <img class="w-full h-56 object-cover object-center"
                                 src='{{ asset('storage/images/' . $event->images[0]->path) }}' alt="event image">
-                            <div class="absolute bottom-0 flex justify-around bg-black/50 py-2 w-full">
+                            <div class="absolute bottom-0 flex justify-around bg-black/50 py-2 w-full items-center gap-4">
                                 <p
-                                    class=" m-0 text-white font-semibold text-lg bg-alpha px-2 py-1 rounded-lg">
+                                    class=" m-0 text-white font-semibold text-lg bg-alpha px-2 py-1 rounded-lg h-fit w-[75%] text-center truncate group-hover:whitespace-normal group-hover:overflow-visible">
                                     {{ $event->title }}
                                 </p>
 
                                 <p
-                                    class="m-0 text-white font-semibold text-lg bg-alpha px-2 py-1 rounded-lg">
-                                    {{ substr($event->start, 0, 10) }}
+                                    class="m-0 text-white font-semibold text-lg bg-alpha px-2 py-1 rounded-lg w-fit">
+                                    {{ substr($event->start, 6, 4) }}
                                 </p>
                             </div>
 

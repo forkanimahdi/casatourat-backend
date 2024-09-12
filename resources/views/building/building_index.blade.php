@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center w-full">
             <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
-                Create a build
+                Create a building
             </h2>
         </div>
     </x-slot>

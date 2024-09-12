@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center w-full">
             <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
-                Create a build
+                Create a building
             </h2>
         </div>
     </x-slot>
@@ -12,7 +12,7 @@
 
     @include('building.partials.add_building_modal')
     {{-- @include('building.partials.delete_building_modal') --}}
-    
+
 
 
     <script>
@@ -94,12 +94,13 @@
 
                 const modal = document.getElementById('staticBackdrop');
 
+                document.getElementById('longitude').value = event.latLng.lng()
+                document.getElementById('latitude').value = event.latLng.lat()
+
                 modal.addEventListener('hidden.bs.modal', function(event) {
                     marker.setMap(null)
                     markers = markers.filter(m => m !== marker);
                 });
-                document.getElementById('longitude').value = event.latLng.lng()
-                document.getElementById('latitude').value = event.latLng.lat()
 
                 markers.push(marker);
             });

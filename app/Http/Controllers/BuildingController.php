@@ -26,12 +26,13 @@ class BuildingController extends Controller
 
     public function store(Request $request)
     {
+
         request()->validate([
             'circuit_id' => 'nullable',
             'name' => 'required',
             'description' => 'required',
             'audio' => 'required',
-            'image.*' => 'required|mimes:png,jpg',
+            'image.*' => 'required|mimes:png,jpg,jfif',
             'latitude' => 'required',
             'longitude' => 'required',
         ]);

@@ -6,6 +6,11 @@
             </h2>
         </div>
     </x-slot>
+    <div class="w-full flex justify-end px-5">
+        <a href='{{ route('circuit.create') }}'
+            class="text-gray-100 no-underline text-md font-semibold bg-alpha py-2 px-4 rounded-lg shadow-md hover:shadow-lg hover:text-alpha hover:bg-gray-100 hover:border-2 hover:border-alpha transition duration-200 transform-gpu hover:scale-110 ">Create
+            New Circuit</a>
+    </div>
     <div class="flex flex-wrap gap-x-5 gap-y-3 mx-auto py-5 justify-center min-h-[100vh] bg-gray-200">
         @foreach ($circuits as $circuit)
             <div
@@ -34,9 +39,9 @@
                 </div>
             </div>
         @endforeach
-        
-        
-        
+
+
+
     </div>
 </x-app-layout>
 

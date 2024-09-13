@@ -125,8 +125,9 @@
                             <td x-text="visitor.full_name"></td>
                             <td x-text="visitor.email"></td>
                             <td x-text="visitor.gender"></td>
-                            <td x-text="visitor.role"
-                            :class="visitor.role == 'admin' ? 'bg-[#d1fae5] text-[#15803d]' : 'bg-[#e0f2fe] text-[#2563eb]'"></td>
+                            <td x-text="visitor.role"></td>
+                            {{-- <td x-text="visitor.role"
+                            :class="visitor.role == 'admin' ? 'bg-[#d1fae5] text-[#15803d]' : 'bg-[#e0f2fe] text-[#2563eb]'"></td> --}}
 
                             <td x-text="formatDate(visitor.created_at)"></td>
                         </tr>

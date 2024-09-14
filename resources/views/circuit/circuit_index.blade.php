@@ -6,7 +6,7 @@
             </h2>
         </div>
     </x-slot>
-    <div class="w-full flex justify-end px-5">
+    <div class="w-full flex justify-end px-5 ">
         <a href='{{ route('circuit.create') }}'
             class="text-gray-100 no-underline text-md font-semibold bg-alpha py-2 px-4 rounded-lg shadow-md hover:shadow-lg hover:text-alpha hover:bg-gray-100 hover:border-2 hover:border-alpha transition duration-200 transform-gpu hover:scale-110 ">Create
             New Circuit</a>

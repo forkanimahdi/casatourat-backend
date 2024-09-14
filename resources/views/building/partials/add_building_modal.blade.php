@@ -41,10 +41,10 @@
                         </label>
                         <input id="image" class="rounded w-3/4 d-none" type="file" placeholder="image" multiple name="image[]" accept="image/*">
                     </div>
-                    <div class="d-none">
+                    <div class="">
                         <input type="text" id="latitude" placeholder="latitude" name="latitude">
                     </div>
-                    <div class="d-none ">
+                    <div class=" ">
                         <input type="text" id="longitude" placeholder="longitude" name="longitude">
                     </div>
                     <button class="p-2 bg-alpha text-gray-100 rounded w-3/4 font-bold hover:shadow hover:border-2 hover:border-alpha hover:text-alpha hover:bg-gray-100 duration-200">Submit</button>

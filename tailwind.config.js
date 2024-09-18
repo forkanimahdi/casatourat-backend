@@ -12,7 +12,7 @@ export default {
     theme: {
         extend: {
             colors: {
-                alpha: "#002d55",
+                alpha: "#1221af",
             },
         },
     },

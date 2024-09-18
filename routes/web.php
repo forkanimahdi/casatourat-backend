@@ -14,10 +14,8 @@ use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\GuidedVisitController;
 
 Route::get('/', function () {
-
     return view('welcome');
 });
-
 
 Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['auth' , 'verified'])->name('dashboard');
 

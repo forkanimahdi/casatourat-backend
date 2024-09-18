@@ -7,7 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
-    <title>{{ config('app.name', 'Casa Guide') }}</title>
+    <link rel="icon" href="{{ asset('assets/favicon.svg') }}">
+    <title>{{ config('app.name', 'Casatourat') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

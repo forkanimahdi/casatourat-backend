@@ -24,7 +24,7 @@
                 {{-- inputs --}}
 
 
-                <div  x-show="!open">
+                <div x-show="!open">
                     <div id="event_map" class="h-[50vh] w-full"></div>
                     <div class="flex justify-end">
                         <button x-on:click="open = true" type="button"
@@ -47,30 +47,26 @@
                     <div class=" flex gap-2 w-full justify-between">
                         <div class="firstinput w-full flex flex-col py-2">
                             <label for="startDate" class=" py-1">Start Date</label>
-                            <input type="datetime-local" name="start" placeholder="00/00/0000"
-                                class="rounded  ">
+                            <input type="datetime-local" name="start" placeholder="00/00/0000" class="rounded  ">
                         </div>
 
                         <div class="firstinput w-full flex flex-col py-2">
                             <label for="endDate" class=" py-1">End Date</label>
-                            <input type="datetime-local" name="end" placeholder="00/00/0000"
-                                class="rounded ">
+                            <input type="datetime-local" name="end" placeholder="00/00/0000" class="rounded ">
                         </div>
                     </div>
 
                     <div class=" flex flex-col w-full py-2">
                         <label for="message" class="block mb-2 text-sm text-gray-900">Your
                             message</label>
-                        <textarea name="description" id="message" rows="4"
-                            class="rounded "
-                            placeholder="Your message..."></textarea>
+                        <textarea name="description" id="message" rows="4" class="rounded " placeholder="Your message..."></textarea>
 
                     </div>
 
                     {{-- ImageInput start --}}
                     <div class="py-2">
                         <label class="block text-gray-700">Select Images:</label>
-                        <input multiple name="image[]" type="file" id="file-input" accept="image/png, image/jpeg"  multiple
+                        <input multiple name="image[]" type="file" id="file-input" accept="image/png, image/jpeg"
                             class="mt-2 border-2 rounded w-full">
                     </div>
                     <div class="preview mt-4 flex flex-wrap"></div>

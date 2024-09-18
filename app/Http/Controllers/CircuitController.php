@@ -41,7 +41,10 @@ class CircuitController extends Controller
             'alternative' => 'required',
             'description' => 'required',
             'audio' => 'required',
+            'image.*' => 'required|mimes:png,jpg,jpeg'
         ]);
+
+
 
         $audio = $request->file('audio');
         $audioName = time() . $audio->getClientOriginalName();
@@ -54,6 +57,17 @@ class CircuitController extends Controller
             'audio' => $audioName
         ]);
 
+        $images = $request->file('image');
+        if ($images) {
+            foreach ($images as  $image) {
+                $imageName = time() .  $image->getClientOriginalName();
+                $circuit->images()->create([
+                    'path' => $imageName
+                ]);
+                $image->storeAs('/images', $imageName, 'public');
+            }
+        }
+
         $paths = json_decode($request->get('cordinates'), true);
         foreach ($paths as $path) {
             Path::create([
@@ -62,6 +76,7 @@ class CircuitController extends Controller
                 'longitude' => $path['longitude'],
             ]);
         }
+
 
         return response()->json(['route_to_building' => '/circuit/assign_building/map/' . $circuit->id]);
     }

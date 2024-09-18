@@ -8,7 +8,7 @@
     </x-slot>
 
     <div id="map" class="h-[85vh] relative"></div>
-    <form id="myForm" enctype="multipart/form-data "
+    <form id="myForm" enctype="multipart/form-data"
         class=" bg-white w-fit absolute top-[25%] left-[18%] px-3 py-4 rounded-xl flex flex-col gap-3 shadow-md">
         @csrf
         <div class="flex flex-col gap-1">
@@ -26,11 +26,17 @@
             <input class="rounded-xl border-gray-300 bg-gray-50" required type="text" placeholder="Description"
                 id="description" name="description">
         </div>
+
         <div class="flex flex-col gap-1">
-            <label class="text-gray-400 ps-1" for="">Audio:</label>
+            <label for="image" class="block text-gray-700">Add Images:</label>
+            <input type="file" name="image[]" id="image" accept="image/png, image/jpeg" class="mt-2 border-2 rounded w-full" required multiple>
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label class="block text-gray-700" for="audio">Audio:</label>
             <input
-                class="rounded-xl border text-gray-400 px-2 py-2 border-gray-300 bg-gray-50 file:border-0 file:bg-transparent file:text-alpha file:text-sm file:font-medium "
-                required type="file" placeholder="Audio" id="audio" name="audio">
+                class="mt-2 border-2 rounded w-full"
+                required type="file" placeholder="Audio" id="audio" name="audio" accept="audio/*" >
         </div>
         <div class="flex justify-center mt-4">
             <button class="bg-alpha text-white px-4 py-1 rounded-xl font-thin w-fit shadow-lg">submit</button>

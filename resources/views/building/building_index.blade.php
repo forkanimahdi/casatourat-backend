@@ -11,9 +11,9 @@
             </a>
         </div>
     </x-slot>
-    <div class="flex flex-col items-center justify-center gap-3 py-4 ">
 
-        <div class="w-[95%] flex flex-wrap gap-3">
+    <div class="py-4 px-6">
+        <div class="flex flex-wrap gap-[0.75rem]">
             @foreach ($buildings as $building)
                 <x-card title="{{ $building->name }}" image="{{ $building->images?->first()?->path }}"
                     route="{{ route('building.edit', $building) }}" />

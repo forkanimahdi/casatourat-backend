@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="{{ asset('assets/favicon.svg') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
     <title>{{ config('app.name', 'Casatourat') }}</title>
 
     <!-- Fonts -->
@@ -18,6 +18,7 @@
 
 <body class="font-sans antialiased">
     <div class=" text-black/50">
+        
         <div
             class="relative min-h-screen flex flex-col items-center justify-center selection:bg-alpha selection:text-white">
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
@@ -48,6 +49,10 @@
                 <footer class="py-16 text-center text-sm text-alpha">
                     By Casamémoire (2024)
                 </footer>
+                <x-card bold="true" >
+                    la7ya
+                </x-card>
+
             </div>
         </div>
     </div>

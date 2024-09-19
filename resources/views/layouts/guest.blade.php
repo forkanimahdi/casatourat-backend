@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link rel="icon" href="{{ asset('assets/favicon.svg') }}">
+        <link rel="icon" href="{{ asset('favicon.ico') }}">
         <title>{{ config('app.name', 'Casatourat') }}</title>
     
         <!-- Fonts -->

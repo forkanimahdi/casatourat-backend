@@ -2,9 +2,11 @@
     {{-- navbar --}}
     <x-slot name="header">
         <div class="flex justify-between items-center w-full">
-
+            <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
+                Dashboard
+            </h2>
         </div>
-        </slot>
+    </x-slot>
 
         <div class="py-7">
             <div class="mx-auto lg:px-8">

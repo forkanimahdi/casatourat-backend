@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
-    <link rel="icon" href="{{ asset('assets/favicon.svg') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
     <title>{{ config('app.name', 'Casatourat') }}</title>
 
     <!-- Fonts -->

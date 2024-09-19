@@ -1,32 +1,38 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center w-full">
-            <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
-                Create a building
+            <h2 class="text-alpha leading-tight  font-semibold text-2xl">
+                All buildings
             </h2>
         </div>
     </x-slot>
     <div class="flex flex-col items-center justify-center gap-3 py-4 ">
         <div class="w-full flex justify-end px-5">
-            <a href='{{ route('building.create') }}' class="text-gray-100 no-underline text-md font-semibold bg-alpha py-2 px-4 rounded-lg shadow-md hover:shadow-lg hover:text-alpha hover:bg-gray-100 hover:border-2 hover:border-alpha transition duration-200 transform-gpu hover:scale-110 ">Create New Building</a>
+            <a href='{{ route('building.create') }}'
+                class="text-gray-50 no-underline text-md font-semibold border-2 border-alpha bg-alpha py-2 px-4 rounded-lg shadow-md hover:text-alpha hover:bg-gray-100">Create
+                New Building</a>
         </div>
         <div class="w-[95%] flex flex-wrap gap-3">
             @foreach ($buildings as $building)
-            <div class="w-1/3 p-4 h-[40vh] bg-white max-w-sm rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:scale-105 transition duration-300">
-                <div class="rounded-xl w-full h-[80%]">
-                    <img class="rounded-xl w-full h-full" src="{{ asset('storage/images/' . $building->images?->first()?->path) }}" alt="No Image For This Building" />
-                </div>
+                <div
+                    class="w-1/3 aspect-square p-3 bg-white max-w-sm rounded-lg overflow-hidden border ">
+                    <img class="rounded-sm w-full h-[80%] object-cover"
+                        src="{{ asset('storage/images/' . $building->images?->first()?->path) }}"
+                        alt="No Image For This Building" />
 
-                <div class="flex justify-between items-center pt-3">
-                    <div>
-                        <h1 class=" text-2xl font-semibold">{{ $building->name }}</h1>
+                    <div class="flex justify-between pt-3 ">
+                        <h1 class="text-xl w-[70%]">
+                            {{ Str::limit($building->name, 55, '...') }}
+                        </h1>
+                        <a class="w-30%" href="{{ route('building.edit', $building) }}">
+                            <button
+                                class="text-gray-50 no-underline text-sm font-semibold bg-alpha p-2 rounded-sm hover:text-alpha hover:bg-gray-100 border-2 border-alpha">View
+                                details
+                            </button>
+                        </a>
                     </div>
-                    <button>
-                        <a href="{{ route('building.edit', $building) }}" class="text-gray-100 no-underline text-xs font-semibold bg-alpha py-2 px-4 rounded-lg shadow-md hover:shadow-lg hover:text-alpha hover:bg-gray-100 hover:border-2 hover:border-alpha transition duration-200 transform-gpu hover:scale-110 ">View details</a>
-                    </button>
+                    <!-- <p class="">{{ $building->description }}</p> -->
                 </div>
-                <!-- <p class="">{{ $building->description }}</p> -->
-            </div>
             @endforeach
         </div>
     </div>

@@ -10,8 +10,8 @@
         </h1>
         <a class="w-30%" href="{{ $route }}">
             <button
-                class="text-gray-50 no-underline text-sm font-semibold bg-alpha p-2 rounded hover:text-alpha hover:bg-gray-100 border-2 border-alpha">View
-                details
+                class="text-gray-50 no-underline text-sm font-semibold bg-alpha p-2 rounded hover:text-alpha hover:bg-gray-100 border-2 border-alpha">
+                View details
             </button>
         </a>
     </div>

@@ -71,7 +71,7 @@
         });
     },
 }'
-        class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 text-alpha ">
+        class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow- shadow-sm sm:rounded-lg px-6 py-3">
             <div class="flex mb-3 items-center justify-between">
                 <div class="w-1/3 flex items-center bg-gray-100 rounded-lg pl-2">
@@ -84,7 +84,7 @@
                     {{-- change the variable to whatever is in the input --}}
                     <input x-model="searchQuery" placeholder="Name, Email or Role" type="search" name="search"
                         id="search"
-                        class="border-none bg-transparent w-full placeholder:text-alpha outline-none focus:border-none focus:ring-0 focus:outline-none text-sm">
+                        class="border-none bg-transparent w-full outline-none focus:border-none focus:ring-0 focus:outline-none text-sm">
                 </div>
             </div>
 
@@ -124,10 +124,19 @@
                         <tr x-show="matchesSearch(visitor)" class="h-[7vh]">
                             <td x-text="visitor.full_name"></td>
                             <td x-text="visitor.email"></td>
-                            <td x-text="visitor.gender"></td>
-                            <td x-text="visitor.role"></td>
-                            {{-- <td x-text="visitor.role"
-                            :class="visitor.role == 'admin' ? 'bg-[#d1fae5] text-[#15803d]' : 'bg-[#e0f2fe] text-[#2563eb]'"></td> --}}
+                            <td>
+                                <span x-text="visitor.gender"
+                                    :class="visitor.gender == 'male' ? 'bg-sky-100' : 'bg-pink-100'"
+                                    class="text-sm rounded-full px-2 py-1 capitalize">
+                                </span>
+                            </td>
+                            <td>
+                                <span x-text="visitor.role"
+                                    :class="visitor.role == 'admin' ? 'bg-yellow-100 text-yellow-900' : 'bg-green-100 text-green-900'"
+                                    class="text-sm rounded-full px-2 py-1 capitalize">
+
+                                </span>
+                            </td>
 
                             <td x-text="formatDate(visitor.created_at)"></td>
                         </tr>
@@ -138,4 +147,3 @@
         </div>
     </div>
 </x-app-layout>
-

@@ -1,120 +1,150 @@
 <x-app-layout>
     <x-slot name="header">
-            <h2 class="text-alpha font-semibold">
-                Editing {{$event->title}}
-            </h2>
+        <h2 class="text-alpha font-semibold">
+            Editing {{ $event->title }}
+        </h2>
     </x-slot>
 
-    <section class=" w-full flex justify-around bg-gray-100 h-[90vh]">
-        <form action="{{ route('events.update', $event) }}" class="px-4" method="post" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="flex flex-col py-2 px-3">
-                <label for="" class="py-1 px-1">Title:</label>
-                <input class="rounded" type="text" id="title" name="title" placeholder="insert name"
-                    value="{{ $event->title }}" class="r">
+    <section class=" w-full flex justify-around gap-2 p-2 bg-gray-100 h-[90vh]">
+        <div x-data="{ tab: 'english' }" class="w-[60%] flex flex-col gap-3 border rounded-lg p-4 bg-white">
+            <h1>Event Details</h1>
+            <div id="tabsBtn" class="flex bg-gray-200 w-full justify-between gap-2 p-1 rounded-lg">
+                <button @click="tab = 'english'"
+                    :class="{ 'bg-white text-black': tab === 'english', 'bg-transparent text-black': tab !== 'english' }"
+                    type="button" class="w-1/3 rounded-md font-medium p-1 langueBtn">
+                    English
+                </button>
+                <button @click="tab = 'french'"
+                    :class="{ 'bg-white text-black': tab === 'french', 'bg-transparent text-black': tab !== 'french' }"
+                    type="button" class="w-1/3 rounded-md font-medium p-1 langueBtn">
+                    Français
+                </button>
+                <button @click="tab = 'arabic'"
+                    :class="{ 'bg-white text-black': tab === 'arabic', 'bg-transparent text-black': tab !== 'arabic' }"
+                    type="button" class="w-1/3 rounded-md font-medium p-1 langueBtn">
+                    العربية
+                </button>
             </div>
 
-            <div class="flex flex-col py-2 px-3">
-                <label for="" class="py-1 px-1">Start Date</label>
-                <input class="rounded" type="datetime-local" id="start" name="start" placeholder="insert name"
-                    value="{{ $event->start }}" class="r">
-            </div>
-
-            <div class="flex flex-col py-2 px-3" >
-                <label for="" class="py-1 px-1">End Date</label>
-                <input class="rounded" type="datetime-local" id="end" name="end" placeholder="insert name"
-                    value="{{ $event->end }}" class="r">
-            </div>
-
-            <div class="flex flex-col py-2 px-3">
-                <label for="" class="py-1 px-1">Description</label>
-                <textarea rows="4" type="text" id="description" name="description"
-                    class="rounded w-[30vw] h-[20vh]">{{ $event->description }}
-                    </textarea>
-            </div>
+            <form action="{{ route('events.update', $event) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div x-show="tab === 'english'" x-transition>
+                    <div class="flex flex-col py-2 px-3">
+                        <label for="" class="py-1 px-1">Title:</label>
+                        <input class="rounded" type="text" id="title" name="title" placeholder="insert name"
+                            value="{{ $event->title }}" class="r">
+                    </div>
 
 
-            <div class="flex flex-col py-2 px-3">
-                <label class="block text-gray-700" for="addImage">Add an Image: </label>
-                <input multiple name="image[]" type="file" id="addImage" accept="image/*" multiple
-                    class="mt-2 border-2 rounded w-full bg-white">
-            </div>
-            <div class="flex justify-center py-2 w-full">
-                <button type="submit" class="bg-alpha btn-block py-2 rounded text-white w-full">Save</button>
-            </div>
-        </form>
+                    <div class="flex flex-col py-2 px-3">
+                        <label for="" class="py-1 px-1">Description</label>
+                        <textarea rows="4" type="text" id="description" name="description" class="rounded h-[20vh]">{{ $event->description }}
+                            </textarea>
+                    </div>
 
-        <div class="py-2 h-fit w-[50%] flex flex-wrap">
-            {{-- With alpine, the user can preview the image before updating it --}}
-            {{-- The code is experimental and not needed. Tell me to delete it if it creates any problems later by oussama jebrane --}}
-            @foreach ($event->images as $index => $image)
-                <div class="p-2 flex justify-between relative h-[200px] w-[250px]" x-data="{
-                    imagePreview: '{{ asset('storage/images/' . $image->path) }}',
-                    file: null,
-                    hasImagePreview: {{ $image->path ? 'false' : 'true' }}
-                }">
+                </div>
 
-                    <!-- Display the image preview -->
-                    <img :src="imagePreview" class="rounded-xl w-full selected-img aspect-square" alt="">
+                <div x-show="tab === 'french'" x-transition>
+                    <div class="flex flex-col py-2 px-3">
+                        <label for="" class="py-1 px-1">Titre:</label>
+                        <input class="rounded" type="text" id="title" name="title" placeholder="insert name"
+                            value="{{ $event->title }}" class="r">
+                    </div>
 
-                    <div class="flex gap-2 items-center absolute top-[15px] right-[10px]">
-                        {{-- the id is for updating which form --}}
-                        <form action="{{ route('building.update_image', $image) }}" class="flex items-center gap-2"
-                            id="update_image_{{ $index }}" enctype="multipart/form-data" method="post">
-                            @csrf
-                            @method('PUT')
+                    <div class="flex flex-col py-2 px-3">
+                        <label for="" class="py-1 px-1">Description:</label>
+                        <textarea rows="4" type="text" id="description" name="description" class="rounded h-[20vh]">{{ $event->description }}
+                            </textarea>
+                    </div>
 
-                            <label for="image-build_{{ $index }}"
-                                class="cursor-pointer p-2 font-semibold text-gray-100 no-underline bg-alpha rounded-lg shadow-md hover:shadow-lg hover:text-alpha hover:bg-gray-100 border-2 border-alpha transition duration-500">Change
-                                Image</label>
+                </div>
 
-                            {{-- onchange: change the imagePreview to the selected file  --}}
-                            <input id="image-build_{{ $index }}" class="hidden" type="file" name="image"
-                                accept="image/*"
-                                @change="file = $event.target.files[0];
-                                if (file) {
-                                    const reader = new FileReader();
-                                    reader.onload = (e) => imagePreview = e.target.result;
-                                    reader.readAsDataURL(file);
-                                    hasImagePreview = true;
-                                }">
+                <div x-show="tab === 'arabic'" x-transition>
+                    {{-- <form action="{{ route('events.update', $event) }}"  method="post"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT') --}}
+                    <div class="flex flex-col py-2 px-3">
+                        <label for="" class="py-1 px-1 self-end">العنوان</label>
+                        <input class="rounded" type="text" id="title" name="title"
+                            placeholder="insert name" value="{{ $event->title }}" class="r">
+                    </div>
 
-                            <button form="update_image_{{ $index }}"
-                                :class="{ 'bg-green-500': hasImagePreview, 'hidden': !hasImagePreview }"
-                                class="cursor-pointer p-2 font-semibold text-gray-100 no-underline rounded-lg shadow-md ">
+                    <div class="flex flex-col py-2 px-3">
+                        <label for="" class="py-1 px-1 self-end">الوصف</label>
+                        <textarea rows="4" type="text" id="description" name="description" class="rounded h-[20vh]">{{ $event->description }}
+                            </textarea>
+                    </div>
 
-                                <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="#FFFFFF" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7"
-                                        stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
-                                </svg>
-                            </button>
-                        </form>
 
-                        {{-- DELETING AN IMAGE --}}
-                        <form class="flex justify-end" action="{{ route('events.delete_image', [$event, $image]) }}"
-                            method="post">
+
+
+
+                    {{-- <div class="flex flex-col py-2 px-3">
+                        <label class="block text-gray-700" for="addImage">Add an Image: </label>
+                        <input multiple name="image[]" type="file" id="addImage" accept="image/*" multiple
+                            class="mt-2 border-2 rounded w-full bg-white">
+                    </div> --}}
+                </div>
+
+                <div class="flex flex-col py-2 px-3">
+                    <label for="" class="py-1 px-1">Start Date</label>
+                    <input class="rounded" type="datetime-local" id="start" name="start" placeholder="insert name"
+                        value="{{ $event->start }}" class="r">
+                </div>
+
+                <div class="flex flex-col py-2 px-3">
+                    <label for="" class="py-1 px-1">End Date</label>
+                    <input class="rounded" type="datetime-local" id="end" name="end" placeholder="insert name"
+                        value="{{ $event->end }}" class="r">
+                </div>
+                <div class="flex justify-center py-2 w-full">
+                    <button type="submit" class="bg-alpha btn-block py-2 rounded text-white w-full">Save</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="w-[40%] border p-4 rounded-lg flex flex-col gap-2 bg-white">
+            <h1>Event Images</h1>
+            <div class="flex flex-wrap gap-3">
+                <div onclick="storeImage.click()"
+                    class="w-[30%] cursor-pointer aspect-square border-2 border-dashed rounded-lg flex flex-col items-center justify-center">
+                    <form action="{{ route('building.store_image', $event) }}" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <input onchange="addImgBtn.click()" multiple name="image[]" type="file" id="storeImage"
+                            accept="image/png, image/jpeg" multiple
+                            class="mt-2 border-2 rounded w-full bg-white hidden ">
+                        <button class="hidden" id="addImgBtn">confirm</button>
+                    </form>
+                    <label class="block text-gray-700">Add an Image: </label>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </div>
+                @foreach ($event->images as $index => $image)
+                    <div class="w-[30%] relative group">
+                        <img class="w-full aspect-square object-cover rounded border"
+                            src="{{ asset('storage/images/' . $image->path) }}" alt="">
+                        <form class="flex justify-end absolute top-2 right-2"
+                            action="{{ route('building.destory_image', [$event, $image]) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button
-                                class="cursor-pointer p-2 font-semibold text-gray-100 no-underline bg-red-500 rounded-lg shadow-md hover:shadow-lg hover:text-red-500 hover:bg-gray-100 border-2 border-red-500 transition duration-200 ">
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path
-                                        d="M8 3V2h4v1h5v2H3V3h5zm1 0h2V2H9v1zM4 6h12v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm2 0v10h8V6H6z" />
+                                class="cursor-pointer hidden group-hover:block p-[0.25rem] font-semibold text-gray-100 no-underline bg-red-500 rounded-lg hover:text-red-500 hover:bg-[#fff] border-2 border-red-500 transition duration-200 ">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                 </svg>
                             </button>
                         </form>
                     </div>
-                </div>
-            @endforeach
-
-
+                @endforeach
+            </div>
         </div>
 
     </section>

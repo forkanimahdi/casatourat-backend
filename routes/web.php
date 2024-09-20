@@ -51,6 +51,7 @@ Route::delete('building/image/{image}', [BuildingController::class, 'destory_ima
 Route::resource('events', EventController::class)->except([
     'create'
 ]);
+Route::post('/events/{event}/store_images', [EventController::class, 'store_image'])->name('event.store_image');
 Route::delete('events/{event}/delete_image/{image}', [EventController::class, 'destory_image'])->name('events.delete_image');
 
 

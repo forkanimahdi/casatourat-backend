@@ -111,6 +111,27 @@ class EventController extends Controller
     }
 
 
+
+
+    public function store_image(Request $request, Event $event)
+    {
+        request()->validate([
+            'image.*' => 'required|mimes:png,jpg',
+        ]);
+        $images = $request->file('image');
+        if ($images) {
+            foreach ($images as $image) {
+                $imageName = time() . $image->getClientOriginalName();
+                $event->images()->create([
+                    'path' => $imageName
+                ]);
+                $image->storeAs('images', $imageName, 'public');
+            }
+        }
+
+        return back();
+    }
+
     public function destory_image(Event $event, Image $image)
     {
         if (count($event->images) > 1) {

@@ -47,7 +47,7 @@
 
         <div class="py-2 h-fit w-[50%] flex flex-wrap">
             {{-- With alpine, the user can preview the image before updating it --}}
-            {{-- The code is experimental and not needed. Tell me to delete it if it creates any problems later --}}
+            {{-- The code is experimental and not needed. Tell me to delete it if it creates any problems later by oussama jebrane --}}
             @foreach ($event->images as $index => $image)
                 <div class="p-2 flex justify-between relative h-[200px] w-[250px]" x-data="{
                     imagePreview: '{{ asset('storage/images/' . $image->path) }}',

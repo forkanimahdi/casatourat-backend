@@ -57,9 +57,11 @@ function renderReviews(reviewsToRender) {
                         <div class="w-full px-2">
                         <div class="flex justify-between items-center w-full">
                         <p class="mb-0">
-                        <span class="font-bold">${visitorName[0].full_name}</span> added a review for <span class="font-bold">${
-                            buildingName[0].name
-                        }</span>
+                        <span class="font-bold">${
+                            visitorName[0].full_name
+                        }</span> added a review for <span class="font-bold">${
+            buildingName[0].name
+        }</span>
                         </p>
                         <div class="flex justify-start items-center">
                             <form action="/update/notif/${
@@ -177,5 +179,63 @@ map_icon.addEventListener("click", () => {
         notifBodyVisite.classList.remove("flex");
         pop_map.classList.add("hidden");
         notifBodyVisite.classList.add("hidden");
+    }
+});
+
+// & update building languages
+
+let englishDiv = document.getElementById("english_version");
+let arabicDiv = document.getElementById("arabic_version");
+let frenshDiv = document.getElementById("french_version");
+let btnArabic = document.getElementById("btnArabic");
+let btnFrensh = document.getElementById("btnFrench");
+let btnEnglish = document.getElementById("btnEnglish");
+let tabs = document.querySelectorAll(".langueBtn");
+tabs.forEach((element) => {
+    element.addEventListener("click", () => {
+        if (element.innerHTML == "English") {
+            englishDiv.classList.remove("hidden");
+            englishDiv.classList.add("block");
+
+            frenshDiv.classList.add("hidden");
+            frenshDiv.classList.remove("block");
+
+            arabicDiv.classList.add("hidden");
+            arabicDiv.classList.remove("block");
+        } else if (element.innerHTML == "Français") {
+            englishDiv.classList.add("hidden");
+            englishDiv.classList.remove("block");
+
+            frenshDiv.classList.remove("hidden");
+            frenshDiv.classList.add("block");
+
+            arabicDiv.classList.add("hidden");
+            arabicDiv.classList.remove("block");
+        } else {
+            englishDiv.classList.add("hidden");
+            englishDiv.classList.remove("block");
+
+            frenshDiv.classList.add("hidden");
+            frenshDiv.classList.remove("block");
+
+            arabicDiv.classList.add("block");
+            arabicDiv.classList.remove("hidden");
+        }
+        if (englishDiv.classList.contains("block")) {
+            btnEnglish.classList.add("bg-white");
+            btnArabic.classList.remove("bg-white");
+            btnFrensh.classList.remove("bg-white");
+        } else if (frenshDiv.classList.contains("block")) {
+            btnFrensh.classList.add("bg-white");
+            btnArabic.classList.remove("bg-white");
+            btnEnglish.classList.remove("bg-white");
+        } else {
+            btnArabic.classList.add("bg-white");
+            btnFrensh.classList.remove("bg-white");
+            btnEnglish.classList.remove("bg-white");
+        }
+    });
+    if (englishDiv.classList.contains("block")) {
+        btnEnglish.classList.add("bg-white");
     }
 });

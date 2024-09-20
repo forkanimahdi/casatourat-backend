@@ -100,19 +100,20 @@ class BuildingController extends Controller
         return back();
     }
 
-    public function store_image(Building $building, Request $request)
+    public function store_image(Request $request, Building $building)
     {
         request()->validate([
             'image.*' => 'required|mimes:png,jpg',
         ]);
-
         $images = $request->file('image');
-        foreach ($images as $image) {
-            $imageName = time() . $image->getClientOriginalName();
-            $building->images()->create([
-                'path' => $imageName
-            ]);
-            $image->storeAs('images', $imageName, 'public');
+        if ($images) {
+            foreach ($images as $image) {
+                $imageName = time() . $image->getClientOriginalName();
+                $building->images()->create([
+                    'path' => $imageName
+                ]);
+                $image->storeAs('images', $imageName, 'public');
+            }
         }
 
         return back();

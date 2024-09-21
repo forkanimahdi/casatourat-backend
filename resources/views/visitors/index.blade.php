@@ -1,16 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center w-full">
-            <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
-                Manage Users
-            </h2>
+        <x-slot name="title">
+            Manage Users
+        </x-slot>
 
-            <button onclick="addModeratorAdmin.show()"
-                class="bg-alpha text-[#fff] px-[1.75rem] py-[0.5rem] rounded-xl font-medium border-2 border-alpha hover:bg-transparent hover:font-semibold hover:text-alpha transition-all duration-600">
-                Add admin
-            </button>
-            @include('visitors.partials.create_moderator_modal')
-        </div>
+        <button onclick="addModeratorAdmin.show()"
+            class="bg-alpha text-[#fff] px-[1.75rem] py-[0.5rem] rounded-xl font-medium border-2 border-alpha hover:bg-transparent hover:font-semibold hover:text-alpha transition-all duration-600">
+            Add admin
+        </button>
+        @include('visitors.partials.create_moderator_modal')
     </x-slot>
 
     <div x-data='
@@ -71,8 +69,8 @@
         });
     },
 }'
-        class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow- shadow-sm sm:rounded-lg px-6 py-3">
+        class="p-4 sm:p-6 lg:p-8">
+        <div class="bg-white overflow- shadow-sm sm:rounded-lg px-[1.25rem] py-3">
             <div class="flex mb-3 items-center justify-between">
                 <div class="w-1/3 flex items-center bg-gray-100 rounded-lg pl-2">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
@@ -103,7 +101,7 @@
                     <tr>
                         @foreach ($headers as $header)
                             <th @click="sortTable('{{ $header['key'] }}')"
-                                class="cursor-pointer capitalize text-[#002d55] text-lg">
+                                class="cursor-pointer capitalize text-alpha text-base font-semibold">
                                 <div class="flex items-center gap-1">
                                     {{ $header['label'] }}
                                     <svg width="21px" height="21px" viewBox="0 0 24 24" fill="none"
@@ -132,7 +130,8 @@
                             </td>
                             <td>
                                 <span x-text="visitor.role"
-                                    :class="visitor.role == 'admin' ? 'bg-yellow-100 text-yellow-900' : 'bg-green-100 text-green-900'"
+                                    :class="visitor.role == 'admin' ? 'bg-yellow-100 text-yellow-900' :
+                                        'bg-green-100 text-green-900'"
                                     class="text-sm rounded-full px-2 py-1 capitalize">
 
                                 </span>

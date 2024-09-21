@@ -5,7 +5,7 @@
         </x-slot>
     </x-slot>
 
-    <form action="{{ route('building.store') }}" method="post" enctype="multipart/form-data"
+    <form action="{{ route('buildings.store') }}" method="post" enctype="multipart/form-data"
         class="flex gap-[1.25rem] p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-86px)]">
         @csrf
 
@@ -228,7 +228,7 @@
             //     marker.addListener('click', function() {
             //         try {
             //             console.log(marker.data);
-            //             const response = axios.delete(`/building/destroy/` + marker.data.id, {
+            //             const response = axios.delete(`/buildings/destroy/` + marker.data.id, {
             //                 headers: {
             //                     'x-access-token': document.querySelector('meta[name="csrf-token"]')
             //                         .content

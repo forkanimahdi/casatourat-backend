@@ -1,32 +1,23 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center w-full">
-            <h2 class="text-alpha font-semibold">
-                Create Event
-            </h2>
-            <button data-modal-target="default-modal" data-modal-toggle="default-modal"
-                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-alpha dark:hover:bg-alpha dark:focus:ring-blue-800"
-                type="button">
-                Add Event
-            </button>
-        </div>
+        <x-slot name="title">
+            Create Event
+        </x-slot>
 
-
+        <button data-modal-target="default-modal" data-modal-toggle="default-modal"
+            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-alpha dark:hover:bg-alpha dark:focus:ring-blue-800"
+            type="button">
+            Add Event
+        </button>
     </x-slot>
 
-    <div class="w-full h-full">
-
+    <div class="w-full h-full p-4 sm:p-6 lg:p-8">
         <div class="eventscontainer w-full flex justify-center">
             <div class="eventBody w-[90vw] h-[100vh] bg-gray-100 rounded-xl">
                 {{-- Header --}}
                 <div class="eventheader flex flex-row-reverse justify-between px-4">
-
-
                     <!-- Main modal -->
-
                     @include('Event.partials.add_event')
-
-
                 </div>
 
                 {{-- Card --}}
@@ -70,8 +61,8 @@
                                         <form action={{ route('events.destroy', $event->id) }} method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="px-2 py-2 flex border-2 border-alpha/20 hover:bg-gray-200"> <svg
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            <button class="px-2 py-2 flex border-2 border-alpha/20 hover:bg-gray-200">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="#1221afcc"
                                                     class="size-5">
                                                     <path stroke-linecap="round" stroke-linejoin="round"

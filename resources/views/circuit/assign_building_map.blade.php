@@ -51,7 +51,7 @@
             @else
                 <div class="text-center h-[15vh]">
                     <p class="m-0 text-gray-600 text-[1.2rem] font-medium">All buildings assigned</p>
-                    <a href="{{ route('building.create') }}" class="">Add a Building</a>
+                    <a href="{{ route('buildings.create') }}" class="">Add a Building</a>
                 </div>
             @endif
         </div>

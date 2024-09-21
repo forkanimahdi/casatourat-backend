@@ -1,7 +1,8 @@
 @props(['image' => '', 'title' => '', 'route' => ''])
 
-<a href="{{ $route }}" class="w-[calc(calc(100%-calc(2*0.75rem))/3)] no-underline text-black group">
-    <div class="aspect-square p-3 bg-white rounded-lg overflow-hidden border flex flex-col gap-3">
+<a href="{{ $route }}"
+    class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] no-underline text-black group">
+    <div class="aspect-square p-3 bg-white rounded-lg overflow-hidden border flex flex-col gap-[0.5rem]">
         <div class="relative size-full aspect-[1/0.5] rounded overflow-hidden">
             <img class="size-full aspect-[1/0.5] object-cover" src="{{ asset('storage/images/' . $image) }}"
                 alt="{{ $title }}" />
@@ -19,7 +20,7 @@
         </div>
 
         <div class="flex justify-between gap-2">
-            <h1 class="text-lg truncate">
+            <h1 class="text-base/none truncate">
                 {{ $title }}
             </h1>
         </div>

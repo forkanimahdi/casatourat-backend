@@ -8,7 +8,7 @@
     </x-slot>
 
     <div class="flex gap-[1.25rem] p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-86px)]">
-        <form action="{{ route('building.update', $building) }}" method="post" enctype="multipart/form-data"
+        <form action="{{ route('buildings.update', $building) }}" method="post" enctype="multipart/form-data"
             x-data="{ tab: 'English' }" class="flex-[60%] p-[1.25rem] bg-white rounded-lg">
             @csrf
             @method('PUT')
@@ -148,7 +148,7 @@
             <div style="--gap: 0.75rem; --count: 3;" class="flex flex-wrap gap-[var(--gap)]">
                 <div onclick="storeImage.click()"
                     class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] cursor-pointer aspect-square border-2 border-dashed rounded-lg flex flex-col items-center justify-center">
-                    <form action="{{ route('building.store_image', $building) }}" method="post"
+                    <form action="{{ route('buildings.store_image', $building) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input onchange="addImgBtn.click()" multiple name="image[]" type="file" id="storeImage"
@@ -170,7 +170,7 @@
                         <img class="w-full aspect-square object-cover rounded border"
                             src="{{ asset('storage/images/' . $image->path) }}" alt="">
                         <form class="flex justify-end absolute top-2 right-2"
-                            action="{{ route('building.destory_image', $image) }}" method="post">
+                            action="{{ route('buildings.destory_image', $image) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button

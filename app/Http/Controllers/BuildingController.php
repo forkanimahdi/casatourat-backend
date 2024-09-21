@@ -75,7 +75,7 @@ class BuildingController extends Controller
             $image->storeAs('images', $imageName, 'public');
         }
 
-        return redirect()->route('building.index');
+        return redirect()->route('buildings.index');
     }
 
     public function edit(Building $building)
@@ -183,6 +183,6 @@ class BuildingController extends Controller
 
         $building->delete();
 
-        return redirect()->route('building.index');
+        return redirect()->route('buildings.index');
     }
 }

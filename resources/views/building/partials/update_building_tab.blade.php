@@ -8,7 +8,7 @@
                 <button id="btnArabic" type="button"
                     class="w-1/3 rounded-md font-medium p-1 langueBtn">العربية</button>
             </div>
-            <form id="english_version" class="block" action="{{ route('building.update', $building) }}" method="post"
+            <form id="english_version" class="block" action="{{ route('buildings.update', $building) }}" method="post"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -120,7 +120,7 @@
             <div class="flex flex-wrap gap-3">
                 <div onclick="storeImage.click()"
                     class="w-[30%] cursor-pointer aspect-square border-2 border-dashed rounded-lg flex flex-col items-center justify-center">
-                    <form action="{{ route('building.store_image', $building) }}" method="post"
+                    <form action="{{ route('buildings.store_image', $building) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input onchange="addImgBtn.click()" multiple name="image[]" type="file" id="storeImage"
@@ -140,7 +140,7 @@
                         <img class="w-full aspect-square object-cover rounded border"
                             src="{{ asset('storage/images/' . $image->path) }}" alt="">
                         <form class="flex justify-end absolute top-2 right-2"
-                            action="{{ route('building.destory_image', $image) }}" method="post">
+                            action="{{ route('buildings.destory_image', $image) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button

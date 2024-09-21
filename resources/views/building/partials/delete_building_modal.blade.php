@@ -14,7 +14,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('building.destroy') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('buildings.destroy') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('DELETE')
                     <input type="text" class="d-none" name="building_id" id="building_id">

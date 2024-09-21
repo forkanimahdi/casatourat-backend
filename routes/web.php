@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['auth' , 'verified'])->name('dashboard');
+Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::get('/dashboard', [Controller::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/circuit', [CircuitController::class, 'index'])->name('circuit.index');
@@ -41,11 +41,11 @@ Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])
 
 
 // & building routes: this is a simplified way to put all the routes in one place
-Route::resource('building', BuildingController::class);
+Route::resource('buildings', BuildingController::class);
 
-Route::post('building/image/{building}', [BuildingController::class, 'store_image'])->name('building.store_image');
-Route::put('building/image/{image}', [BuildingController::class, 'update_image'])->name('building.update_image');
-Route::delete('building/image/{image}', [BuildingController::class, 'destory_image'])->name('building.destory_image');
+Route::post('buildings/image/{building}', [BuildingController::class, 'store_image'])->name('buildings.store_image');
+Route::put('buildings/image/{image}', [BuildingController::class, 'update_image'])->name('buildings.update_image');
+Route::delete('buildings/image/{image}', [BuildingController::class, 'destory_image'])->name('buildings.destory_image');
 
 // * Events :
 Route::resource('events', EventController::class)->except([
@@ -63,17 +63,20 @@ Route::middleware('auth')->group(function () {
 
 // users
 Route::resource('users', VisitorController::class)->except([
-    'create', 'edit', 'update', 'destroy'
+    'create',
+    'edit',
+    'update',
+    'destroy'
 ]);
 
 
 // & staff routes :
-Route::get('/staff', [StaffController::class,'index'])->name('staff.index')->middleware('auth');
+Route::get('/staff', [StaffController::class, 'index'])->name('staff.index')->middleware('auth');
 
 // & comments :
 Route::get('/notiffication/{review}', [CommentController::class, 'show'])->name('notif.show');
 Route::get('/notiffication', [CommentController::class, 'index'])->name('notif.index');
-Route::delete('/comments/delete/{r.eview}',[CommentController::class, 'destroy'])->name('notif.delete');
+Route::delete('/comments/delete/{r.eview}', [CommentController::class, 'destroy'])->name('notif.delete');
 Route::post('create/notif', [CommentController::class, 'store'])->name('create_comment');
 Route::put('/update/notif/{review}', [CommentController::class, 'update'])->name('update.notif');
 Route::put('/update/allnotif', [CommentController::class, 'asread'])->name('update.allnotif');

@@ -111,7 +111,7 @@
             <div class="flex flex-wrap gap-3">
                 <div onclick="storeImage.click()"
                     class="w-[30%] cursor-pointer aspect-square border-2 border-dashed rounded-lg flex flex-col items-center justify-center">
-                    <form action="{{ route('building.store_image', $event) }}" method="post"
+                    <form action="{{ route('buildings.store_image', $event) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input onchange="addImgBtn.click()" multiple name="image[]" type="file" id="storeImage"
@@ -131,7 +131,7 @@
                         <img class="w-full aspect-square object-cover rounded border"
                             src="{{ asset('storage/images/' . $image->path) }}" alt="">
                         <form class="flex justify-end absolute top-2 right-2"
-                            action="{{ route('building.destory_image', [$event, $image]) }}" method="post">
+                            action="{{ route('buildings.destory_image', [$event, $image]) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button

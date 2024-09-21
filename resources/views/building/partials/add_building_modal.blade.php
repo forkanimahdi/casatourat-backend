@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="{{ route('building.store') }}" class="flex flex-col items-center gap-2" method="post"
+                <form action="{{ route('buildings.store') }}" class="flex flex-col items-center gap-2" method="post"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col w-full items-center">

@@ -50,8 +50,8 @@ class BuildingController extends Controller
             if ($request->hasFile("audio.$lang")) {
                 $audioFile = $request->file("audio.$lang");
                 $audioName = time() . "_" . $lang;
-                $audioPath = $audioFile->storeAs('audios', $audioName, 'public');
-                $audioFiles[$lang] = $audioPath;
+                $audioFile->storeAs('audios', $audioName, 'public');
+                $audioFiles[$lang] = $audioName;
             }
         }
 
@@ -84,34 +84,43 @@ class BuildingController extends Controller
     public function update(Request $request, Building $building)
     {
         request()->validate([
-            'name' => 'required',
-            'description' => 'required'
+            'name' => 'required|array|min:3',
+            'name.en' => 'required|string',
+            'name.fr' => 'required|string',
+            'name.ar' => 'required|string',
+            'description' => 'required|array|min:3',
+            'description.en' => 'required|string',
+            'description.fr' => 'required|string',
+            'description.ar' => 'required|string',
+            'audio' => 'array',
+            'audio.en' => 'mimes:mp3,wav',
+            'audio.fr' => 'mimes:mp3,wav',
+            'audio.ar' => 'mimes:mp3,wav',
         ]);
 
-        $building->update([
-            'name' => $request->name,
-            'description' => $request->description,
-        ]);
 
-        if ($request->file('audio')) {
-            Storage::disk('public')->delete('audios/' . $building->audio);
-            $audio = $request->file('audio');
-            $audioName = time() . $audio->getClientOriginalName();
-            $building->audio = $audioName;
-            $building->save();
-            $audio->storeAs('audios', $audioName, 'public');
-        }
+        $building->name = $request->input('name');
+        $building->description = $request->input('description');
 
-        $images = $request->file('image');
-        if ($images) {
-            foreach ($images as $image) {
-                $imageName = time() . $image->getClientOriginalName();
-                $building->images()->create([
-                    'path' => $imageName
-                ]);
-                $image->storeAs('images', $imageName, 'public');
+        // dd($request);
+
+        $audioFiles = (array)$building->audio;
+
+        foreach (['en', 'fr', 'ar'] as $lang) {
+            if ($request->hasFile("audio.$lang")) {
+                Storage::disk('public')->delete('audios/' . $audioFiles[$lang]);
+                $audioFile = $request->file("audio.$lang");
+                $audioName = time() . "_" . $lang;
+                $audioFile->storeAs('audios', $audioName, 'public');
+                $audioFiles[$lang] = $audioName;
             }
         }
+
+        $building->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'audio' => $audioFiles,
+        ]);
 
         return back();
     }

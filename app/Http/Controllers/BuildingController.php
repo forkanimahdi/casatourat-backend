@@ -14,10 +14,12 @@ class BuildingController extends Controller
         $buildings = Building::latest()->get();
         return view('building.building_index', compact('buildings'));
     }
+
     public function show(Building $building)
     {
         return view('building.buildings_show', compact('building'));
     }
+
     public function create()
     {
         $buildings = Building::where('circuit_id', null)->get();
@@ -49,7 +51,7 @@ class BuildingController extends Controller
         foreach (['en', 'fr', 'ar'] as $lang) {
             if ($request->hasFile("audio.$lang")) {
                 $audioFile = $request->file("audio.$lang");
-                $audioName = time() . "_" . $lang;
+                $audioName = time() . "_" . $lang . "." . $audioFile->extension();
                 $audioFile->storeAs('audios', $audioName, 'public');
                 $audioFiles[$lang] = $audioName;
             }
@@ -66,7 +68,7 @@ class BuildingController extends Controller
 
         $images = $request->file('image');
         foreach ($images as  $image) {
-            $imageName = time() .  $image->getClientOriginalName();
+            $imageName = time() . "_" . $image->getClientOriginalName();
             $building->images()->create([
                 'path' => $imageName
             ]);
@@ -102,8 +104,6 @@ class BuildingController extends Controller
         $building->name = $request->input('name');
         $building->description = $request->input('description');
 
-        // dd($request);
-
         $audioFiles = (array)$building->audio;
 
         foreach (['en', 'fr', 'ar'] as $lang) {
@@ -133,7 +133,7 @@ class BuildingController extends Controller
         $images = $request->file('image');
         if ($images) {
             foreach ($images as $image) {
-                $imageName = time() . $image->getClientOriginalName();
+                $imageName = time() . '_' . $image->getClientOriginalName();
                 $building->images()->create([
                     'path' => $imageName
                 ]);
@@ -152,7 +152,7 @@ class BuildingController extends Controller
 
         Storage::disk('public')->delete('images/' . $image->path);
         $fileImage = $request->file('image');
-        $imageName = time() . $fileImage->getClientOriginalName();
+        $imageName = time() . '_' . $fileImage->getClientOriginalName();
         $fileImage->storeAs('images', $imageName, 'public');
 
         $image->update([
@@ -176,11 +176,13 @@ class BuildingController extends Controller
             $this->destory_image($image);
         }
 
-        // delete the audio
-        Storage::disk('public')->delete('audios/' . $building->audio);
-
+        // delete the audios
+        foreach ((array)$building->audio as $lang => $audioFile) {
+            Storage::disk('public')->delete('audios/' . $audioFile);
+        }
 
         $building->delete();
+
         return redirect()->route('building.index');
     }
 }

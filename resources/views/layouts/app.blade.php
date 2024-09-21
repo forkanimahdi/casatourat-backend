@@ -20,15 +20,30 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen flex bg-gray-100 ">
+    <div class="min-h-screen flex bg-gray-100">
         <!-- Side Bar -->
         @include('layouts.side_bare')
+
+        <!-- Page Content -->
         <div class="flex flex-col w-full overflow-y-auto h-screen">
             <!-- Page Heading -->
             @if (isset($header))
-                <header style="padding: 10px;" class="bg-white flex items-center justify-between">
-                    <div class="max-w-7xl py-[1rem] px-4 sm:px-6 lg:px-8 w-full">
-                        {{ $header }}
+                <header class="bg-white flex items-center justify-between">
+                    <div class="max-w-7xl py-[1.25rem] px-4 sm:px-6 lg:px-8 w-full">
+                        <div class="flex justify-between items-center w-full">
+                            @if (isset($title))
+                                <h2 class="text-alpha leading-tight capitalize font-bold text-xl">
+                                    {{ $title }}
+                                </h2>
+                            @endif
+                            @if (isset($button))
+                                <h2 class="text-alpha leading-tight capitalize font-bold text-xl">
+                                    {{ $button }}
+                                </h2>
+                            @endif
+                            {{ $header }}
+                        </div>
+
                     </div>
                     <div class="mr-3 relative">
                         <svg id="visite_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -50,7 +65,8 @@
                             class="hidden absolute top-8 -right-1 bg-gray-200 overflow-auto max-h-[60vh] w-[25vw] gap-2 flex-col p-2 z-50 ">
                             @foreach ($guided as $visit)
                                 @if ($visit->pending)
-                                    <a id="visite_guide" href="{{route('guided.index')}}" class="text-black no-underline">
+                                    <a id="visite_guide" href="{{ route('guided.index') }}"
+                                        class="text-black no-underline">
                                         <div
                                             class="bg-white w-full relative p-2 rounded flex gap-1 mb-2 cursor-pointer">
                                             <p>{{ $visit->visitor->full_name }} a demandé une visite guidée le
@@ -133,17 +149,13 @@
                 </header>
             @endif
 
-            <!-- Page Content -->
-            <main class="">
+            <!-- Page Body -->
+            <main>
                 {{ $slot }}
             </main>
         </div>
-
-        {{-- <!-- Page Content -->
-        <main class="w-full overflow-y-auto h-screen">
-            {{ $slot }}
-        </main> --}}
     </div>
+
     <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="exampleModal" aria-hidden="true">
         <div class="modal-dialog">

@@ -15,7 +15,7 @@
     <div class="py-4 px-6">
         <div class="flex flex-wrap gap-[0.75rem]">
             @foreach ($buildings as $building)
-                <x-card title="{{ $building->name }}" image="{{ $building->images?->first()?->path }}"
+                <x-card title="{{ $building->name->en }}" image="{{ $building->images?->first()?->path }}"
                     route="{{ route('building.edit', $building) }}" />
             @endforeach
         </div>

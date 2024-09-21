@@ -26,26 +26,40 @@ class BuildingController extends Controller
 
     public function store(Request $request)
     {
-
         request()->validate([
-            'circuit_id' => 'nullable',
-            'name' => 'required',
-            'description' => 'required',
-            'audio' => 'required',
+            'circuit_id' => 'nullable|integer',
+            'name' => 'required|array|min:3',
+            'name.en' => 'required|string',
+            'name.fr' => 'required|string',
+            'name.ar' => 'required|string',
+            'description' => 'required|array|min:3',
+            'description.en' => 'required|string',
+            'description.fr' => 'required|string',
+            'description.ar' => 'required|string',
+            'audio' => 'required|array|min:3',
+            'audio.en' => 'required|mimes:mp3,wav',
+            'audio.fr' => 'required|mimes:mp3,wav',
+            'audio.ar' => 'required|mimes:mp3,wav',
             'image.*' => 'required|mimes:png,jpg,jfif',
-            'latitude' => 'required',
-            'longitude' => 'required',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
 
-        $audio = $request->file('audio');
-        $audioName = time() . $audio->getClientOriginalName();
-        $audio->storeAs('/audios', $audioName, 'public');
+        $audioFiles = [];
+        foreach (['en', 'fr', 'ar'] as $lang) {
+            if ($request->hasFile("audio.$lang")) {
+                $audioFile = $request->file("audio.$lang");
+                $audioName = time() . "_" . $lang;
+                $audioPath = $audioFile->storeAs('audios', $audioName, 'public');
+                $audioFiles[$lang] = $audioPath;
+            }
+        }
 
         $building =  Building::create([
             'circuit_id' => $request->circuit_id,
-            'name' => $request->name,
-            'description' => $request->description,
-            'audio' => $audioName,
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'audio' => $audioFiles,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
         ]);
@@ -58,6 +72,7 @@ class BuildingController extends Controller
             ]);
             $image->storeAs('images', $imageName, 'public');
         }
+
         return redirect()->route('building.index');
     }
 
@@ -77,6 +92,7 @@ class BuildingController extends Controller
             'name' => $request->name,
             'description' => $request->description,
         ]);
+
         if ($request->file('audio')) {
             Storage::disk('public')->delete('audios/' . $building->audio);
             $audio = $request->file('audio');

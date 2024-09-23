@@ -1,91 +1,74 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-alpha font-semibold">
-            Editing {{ $event->title }}
+            Editing {{ $event->title->en }}
         </h2>
     </x-slot>
 
     <section class=" w-full flex justify-around gap-2 p-2 bg-gray-100 h-[90vh]">
-        <div x-data="{ tab: 'english' }" class="w-[60%] flex flex-col gap-3 border rounded-lg p-4 bg-white">
+        <div x-data="{ tab: 'English' }" class="w-[60%] flex flex-col gap-3 border rounded-lg p-4 bg-white">
             <h1>Event Details</h1>
             <div id="tabsBtn" class="flex bg-gray-200 w-full justify-between gap-2 p-1 rounded-lg">
-                <button @click="tab = 'english'"
-                    :class="{ 'bg-white text-black': tab === 'english', 'bg-transparent text-black': tab !== 'english' }"
-                    type="button" class="w-1/3 rounded-md font-medium p-1 langueBtn">
-                    English
-                </button>
-                <button @click="tab = 'french'"
-                    :class="{ 'bg-white text-black': tab === 'french', 'bg-transparent text-black': tab !== 'french' }"
-                    type="button" class="w-1/3 rounded-md font-medium p-1 langueBtn">
-                    Français
-                </button>
-                <button @click="tab = 'arabic'"
-                    :class="{ 'bg-white text-black': tab === 'arabic', 'bg-transparent text-black': tab !== 'arabic' }"
-                    type="button" class="w-1/3 rounded-md font-medium p-1 langueBtn">
-                    العربية
-                </button>
+                @foreach (['English', 'Français', 'العربية'] as $language)
+                    <button @click="tab = '{{ $language }}'"
+                        :class="{ 'bg-white text-black': tab === '{{ $language }}', 'bg-transparent text-black': tab !== '{{ $language }}' }"
+                        type="button" class="w-1/3 rounded-md font-medium p-1">
+                        {{ $language }}
+                    </button>
+                @endforeach
             </div>
 
             <form action="{{ route('events.update', $event) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <div x-show="tab === 'english'" x-transition>
+                <div x-show="tab === 'English'">
                     <div class="flex flex-col py-2 px-3">
-                        <label for="" class="py-1 px-1">Title:</label>
-                        <input class="rounded" type="text" id="title" name="title" placeholder="insert name"
-                            value="{{ $event->title }}" class="r">
+                        <label for="title_en" class="w-full font-bolder text-base">Name</label>
+                        <input class="rounded" type="text" id="title_en" name="title[en]" placeholder="Event Name..."
+                            value="{{ $event->title->en }}" class="r">
                     </div>
 
 
                     <div class="flex flex-col py-2 px-3">
-                        <label for="" class="py-1 px-1">Description</label>
-                        <textarea rows="4" type="text" id="description" name="description" class="rounded h-[20vh]">{{ $event->description }}
+                        <label for="description_en" class="py-1 px-1">Description</label>
+                        <textarea rows="4" type="text"
+                        id="description_en" name="description[en]"
+                        placeholder="Description..."
+                        class="rounded h-[20vh]">{{ $event->description->en }}
                             </textarea>
                     </div>
 
                 </div>
 
-                <div x-show="tab === 'french'" x-transition>
+                <div x-show="tab === 'Français'">
                     <div class="flex flex-col py-2 px-3">
-                        <label for="" class="py-1 px-1">Titre:</label>
-                        <input class="rounded" type="text" id="title" name="title" placeholder="insert name"
-                            value="{{ $event->title }}" class="r">
+                        <label for="title_fr" class="py-1 px-1">Titre:</label>
+                        <input class="rounded" type="text" id="title_fr" name="title[fr]" placeholder="insert name"
+                            value="{{ $event->title->fr }}" class="r">
                     </div>
 
                     <div class="flex flex-col py-2 px-3">
-                        <label for="" class="py-1 px-1">Description:</label>
-                        <textarea rows="4" type="text" id="description" name="description" class="rounded h-[20vh]">{{ $event->description }}
+                        <label for="description_fr" class="py-1 px-1">Description:</label>
+                        <textarea rows="4" type="text" id="description_fr" name="description[fr]" class="rounded h-[20vh]">{{ $event->description->fr }}
                             </textarea>
                     </div>
 
                 </div>
 
-                <div x-show="tab === 'arabic'" x-transition>
-                    {{-- <form action="{{ route('events.update', $event) }}"  method="post"
-                    enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT') --}}
+                <div x-show="tab === 'العربية'">
+
                     <div class="flex flex-col py-2 px-3">
-                        <label for="" class="py-1 px-1 self-end">العنوان</label>
-                        <input class="rounded" type="text" id="title" name="title"
-                            placeholder="insert name" value="{{ $event->title }}" class="r">
+                        <label for="title_ar" class="py-1 px-1 self-end">العنوان</label>
+                        <input class="rounded" type="text" id="title_ar" name="title[ar]" placeholder="insert name"
+                            value="{{ $event->title->ar }}" class="r">
                     </div>
 
                     <div class="flex flex-col py-2 px-3">
-                        <label for="" class="py-1 px-1 self-end">الوصف</label>
-                        <textarea rows="4" type="text" id="description" name="description" class="rounded h-[20vh]">{{ $event->description }}
+                        <label for="description_ar" class="py-1 px-1 self-end">الوصف</label>
+                        <textarea rows="4" type="text" id="description_ar" name="description[ar]" class="rounded h-[20vh]">{{ $event->description->ar }}
                             </textarea>
                     </div>
 
-
-
-
-
-                    {{-- <div class="flex flex-col py-2 px-3">
-                        <label class="block text-gray-700" for="addImage">Add an Image: </label>
-                        <input multiple name="image[]" type="file" id="addImage" accept="image/*" multiple
-                            class="mt-2 border-2 rounded w-full bg-white">
-                    </div> --}}
                 </div>
 
                 <div class="flex flex-col py-2 px-3">
@@ -111,7 +94,7 @@
             <div class="flex flex-wrap gap-3">
                 <div onclick="storeImage.click()"
                     class="w-[30%] cursor-pointer aspect-square border-2 border-dashed rounded-lg flex flex-col items-center justify-center">
-                    <form action="{{ route('buildings.store_image', $event) }}" method="post"
+                    <form action="{{ route('event.store_image', $event) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input onchange="addImgBtn.click()" multiple name="image[]" type="file" id="storeImage"

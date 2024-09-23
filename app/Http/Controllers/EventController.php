@@ -23,6 +23,11 @@ class EventController extends Controller
         return view("Event.partials.show_event", compact('event'));
     }
 
+    public function create()
+    {
+        return view("Event.partials.create_event");
+    }
+
     public function edit(Request $request, Event $event)
     {
         return view('Event.partials.update_event', compact('event'));
@@ -31,23 +36,32 @@ class EventController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required|array|min:3',
+            'title.en' => 'required|string',
+            'title.fr' => 'required|string',
+            'title.ar' => 'required|string',
+            'description' => 'required|array|min:3',
+            'description.en' => 'required|string',
+            'description.fr' => 'required|string',
+            'description.ar' => 'required|string',
             'start' => 'required',
             'end' => 'required',
-            'image.*' => 'required|mimes:png,jpg,jpeg'
+            'image.*' => 'required|mimes:png,jpg,jfif',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
+
 
         $images = $request->file('image');
         if ($images) {
 
             $event = Event::create([
-                'title' => $request->title,
-                'description' => $request->description,
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
                 'start' => $request->start,
                 'end' => $request->end,
-                'latitude' => $request->event_lat,
-                'longitude' => $request->event_long
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude
             ]);
 
             foreach ($images as  $image) {
@@ -66,8 +80,14 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         request()->validate([
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required|array|min:3',
+            'title.en' => 'required|string',
+            'title.fr' => 'required|string',
+            'title.ar' => 'required|string',
+            'description' => 'required|array|min:3',
+            'description.en' => 'required|string',
+            'description.fr' => 'required|string',
+            'description.ar' => 'required|string',
             'start' => 'required',
             'end' => 'required',
         ]);
@@ -85,8 +105,8 @@ class EventController extends Controller
 
 
         $event->update([
-            'title' => $request->title,
-            'description' => $request->description,
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
             'start' => $request->start,
             'end' => $request->end,
         ]);

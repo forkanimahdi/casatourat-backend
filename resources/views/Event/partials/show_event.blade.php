@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center w-full ">
             <h2 class="text-alpha font-semibold">
-                {{ $event->title }}
+                {{ $event->title->en }}
             </h2>
         </div>
 
@@ -18,9 +18,9 @@
 
                 <div class="absolute inset-0 bg-black/40 rounded-xl"></div>
 
-                <div class="absolute bottom-0 right-0 text-white px-4">
-                    <h1>{{ $event->title }}</h1>
-                    <p class="tracking-wider">{{ $event->description }}</p>
+                <div class="absolute bottom-0 left-0 text-white px-4">
+                    <h1>{{ $event->title->en }}</h1>
+                    <p class="tracking-wider">{{ $event->description->en }}</p>
                 </div>
 
             </div>
@@ -70,31 +70,33 @@
 
             </div>
 
-            {{-- Table Info --}}
-            <div class="mt-4 bg-white rounded">
-                <h2 class="underline mb-4 p-2">People Attending: </h2>
-                <table class="table table-striped ">
-                    <thead>
-                        <tr class="font-bold">
-                            <td>Name</td>
-                            <td>Email</td>
-                            <td>Gender</td>
-                            <td>Booked At</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($event->bookings as $key => $visitor)
-                            <tr class="h-[7vh]">
-                                <td>{{ $visitor->full_name }}</td>
-                                <td>{{ $visitor->email }}</td>
-                                <td>{{ $visitor->gender }}</td>
-                                <td>{{ \Carbon\Carbon::parse($visitor->pivot->created_at)->format('F j, Y \a\t g:i A') }}
-                                </td>
+            @if (count($event->bookings))
+                {{-- Table Info --}}
+                <div class="mt-4 bg-white rounded">
+                    <h2 class="underline mb-4 p-2">People Attending: </h2>
+                    <table class="table table-striped ">
+                        <thead>
+                            <tr class="font-bold">
+                                <td>Name</td>
+                                <td>Email</td>
+                                <td>Gender</td>
+                                <td>Booked At</td>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @foreach ($event->bookings as $key => $visitor)
+                                <tr class="h-[7vh]">
+                                    <td>{{ $visitor->full_name }}</td>
+                                    <td>{{ $visitor->email }}</td>
+                                    <td>{{ $visitor->gender }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($visitor->pivot->created_at)->format('F j, Y \a\t g:i A') }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
         </div>
     </div>
 

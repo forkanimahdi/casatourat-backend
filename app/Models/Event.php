@@ -24,6 +24,11 @@ class Event extends Model
         'longitude'
     ];
 
+    protected $casts = [
+        'title' => 'object',
+        'description' => 'object',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *

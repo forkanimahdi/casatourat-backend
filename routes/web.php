@@ -44,7 +44,6 @@ Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])
 Route::resource('buildings', BuildingController::class);
 
 Route::post('buildings/image/{building}', [BuildingController::class, 'store_image'])->name('buildings.store_image');
-Route::put('buildings/image/{image}', [BuildingController::class, 'update_image'])->name('buildings.update_image');
 Route::delete('buildings/image/{image}', [BuildingController::class, 'destory_image'])->name('buildings.destory_image');
 
 // * Events :

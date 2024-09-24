@@ -10,16 +10,19 @@ class Circuit extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'published' => 'boolean',
-    ];
-
     protected $fillable = [
         'name',
         'alternative',
         'description',
         'audio',
         'published'
+    ];
+
+    protected $casts = [
+        'name' => 'object',
+        'description' => 'object',
+        'audio' => 'object',
+        'published' => 'boolean',
     ];
 
     public function paths()
@@ -36,5 +39,4 @@ class Circuit extends Model
     {
         return $this->morphMany(Image::class, 'imagable');
     }
-    
 }

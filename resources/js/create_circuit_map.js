@@ -29,7 +29,7 @@ function initMap() {
     });
 
     map.addListener('click', function (event) {
-        const svgMarkerPath = '/storage/markers/path_marker.svg';
+        const svgMarkerPath = '/assets/markers/path.svg';
         const marker = new google.maps.Marker({
             position: {
                 lat: event.latLng.lat(),

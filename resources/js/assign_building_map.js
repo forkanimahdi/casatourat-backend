@@ -1,7 +1,7 @@
 
 function initMap() {
     let allCicruits = [];
-    const svgMarkerBuilding = '/storage/markers/building_marker.svg';
+    const svgMarkerBuilding = '/assets/markers/building.svg';
 
     const circuit = {
         lat: paths[1].lat,

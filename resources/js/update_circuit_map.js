@@ -30,7 +30,7 @@ function initMap() {
     });
 
     circuit_path.forEach(path => {
-        const svgMarkerPath = '/storage/markers/path_marker.svg';
+        const svgMarkerPath = '/assets/markers/path.svg';
 
         const currentMarkers = new google.maps.Marker({
             position: {

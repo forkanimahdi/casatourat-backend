@@ -1,7 +1,7 @@
 
 function initMap() {
-    const svgMarkerBuilding = '/storage/markers/building_marker.svg';
-    const svgMarkerPath = '/storage/markers/path_marker.svg';
+    const svgMarkerBuilding = '/assets/markers/building.svg';
+    const svgMarkerPath = '/assets/markers/path.svg';
 
     const circuit = {
         lat: circuit_path[1].lat,

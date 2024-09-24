@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Building;
 use App\Models\Circuit;
+use App\Models\Image;
 use App\Models\Path;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Route;
-
 use Illuminate\Support\Facades\Storage;
 
 class CircuitController extends Controller
@@ -26,25 +25,21 @@ class CircuitController extends Controller
 
     public function post(Request $request)
     {
-        // $data = $request->json()->all();
-        // if ($request->hasFile('audio')) {
-        //     return [
-        //         'aud' => $request->file('audio')->getClientOriginalName(),
-        //         'des' => $request->description,
-        //         'cord' => $request->get('cordinates')
-        //     ];
-        // }
-        // return 'noooo';
-
         request()->validate([
-            'name' => 'required',
-            'alternative' => 'required',
-            'description' => 'required',
-            'audio' => 'required',
+            'name' => 'required|array|min:3',
+            'name.en' => 'required|string',
+            'name.fr' => 'required|string',
+            'name.ar' => 'required|string',
+            'description' => 'required|array|min:3',
+            'description.en' => 'required|string',
+            'description.fr' => 'required|string',
+            'description.ar' => 'required|string',
+            'audio' => 'required|array|min:3',
+            'audio.en' => 'required|mimes:mp3,wav',
+            'audio.fr' => 'required|mimes:mp3,wav',
+            'audio.ar' => 'required|mimes:mp3,wav',
             'image.*' => 'required|mimes:png,jpg,jpeg'
         ]);
-
-
 
         $audio = $request->file('audio');
         $audioName = time() . $audio->getClientOriginalName();
@@ -57,16 +52,9 @@ class CircuitController extends Controller
             'audio' => $audioName
         ]);
 
+
         $images = $request->file('image');
-        if ($images) {
-            foreach ($images as  $image) {
-                $imageName = time() .  $image->getClientOriginalName();
-                $circuit->images()->create([
-                    'path' => $imageName
-                ]);
-                $image->storeAs('/images', $imageName, 'public');
-            }
-        }
+        Image::store($circuit, $images);
 
         $paths = json_decode($request->get('cordinates'), true);
         foreach ($paths as $path) {
@@ -76,7 +64,6 @@ class CircuitController extends Controller
                 'longitude' => $path['longitude'],
             ]);
         }
-
 
         return response()->json(['route_to_building' => '/circuit/assign_building/map/' . $circuit->id]);
     }

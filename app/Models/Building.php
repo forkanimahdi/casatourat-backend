@@ -10,7 +10,6 @@ class Building extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
         'circuit_id',
         'name',

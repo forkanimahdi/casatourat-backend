@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Building;
+use App\Models\Circuit;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -67,13 +68,7 @@ class BuildingController extends Controller
         ]);
 
         $images = $request->file('image');
-        foreach ($images as  $image) {
-            $imageName = time() . "_" . $image->getClientOriginalName();
-            $building->images()->create([
-                'path' => $imageName
-            ]);
-            $image->storeAs('images', $imageName, 'public');
-        }
+        Image::store($building, $images);
 
         return redirect()->route('buildings.index');
     }
@@ -130,34 +125,9 @@ class BuildingController extends Controller
         request()->validate([
             'image.*' => 'required|mimes:png,jpg',
         ]);
+
         $images = $request->file('image');
-        if ($images) {
-            foreach ($images as $image) {
-                $imageName = time() . '_' . $image->getClientOriginalName();
-                $building->images()->create([
-                    'path' => $imageName
-                ]);
-                $image->storeAs('images', $imageName, 'public');
-            }
-        }
-
-        return back();
-    }
-
-    public function update_image(Request $request, Image $image)
-    {
-        request()->validate([
-            'image' => 'required'
-        ]);
-
-        Storage::disk('public')->delete('images/' . $image->path);
-        $fileImage = $request->file('image');
-        $imageName = time() . '_' . $fileImage->getClientOriginalName();
-        $fileImage->storeAs('images', $imageName, 'public');
-
-        $image->update([
-            'path' => $imageName,
-        ]);
+        Image::store($building, $images);
 
         return back();
     }

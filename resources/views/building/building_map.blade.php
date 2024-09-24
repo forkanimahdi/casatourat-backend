@@ -254,7 +254,7 @@
                     },
                     map: map,
                     icon: {
-                        url: '/storage/markers/building_marker.svg',
+                        url: '/assets/markers/building.svg',
                         scaledSize: new google.maps.Size(45, 45),
                         anchor: new google.maps.Point(20, 45),
                     }

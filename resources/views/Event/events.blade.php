@@ -101,7 +101,7 @@
 
     <script>
         let markers = [];
-        const svgMarkerBuilding = '/storage/markers/building_marker.svg';
+        const svgMarkerBuilding = '/assets/markers/building.svg';
 
         let allEvents = @json($events).map(event => {
             return {

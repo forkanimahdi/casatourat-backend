@@ -20,7 +20,7 @@
         </div>
 
         <div class="flex justify-between gap-2">
-            <h1 class="text-base/none truncate">
+            <h1 class="text-base truncate">
                 {{ $title }}
             </h1>
         </div>

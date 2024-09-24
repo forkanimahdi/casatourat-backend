@@ -17,4 +17,16 @@ class Image extends Model
     {
         return $this->morphTo();
     }
+
+    static function store($ressource, $images) {
+        if ($images) {
+            foreach ($images as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $ressource->images()->create([
+                    'path' => $imageName
+                ]);
+                $image->storeAs('images', $imageName, 'public');
+            }
+        }
+    }
 }

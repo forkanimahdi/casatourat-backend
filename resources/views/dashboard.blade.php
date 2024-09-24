@@ -126,30 +126,53 @@
                 data: {
                     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                     datasets: [{
-                            label: 'visitor',
-                            data: [25, 19, 30, 10, 0, 21],
-                            fill: false,
-                            borderColor: '#3b82f6',
-                            tension: 0.125
-                        },
-                        {
                             label: 'male',
-                            data: [10, 18, 15, 7, 0, 11],
-                            fill: false,
-                            borderColor: '#8884d8',
+                            data: [10, 18, 0, 0, 0, 0],
+                            fill: 'origin',
+                            borderColor: '#8884d8ee',
+                            backgroundColor: "#8884d85e",
                             tension: 0.125
                         },
                         {
                             label: 'female',
-                            data: [15, 1, 15, 3, 0, 10],
-                            fill: false,
-                            borderColor: '#82ca9d',
+                            data: [15, 1, 0, 0, 0, 0],
+                            fill: 'origin',
+                            borderColor: '#82ca9dee',
+                            backgroundColor: "#82ca9d5e",
+                            tension: 0.125
+                        }, {
+                            label: 'visitor',
+                            data: [25, 19, 0, 0, 0, 0],
+                            fill: 'origin',
+                            borderColor: '#3b82f6ee',
+                            backgroundColor: "#3b82f60f",
                             tension: 0.125
                         }
+
                     ]
                 },
                 options: {
                     responsive: true,
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Month'
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Value'
+                            }
+                        }
+                    },
                 }
             });
 
@@ -159,18 +182,62 @@
                     labels: @json($destinationLabeles),
                     datasets: [{
                         label: 'My First Dataset',
-                        data: @json($destinationDataSet),
+                        // data: @json($destinationData),
+                        data: [1,2,13,1, 10, 8, 21, 15, 16, 24, 18, 16, 24, 18, 16, 25, 11, 10],
                         backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
+                            "#14b8a6", "#06b6d4", "#0ea5e9", "#3b82f6", "#6366f1", "#8b5cf6", "#a855f7",
+                            "#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16", "#22c55e", "#10b981",
+                            "#d946ef", "#ec4899", "#f43f5e",
                         ],
                         hoverOffset: 4
                     }]
                 },
                 options: {
                     responsive: true,
-                }
+                    plugins: {
+                        emptyDoughnut: {
+                            radiusDecrease: 120
+                        }
+                    },
+                },
+                plugins: [{
+                    id: 'emptyDoughnut',
+                    afterDraw(chart, args, options) {
+                        const {
+                            datasets
+                        } = chart.data;
+                        const {
+                            radiusDecrease
+                        } = options;
+
+                        for (const dataset of datasets) {
+                            for (const datevalue of dataset.data) {
+                                if (datevalue > 0) {
+                                    return
+                                }
+                            }
+                        }
+
+                        const {
+                            chartArea: {
+                                left,
+                                top,
+                                right,
+                                bottom
+                            },
+                            ctx
+                        } = chart;
+                        const centerX = (left + right) / 2;
+                        const centerY = (top + bottom) / 2;
+                        const r = Math.min(right - left, bottom - top) / 2;
+
+                        ctx.beginPath();
+                        ctx.lineWidth = 2;
+                        ctx.strokeStyle = '#1221af';
+                        ctx.arc(centerX, centerY, (r - 20 || 0), 0, 2 * Math.PI);
+                        ctx.stroke();
+                    }
+                }]
             });
         </script>
     </div>

@@ -17,12 +17,7 @@ class dashboardController extends Controller
 
         $buildings = Building::all();
         $destinationLabeles = $buildings->map(fn($building) => $building->name->en);
-        $destinationDataSet = $buildings->map(fn($building) => $building->visitors->count());
-
-        $femaleCount = Visitor::where('gender', 'female')->count();
-
-        $femaleCount = Visitor::where('gender', 'female')->count();
-        $maleCount = Visitor::where('gender', 'male')->count();
+        $destinationData = $buildings->map(fn($building) => $building->visitors->count());
 
         $states = [
             [
@@ -59,6 +54,6 @@ class dashboardController extends Controller
             ],
         ];
 
-        return view('dashboard', compact('states', 'comments', 'femaleCount', 'maleCount', 'destinationLabeles', 'destinationDataSet'));
+        return view('dashboard', compact('states', 'comments', 'destinationLabeles', 'destinationData'));
     }
 }

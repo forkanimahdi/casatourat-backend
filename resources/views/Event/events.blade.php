@@ -22,6 +22,14 @@
                     {{-- @include('Event.partials.add_event') --}}
                 {{-- </div> --}}
 
+                <div>
+                    <form action="{{route('event.send')}}">
+                        @csrf
+                        <button type="submit" class="px-4 py-2 rounded text-white bg-alpha">SEND NOTIFS</button>
+                    </form>
+                </div>
+
+
                 {{-- Card --}}
                 <div class="flex flex-wrap py-4">
                     @foreach ($events as $event)

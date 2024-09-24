@@ -33,7 +33,6 @@ class VisitorController extends Controller
                 "email",
                 "token",
                 "gender",
-                "birthday",
                 "avatar"
             ]),
             ARRAY_FILTER_USE_KEY,
@@ -67,9 +66,9 @@ class VisitorController extends Controller
                 fn ($key) => in_array($key, [
                     "full_name",
                     "gender",
-                    "birthday",
                     "avatar",
-                    'email'
+                    'email',
+                    'expoToken'
                 ]),
                 ARRAY_FILTER_USE_KEY,
             );

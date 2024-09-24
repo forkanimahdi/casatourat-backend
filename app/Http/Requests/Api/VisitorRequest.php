@@ -16,6 +16,7 @@ class VisitorRequest extends BaseRequest
             "email" => "required",
             "token" => "required",
             "gender" => "required|in:male,female",
+            // "expoToken" => 
         ];
     }
 }

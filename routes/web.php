@@ -49,6 +49,7 @@ Route::delete('buildings/image/{image}', [BuildingController::class, 'destory_im
 
 // * Events :
 Route::resource('events', EventController::class);
+Route::get('/send', [EventController::class, 'sendNotif'])->name('event.send');
 Route::post('/events/{event}/store_images', [EventController::class, 'store_image'])->name('event.store_image');
 Route::delete('events/{event}/delete_image/{image}', [EventController::class, 'destory_image'])->name('events.delete_image');
 

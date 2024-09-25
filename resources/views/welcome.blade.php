@@ -18,18 +18,17 @@
 
 <body class="font-sans antialiased">
     <div class=" text-black/50">
-        <div
-            class="relative min-h-screen flex flex-col items-center justify-center selection:bg-alpha selection:text-white">
-            <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                    <div class="flex lg:justify-center lg:col-start-2">
+        <div class="relative flex flex-col items-center justify-center selection:bg-alpha selection:text-white">
+            <div class="relative w-full px-16">
+                <header class="flex justify-between items-center gap-2 ">
+                    <div class="flex ">
                         <x-application-logo />
                     </div>
                     @if (Route::has('login'))
-                        <nav class="-mx-3 flex flex-1 justify-end">
+                        <nav class="-mx-3 flex flex-1 justify-end font-medium">
                             @auth
                                 <a href="{{ url('/dashboard') }}"
-                                    class="no-underline text-base rounded-md px-3 py-2 text-alpha ring-1 ring-transparent transition hover:text-alpha/70 focus:outline-none focus-visible:ring-alpha">
+                                    class="no-underline text-base  rounded-md px-3 py-2 text-alpha ring-1 ring-transparent transition hover:text-alpha/70 focus:outline-none focus-visible:ring-alpha">
                                     Dashboard
                                 </a>
                             @else
@@ -42,11 +41,30 @@
                     @endif
                 </header>
 
-                <main class="mt-6">
+                <main class="">
+                    <div class="flex flex-col items-center text-black">
+                        <h1>Explore Casablanca with Casatourat</h1>
+                        <p class="text-lg font-medium text-black/75">Discover hidden gems, follow curated circuits, and stay updated with local events.</p>
+                        <div class="flex justify-center gap-4">
+                            <a target="_blank" href="https://www.apple.com/app-store/">
+                                <img width="200" class=""
+                                    src="{{ asset('assets/images/App_Store_(iOS)-Badge-Logo.wine.png') }}"
+                                    alt="">
+                            </a>
+                            <a target="_blank" href="https://play.google.com/">
+                                <img width="200" class=""
+                                    src="{{ asset('assets/images/Google_Play-Badge-Logo.wine.png') }}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-center justify-center">
+                        <img src="{{ asset('assets/images/group_1609.png') }}" alt="">
+                        <img src="{{ asset('assets/images/group_1608.png') }}" alt="">
+                    </div>
                 </main>
 
-                <footer class="py-16 text-center text-sm text-alpha">
-                    By Casamémoire (2024)
+                <footer class="py-6 font-bold bg-[#ffffff83] text-center text-sm text-alpha">
+                    © 2024 By Casamémoire. All rights reserved.
                 </footer>
             </div>
         </div>

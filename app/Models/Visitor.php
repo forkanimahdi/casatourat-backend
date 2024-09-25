@@ -14,9 +14,9 @@ class Visitor extends Model
         "email",
         "token",
         "gender",
-        "birthday",
         "role",
-        "avatar"
+        "avatar",
+        'expoToken',
     ];
 
     public function favorite_building()

@@ -6,13 +6,18 @@ use Illuminate\Http\Request;
 use App\Models as models;
 use App\Models\GuidedVisit;
 use Carbon\Carbon;
+use ExpoSDK\Expo;
+use ExpoSDK\ExpoMessage;
 
 class GuidedVisitController extends Controller
 {
     public function index()
     {
         $guided = models\GuidedVisit::latest()->get();
-        return view('guided.guided_index', compact('guided'));
+    
+        $visitors = models\Visitor::select('id', 'full_name', 'email')->get();
+
+        return view('guided.guided_index', compact('guided', 'visitors'));
     }
 
     public function clearance(Request $request, GuidedVisit $visit)
@@ -39,6 +44,15 @@ class GuidedVisitController extends Controller
             'title' => $action,
             'content' => 'Your request for The guided visit on ' .  Carbon::parse($visit->date)->format('l j F') . ' has been ' . $res,
         ]);
+
+        $message = [
+            new ExpoMessage([
+                'title' => 'Notification for default recipients',
+                'body' => 'Because "to" property is not defined',
+            ]),
+        ];
+
+        (new Expo())->send($message)->to($visit->visitor->expoToken)->push();
 
         return back();
     }

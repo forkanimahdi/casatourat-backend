@@ -1,10 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center w-full">
+        <div class="flex justify-between items-center">
             <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
                 Circuit : {{ $circuit->name }}
             </h2>
         </div>
+        @include('circuit.partials.confirmation_modale')
     </x-slot>
 
     {{-- <div class="flex pt-3 items-start justify-between gap-2 px-3 h-[85vh]">

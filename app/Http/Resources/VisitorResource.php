@@ -7,10 +7,10 @@ class VisitorResource extends BaseResource
 {
     protected $attributes = [
         'full_name',
-        'birthday',
         'gender',
         'role',
         'email',
-        'avatar'
+        'avatar',
+        'expoToken',
     ];
 }

@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Event;
 use App\Models\Image;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use LDAP\Result;
+use ExpoSDK\Expo;
+use ExpoSDK\ExpoMessage;
 
 class EventController extends Controller
 {
@@ -158,6 +161,40 @@ class EventController extends Controller
             Storage::disk('public')->delete('images/' . $image->path);
             $image->delete();
         }
+        return back();
+    }
+
+
+
+    public function sendNotif()
+    {
+        //* Sending a message to one or more manually
+        // $vis = Visitor::find(8);
+
+        $message = [
+            new ExpoMessage([
+                'title' => 'Notification for default recipients',
+                'body' => 'Because "to" property is not defined',
+            ]),
+        ];
+
+        // $defaultRecipients = [
+        //     'ExponentPushToken[BJYa2QJeurTh-v5oPcC8VF]',
+        //     'ExponentPushToken[Z3lm68FTVhXlfGtcsdM4uk]'
+        // ];
+
+
+        // (new Expo)->send($message)->to($defaultRecipients)->push();
+
+        //* Subscribing someone to a channel then sending a message to the channel
+        $expo = Expo::driver('file');
+
+        $channel = 'default';
+        // $expo->subscribe($channel, $defaultRecipients);
+        $expo->send($message)->toChannel($channel)->push();
+
+
+
         return back();
     }
 }

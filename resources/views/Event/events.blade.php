@@ -4,13 +4,13 @@
             Create Event
         </x-slot>
 
-        <a href="{{route('events.create')}}">
+        <a class="no-underline" href="{{ route('events.create') }}">
             <button data-modal-target="default-modal" data-modal-toggle="default-modal"
-            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-alpha dark:hover:bg-alpha dark:focus:ring-blue-800"
-            type="button">
-            Add Event
-        </button>
-    </a>
+                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-alpha dark:hover:bg-alpha dark:focus:ring-blue-800"
+                type="button">
+                Add Event
+            </button>
+        </a>
     </x-slot>
 
     <div class="w-full h-full p-4 sm:p-6 lg:p-8">
@@ -18,8 +18,8 @@
             <div class="eventBody w-[90vw] h-[100vh] bg-gray-100 rounded-xl">
                 {{-- Header --}}
                 {{-- <div class="eventheader flex flex-row-reverse justify-between px-4"> --}}
-                    <!-- Main modal -->
-                    {{-- @include('Event.partials.add_event') --}}
+                <!-- Main modal -->
+                {{-- @include('Event.partials.add_event') --}}
                 {{-- </div> --}}
 
                 {{-- Card --}}

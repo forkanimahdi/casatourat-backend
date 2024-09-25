@@ -20,24 +20,21 @@ Route::get('/', function () {
 Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::get('/dashboard', [Controller::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/circuit', [CircuitController::class, 'index'])->name('circuit.index');
 Route::get('/circuit/customize', [CustomizeCircuitController::class, 'index'])->name('customize');
 Route::post('/circuit/customize/store', [CustomizeCircuitController::class, 'store'])->name('customize.store');
+
 // & circuit routes:
-Route::get('circuit/create', [CircuitController::class, 'create'])->name('circuit.create');
-Route::post('circuit/store', [CircuitController::class, 'post'])->name('circuit.post');
-Route::get('circuit/show/{circuit}', [CircuitController::class, 'show'])->name('circuit.show');
+Route::resource('circuits', CircuitController::class);
+Route::controller(CircuitController::class)->name("circuits.")->group(function () {
+
+});
+
 Route::get('circuit/assign_building/map/{id}', [CircuitController::class, 'assign_building_index'])->name('assign_building.index');
 Route::put('circuit/assign_building/{buildign}', [CircuitController::class, 'assign_building'])->name('circuit.assign_building');
 Route::put('circuit/unassign_building', [CircuitController::class, 'unassign_building'])->name('circuit.unassign_building');
 Route::put('circuit/update_draft/{circuit}', [CircuitController::class, 'update_draft'])->name('circuit.update_draft');
 Route::get('circuit/update/map/{circuit}', [CircuitController::class, 'update_map'])->name('circuit.update_map');
 Route::put('circuit/update_circuit/{id}', [CircuitController::class, 'update_circuit']);
-Route::put('circuit/update/{circuit}', [CircuitController::class, 'update'])->name('circuit.update');
-
-// Route::put('circuit/update/{circuit}', [CircuitController::class, 'update'])->name('circuit.update');
-Route::post('circuit/update/{id}', [CircuitController::class, 'update'])->name('circuit.update');
-Route::delete('circuit/delete/{circuit}', [CircuitController::class, 'destroy'])->name('circuit.destroy');
 
 
 // & building routes: this is a simplified way to put all the routes in one place

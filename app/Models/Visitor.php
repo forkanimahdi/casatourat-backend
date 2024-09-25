@@ -62,6 +62,7 @@ class Visitor extends Model
     {
         return $this->hasMany(VisitorNotification::class);
     }
+
     public function cutomizeCircuits() {
         return $this->hasMany(CustomizeCircuit::class);
     }

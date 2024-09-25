@@ -23,49 +23,56 @@ class CircuitController extends Controller
         return view('circuit.circuit_create');
     }
 
-    public function post(Request $request)
+    public function store(Request $request)
     {
+
         request()->validate([
+            'coordinates' => 'required|json',
             'name' => 'required|array|min:3',
             'name.en' => 'required|string',
             'name.fr' => 'required|string',
             'name.ar' => 'required|string',
-            'description' => 'required|array|min:3',
-            'description.en' => 'required|string',
-            'description.fr' => 'required|string',
-            'description.ar' => 'required|string',
-            'audio' => 'required|array|min:3',
-            'audio.en' => 'required|mimes:mp3,wav',
-            'audio.fr' => 'required|mimes:mp3,wav',
-            'audio.ar' => 'required|mimes:mp3,wav',
-            'image.*' => 'required|mimes:png,jpg,jpeg'
+            'description' => 'array|min:3',
+            'description.en' => 'string|nullable',
+            'description.fr' => 'string|nullable',
+            'description.ar' => 'string|nullable',
+            'audio' => 'array|min:3',
+            'audio.en' => 'mimes:mp3,wav',
+            'audio.fr' => 'mimes:mp3,wav',
+            'audio.ar' => 'mimes:mp3,wav',
+            'image.*' => 'mimes:png,jpg,jpeg',
         ]);
 
-        $audio = $request->file('audio');
-        $audioName = time() . $audio->getClientOriginalName();
-        $audio->storeAs('/audios', $audioName, 'public');
+        $audioFiles = [];
+        foreach (['en', 'fr', 'ar'] as $lang) {
+            if ($request->hasFile("audio.$lang")) {
+                $audioFile = $request->file("audio.$lang");
+                $audioName = time() . "_" . $lang . "." . $audioFile->extension();
+                $audioFile->storeAs('audios', $audioName, 'public');
+                $audioFiles[$lang] = $audioName;
+            }
+        }
 
         $circuit = Circuit::create([
-            'name' => $request->name,
-            'alternative' => $request->alternative,
-            'description' => $request->description,
-            'audio' => $audioName
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'audio' => $audioFiles,
         ]);
-
 
         $images = $request->file('image');
         Image::store($circuit, $images);
 
-        $paths = json_decode($request->get('cordinates'), true);
+        $paths = json_decode($request->coordinates, false);
+
         foreach ($paths as $path) {
             Path::create([
                 'circuit_id' => $circuit->id,
-                'latitude' => $path['latitude'],
-                'longitude' => $path['longitude'],
+                'latitude' => $path->latitude,
+                'longitude' => $path->longitude,
             ]);
         }
 
-        return response()->json(['route_to_building' => '/circuit/assign_building/map/' . $circuit->id]);
+        return redirect(route('circuits.show', $circuit));
     }
 
     public function show(Circuit $circuit)

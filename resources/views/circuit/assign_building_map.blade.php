@@ -13,7 +13,7 @@
         <div
             class="absolute left-0 bottom-0 h-[50%] w-full z-10 rounded-xl bg-gradient-to-t from-white pointer-events-none">
         </div>
-        <form action="{{ route('circuit.update_draft', $circuit) }}" method="post" class="absolute z-50 bottom-4">
+        <form action="{{ route('circuits.update_draft', $circuit) }}" method="post" class="absolute z-50 bottom-4">
             @method('PUT')
             @csrf
             <button
@@ -37,7 +37,7 @@
                                     <p class="text-gray-200 text-[0.8rem] font-thin m-0">
                                         {{ Str::limit($building->description, 35, '...') }}</p>
                                 </div>
-                                <form action="{{ route('circuit.assign_building', $building) }}" method="post">
+                                <form action="{{ route('circuits.assign_building', $building) }}" method="post">
                                     @csrf
                                     @method('PUT')
                                     <input type="text" class="d-none" value="{{ $id }}" name="circuit_id">

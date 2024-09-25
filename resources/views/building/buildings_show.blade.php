@@ -148,12 +148,14 @@
             <div style="--gap: 0.75rem; --count: 3;" class="flex flex-wrap gap-[var(--gap)]">
                 <div onclick="storeImage.click()"
                     class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] cursor-pointer aspect-square border-2 border-dashed rounded-lg flex flex-col items-center justify-center">
-                    <form action="{{ route('buildings.store_image', $building) }}" method="post"
+                    <form action="{{ route('images.store', $building) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="id" value="{{ $building->id }}">
+                        <input type="hidden" name="type" value="building">
                         <input onchange="addImgBtn.click()" multiple name="image[]" type="file" id="storeImage"
                             accept="image/png, image/jpeg" multiple
-                            class="mt-2 border-2 rounded w-full bg-white hidden ">
+                            class="mt-2 border-2 rounded w-full bg-white hidden">
                         <button class="hidden" id="addImgBtn">confirm</button>
                     </form>
                     <label class="block text-gray-700">Add an Image: </label>
@@ -170,7 +172,7 @@
                         <img class="w-full aspect-square object-cover rounded border"
                             src="{{ asset('storage/images/' . $image->path) }}" alt="">
                         <form class="flex justify-end absolute top-2 right-2"
-                            action="{{ route('buildings.destory_image', $image) }}" method="post">
+                            action="{{ route('images.destroy', $image) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button

@@ -3,6 +3,7 @@
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CircuitController;
 use App\Http\Controllers\CustomizeCircuitController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EventController;
@@ -23,11 +24,14 @@ Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['au
 Route::get('/circuit/customize', [CustomizeCircuitController::class, 'index'])->name('customize');
 Route::post('/circuit/customize/store', [CustomizeCircuitController::class, 'store'])->name('customize.store');
 
+// images
+Route::controller(ImageController::class)->name('images.')->group(function () {
+    Route::post('/images/store/{ressource}', 'store')->name('store');
+    Route::delete('/images/destroy/{image}', 'destroy')->name('destroy');
+});
+
 // & circuit routes:
 Route::resource('circuits', CircuitController::class);
-Route::controller(CircuitController::class)->name("circuits.")->group(function () {
-
-});
 
 Route::get('circuit/assign_building/map/{id}', [CircuitController::class, 'assign_building_index'])->name('assign_building.index');
 Route::put('circuit/assign_building/{buildign}', [CircuitController::class, 'assign_building'])->name('circuit.assign_building');

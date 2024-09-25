@@ -43,7 +43,12 @@ class CircuitController extends Controller
             'image.*' => 'mimes:png,jpg,jpeg',
         ]);
 
-        $audioFiles = [];
+        $audioFiles = [
+            'en' => null,
+            'fr' => null,
+            'ar' => null,
+        ];
+
         foreach (['en', 'fr', 'ar'] as $lang) {
             if ($request->hasFile("audio.$lang")) {
                 $audioFile = $request->file("audio.$lang");

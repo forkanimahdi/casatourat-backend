@@ -1,5 +1,5 @@
 <dialog id="addModeratorAdmin">
-    <div class="w-screen h-screen fixed inset-0 bg-black/50 grid place-items-center text-alpha z-10">
+    <div class="w-screen h-screen fixed inset-0 bg-black/50 grid place-items-center z-10">
         <div class="bg-white rounded w-[32.5%] shadow-md pt-1.5 pb-4">
             <div class="flex justify-between py-[1.25rem] px-8 border-b border-gray-100">
                 <h1 class="capitalize text-2xl font-bold">Add new Admin</h1>
@@ -15,26 +15,19 @@
             <form class="px-8 pt-[0.5rem]" action="" method="POST">
                 @csrf
                 <!-- First & Last Name -->
-                <div class="mt-[0.75rem] flex flex-wrap gap-3">
-                    <div class="flex-1 flex flex-col">
-                        <label class="font-medium" for="first_name">First Name</label>
-                        <input class="rounded-lg" name="first_name" id="first_name" type="text" required>
-                    </div>
-
-                    <div class="flex-1 flex flex-col">
-                        <label class="font-medium" for="last_name">Last Name</label>
-                        <input class="rounded-lg" name="last_name" id="last_name" type="text" required>
-                    </div>
+                <div class="mt-[0.75rem] flex flex-col gap-1">
+                        <label class="font-medium" for="full_name">First Name</label>
+                        <input class="rounded-lg" name="full_name" placeholder="Full Name..." id="full_name" type="text" required>
                 </div>
 
                 <!-- Email -->
-                <div class="mt-[0.75rem] flex-1 flex flex-col">
+                <div class="mt-[0.75rem] flex-1 flex flex-col gap-1">
                     <label class="font-medium" for="email">Email</label>
-                    <input class="rounded-lg" name="email" id="email" type="text" required>
+                    <input class="rounded-lg" name="email" id="email" type="email" placeholder="Email..." required>
                 </div>
 
                 <!-- Gender -->
-                <div class="mt-[0.75rem] flex-1 flex flex-col">
+                <div class="mt-[0.75rem] flex-1 flex flex-col gap-1">
                     <label class="font-medium" for="gender">Gender</label>
                     <div class="flex justify-between gap-3.5">
                         <input class="peer/male" type="radio" name="gender" value="male" id="male" hidden required>

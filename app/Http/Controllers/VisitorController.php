@@ -33,8 +33,8 @@ class VisitorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'full_name' => 'required',
+            // 'last_name' => 'required',
             'email' => 'required',
             'gender' => 'required',
         ]);
@@ -56,7 +56,7 @@ class VisitorController extends Controller
         }
 
         models\Visitor::create([
-            'full_name' => sprintf("%s %s", ucfirst(strtolower($request->first_name)), ucfirst(strtolower($request->last_name))),
+            'full_name' => $request->full_name,
             'email' => $request->email,
             'gender' => $request->gender,
             'role' => 'admin',
@@ -64,7 +64,7 @@ class VisitorController extends Controller
         ]);
 
         models\User::create([
-            'name' => $request->first_name,
+            'name' => $request->full_name,
             'email' => $request->email,
             'password' => facades\Hash::make($random_password),
         ]);

@@ -46,16 +46,22 @@
 
                     </div>
                     <div class="mr-3 relative">
-                        <svg id="visite_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        {{-- <svg id="visite_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                        </svg> --}}
+                        <svg id="visite_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6 cursor-pointer" id="notif_bell">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
                         </svg>
 
                         @if ($pending)
                             <div
-                                class="w-4 h-4 bg-red-500 text-white flex justify-center items-center rounded-lg absolute -top-2 -right-2">
+                                class="w-5 h-5 bg-red-500 text-white flex justify-center items-center rounded-lg absolute -top-2 -right-3">
                                 {{-- <small class="mb-0 text-sm"> <small>{{ $notif->count() }}</small></small> --}}
+                                <small class="mb-0 text-sm"> <small>9+</small></small>
                             </div>
                         @endif
                         <div id="pop_triangle_map"
@@ -113,34 +119,58 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hidden sm:flex {{ isset($header) ? '' : 'sm:ml-auto' }}">
+                    <div class="hidden mr-4 sm:flex {{ isset($header) ? '' : 'sm:ml-auto' }}">
                         <!-- Settings Dropdown -->
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button
-                                    class="inline-flex items-center px-3 ml-7 py-2 text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    <div>{{ Auth::user()->name }}</div>
-                                    <div class="ms-1">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
+                                    class="inline-flex items-center  text-sm leading-4 font-medium  focus:outline-none transition ease-in-out duration-150 ms-1 bg-gray-100 rounded-full p-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                    </svg>
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('profile.edit')">
-                                    {{ __('Profile') }}
+                                <div class="px-3 pt-2 pb-1 border-gray-200 border-b-2">
+                                    <p class="font-bold m-0 capitalize">{{ Auth::user()->name }}</p>
+                                    <p class="m-0">
+                                        {{ Auth::user()->email }}
+                                    </p>
+                                </div>
+                                <x-dropdown-link :href="route('profile.edit')" class="no-underline">
+                                    <div class="flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                        </svg>
+                                        <p class="m-0 font-semibold">
+                                            {{ __('Profile') }}
+                                        </p>
+                                    </div>
                                 </x-dropdown-link>
                                 <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <x-dropdown-link :href="route('logout')"
+                                    <x-dropdown-link :href="route('logout')" class="no-underline"
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();">
-                                        {{ __('Log Out') }}
+
+                                        <div class="flex items-center gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                                            </svg>
+
+                                            <p class="m-0 font-semibold">
+                                                {{ __('Log Out') }}
+                                            </p>
+                                        </div>
+
                                     </x-dropdown-link>
                                 </form>
                             </x-slot>

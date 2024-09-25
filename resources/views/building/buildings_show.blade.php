@@ -36,8 +36,7 @@
 
                         <div class="flex flex-col gap-[0.5rem]">
                             <label for="description_en" class="w-full font-bolder text-base">Text description</label>
-                            <textarea class="rounded w-full" type="text" placeholder="description" id="description_en" required
-                                name="description[en]" rows="7">{{ $building->description->en }}</textarea>
+                            <textarea class="rounded w-full" placeholder="description" id="description_en" name="description[en]" rows="7">{{ $building->description->en }}</textarea>
                         </div>
 
                         <div class="flex flex-col gap-[0.5rem]">
@@ -70,8 +69,7 @@
 
                         <div class="flex flex-col gap-[0.5rem]">
                             <label for="description_fr" class="w-full font-bolder text-base">Description texte</label>
-                            <textarea class="rounded w-full" type="text" placeholder="description" name="description[fr]" id="description_fr"
-                                rows="7" required>{{ $building->description->fr }}</textarea>
+                            <textarea class="rounded w-full" placeholder="description" name="description[fr]" id="description_fr" rows="7">{{ $building->description->fr }}</textarea>
                         </div>
 
                         <div class="flex flex-col gap-[0.5rem]">
@@ -97,15 +95,14 @@
                 <div x-show="tab === 'العربية'">
                     <div class="flex flex-col gap-y-[0.75rem] text-end">
                         <div class="flex flex-col gap-[0.5rem]">
-                            <label for="name.ar" class="text-base">الاسم</label>
+                            <label for="name_ar" class="text-base">الاسم</label>
                             <input class="rounded text-end" type="text" placeholder="الاسم" name="name[ar]"
-                                id="name.ar" value="{{ $building->name->ar }}" required>
+                                id="name_ar" value="{{ $building->name->ar }}" required>
                         </div>
 
                         <div class="flex flex-col gap-[0.5rem]">
                             <label for="description_ar" class="text-base">وصف النص</label>
-                            <textarea class="rounded text-end" type="text" placeholder="وصف" name="description[ar]" id="description_ar"
-                                rows="7" required>{{ $building->description->ar }}</textarea>
+                            <textarea class="rounded text-end" placeholder="وصف" name="description[ar]" id="description_ar" rows="7">{{ $building->description->ar }}</textarea>
                         </div>
 
                         <div class="flex flex-col gap-[0.5rem]">

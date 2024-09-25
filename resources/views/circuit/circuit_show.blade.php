@@ -1,15 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="text-alpha leading-tight capitalize font-semibold text-2xl">
-                Circuit : {{ $circuit->name->en }}
-            </h2>
-        </div>
+        <x-slot name="title">
+            Update Circuit
+        </x-slot>
+
         @include('circuit.partials.confirmation_modale')
     </x-slot>
 
     <div class="flex gap-[1.25rem] p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-86px)]">
-        <form action="{{ route('buildings.update', $circuit) }}" method="post" enctype="multipart/form-data"
+        <form action="{{ route('circuits.update', $circuit) }}" method="post" enctype="multipart/form-data"
             x-data="{ tab: 'English' }" class="flex-[60%] p-[1.25rem] bg-white rounded-lg">
             @csrf
             @method('PUT')
@@ -37,8 +36,7 @@
 
                         <div class="flex flex-col gap-[0.5rem]">
                             <label for="description_en" class="w-full font-bolder text-base">Text description</label>
-                            <textarea class="rounded w-full" type="text" placeholder="description" id="description_en" required
-                                name="description[en]" rows="7">{{ $circuit->description->en }}</textarea>
+                            <textarea class="rounded w-full" placeholder="description" id="description_en" name="description[en]" rows="7">{{ $circuit->description->en }}</textarea>
                         </div>
 
                         <div class="flex flex-col gap-[0.5rem]">
@@ -71,8 +69,7 @@
 
                         <div class="flex flex-col gap-[0.5rem]">
                             <label for="description_fr" class="w-full font-bolder text-base">Description texte</label>
-                            <textarea class="rounded w-full" type="text" placeholder="description" name="description[fr]" id="description_fr"
-                                rows="7" required>{{ $circuit->description->fr }}</textarea>
+                            <textarea class="rounded w-full" placeholder="description" name="description[fr]" id="description_fr" rows="7">{{ $circuit->description->fr }}</textarea>
                         </div>
 
                         <div class="flex flex-col gap-[0.5rem]">
@@ -105,8 +102,7 @@
 
                         <div class="flex flex-col gap-[0.5rem]">
                             <label for="description_ar" class="text-base">وصف النص</label>
-                            <textarea class="rounded text-end" type="text" placeholder="وصف" name="description[ar]" id="description_ar"
-                                rows="7" required>{{ $circuit->description->ar }}</textarea>
+                            <textarea class="rounded text-end" placeholder="وصف" name="description[ar]" id="description_ar" rows="7">{{ $circuit->description->ar }}</textarea>
                         </div>
 
                         <div class="flex flex-col gap-[0.5rem]">
@@ -130,7 +126,6 @@
                 </div>
 
                 <div class="self-end mt-[0.75rem]">
-
                     <button type="submit"
                         class="flex items-center justify-center gap-2 py-2 px-3.5 bg-alpha text-[#fff] rounded font-bold hover:shadow border-2 border-transparent hover:border-alpha hover:text-alpha hover:bg-white duration-200">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -188,6 +183,7 @@
             </div>
         </div>
     </div>
+
     <div class="px-4 pb-7 ">
         <div class="bg-white p-[1.25rem]  rounded-lg">
             <h5>Assigned Building</h5>

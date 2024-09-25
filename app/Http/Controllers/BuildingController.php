@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Building;
-use App\Models\Circuit;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -30,25 +29,29 @@ class BuildingController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'circuit_id' => 'nullable|integer',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
             'name' => 'required|array|min:3',
             'name.en' => 'required|string',
             'name.fr' => 'required|string',
             'name.ar' => 'required|string',
-            'description' => 'required|array|min:3',
-            'description.en' => 'required|string',
-            'description.fr' => 'required|string',
-            'description.ar' => 'required|string',
-            'audio' => 'required|array|min:3',
-            'audio.en' => 'required|mimes:mp3,wav',
-            'audio.fr' => 'required|mimes:mp3,wav',
-            'audio.ar' => 'required|mimes:mp3,wav',
-            'image.*' => 'required|mimes:png,jpg,jfif',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
+            'description' => 'array|min:3',
+            'circuit_id' => 'nullable|integer',
+            'description.en' => 'nullable|string',
+            'description.fr' => 'nullable|string',
+            'description.ar' => 'nullable|string',
+            'audio' => 'array|min:3',
+            'audio.en' => 'mimes:mp3,wav',
+            'audio.fr' => 'mimes:mp3,wav',
+            'audio.ar' => 'mimes:mp3,wav',
+            'image.*' => 'mimes:png,jpg,jfif',
         ]);
 
-        $audioFiles = [];
+        $audioFiles = [
+            "en" => null,
+            "fr" => null,
+            "ar" => null,
+        ];
         foreach (['en', 'fr', 'ar'] as $lang) {
             if ($request->hasFile("audio.$lang")) {
                 $audioFile = $request->file("audio.$lang");
@@ -85,22 +88,17 @@ class BuildingController extends Controller
             'name.en' => 'required|string',
             'name.fr' => 'required|string',
             'name.ar' => 'required|string',
-            'description' => 'required|array|min:3',
-            'description.en' => 'required|string',
-            'description.fr' => 'required|string',
-            'description.ar' => 'required|string',
+            'description' => 'array|min:3',
+            'description.en' => 'string|nullable',
+            'description.fr' => 'string|nullable',
+            'description.ar' => 'string|nullable',
             'audio' => 'array',
             'audio.en' => 'mimes:mp3,wav',
             'audio.fr' => 'mimes:mp3,wav',
             'audio.ar' => 'mimes:mp3,wav',
         ]);
 
-
-        $building->name = $request->input('name');
-        $building->description = $request->input('description');
-
         $audioFiles = (array)$building->audio;
-
         foreach (['en', 'fr', 'ar'] as $lang) {
             if ($request->hasFile("audio.$lang")) {
                 Storage::disk('public')->delete('audios/' . $audioFiles[$lang]);
@@ -120,30 +118,11 @@ class BuildingController extends Controller
         return back();
     }
 
-    public function store_image(Request $request, Building $building)
-    {
-        request()->validate([
-            'image.*' => 'required|mimes:png,jpg',
-        ]);
-
-        $images = $request->file('image');
-        Image::store($building, $images);
-
-        return back();
-    }
-
-    public function destory_image(Image $image)
-    {
-        Storage::disk('public')->delete('images/' . $image->path);
-        $image->delete();
-        return back();
-    }
-
     public function destroy(Building $building)
     {
         // delete the images
         foreach ($building->images as $image) {
-            $this->destory_image($image);
+            $image->erase();
         }
 
         // delete the audios

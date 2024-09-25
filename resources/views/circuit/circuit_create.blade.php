@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <x-slot name="title">
-            create circuit
+            add new circuit
         </x-slot>
     </x-slot>
 
@@ -15,7 +15,7 @@
                 return steps.indexOf(step);
             }
         }" class="p-4 sm:p-6 lg:p-8">
-            <div class="py-[1.25rem] px-8 bg-white rounded-lg flex flex-col gap-3.5">
+            <div class="pt-10 pb-6 px-12 bg-white rounded-lg flex flex-col gap-3.5">
                 <div class="flex gap-3 justify-center">
                     @foreach (['Path', 'Circuit Details', 'Assign Buildings'] as $key => $item)
                         <div class="flex flex-col w-[30%]">
@@ -36,15 +36,20 @@
                 </div>
 
                 <div x-show="step === 'Path'" class="flex flex-col gap-3">
-                    <div id="map" class="rounded h-[75vh]"></div>
+                    <div id="map" class="rounded h-[62vh] aspect-square"></div>
                     <input type="hidden" name="coordinates" id="coordinates" required>
-                    <button type="button" @click="step = 'Circuit Details'"
-                        class="bg-alpha px-4 py-2 w-fit text-white rounded-md ml-auto">Next</button>
+                    <button id="nextBtn" type="button" @click="step = 'Circuit Details'" disabled
+                        class="bg-alpha px-4 py-2 w-fit text-[#fff] border-[1.5px] border-alpha rounded-md transition-colors text-sm font-medium ml-auto flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:border-gray-300 disabled:text-gray-500 disabled:opacity-50 disabled:pointer-events-none">
+                        <span>Next</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75"
+                            stroke="currentColor" class="size-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
                 </div>
 
-                <div x-show="step === 'Circuit Details'">
+                <div x-data="{ nameInput: { en: false, ar: false, fr: false } }" x-show="step === 'Circuit Details'">
                     <div x-data="{ tab: 'English' }" class="flex-[44%] bg-white rounded-sm">
-                        {{-- <h5 class="mb-[1rem]">Create Building</h5> --}}
                         <div class="flex bg-gray-200 w-full justify-between gap-2 p-1 rounded-lg">
                             @foreach (['English', 'Français', 'العربية'] as $language)
                                 <button @click="tab = '{{ $language }}'"
@@ -60,15 +65,15 @@
                                 <div class="flex flex-col gap-y-[0.75rem]">
                                     <div class="flex flex-col gap-[0.5rem]">
                                         <label for="name_en" class="w-full font-bolder text-base">Name</label>
-                                        <input class="rounded w-full" type="text" id="name_en" placeholder="name"
+                                        <input @input="nameInput.en = name_en.value !== ''" class="rounded w-full"
+                                            type="text" id="name_en" placeholder="name"
                                             value="{{ old('name.en') }}" name="name[en]" required>
                                     </div>
 
                                     <div class="flex flex-col gap-[0.5rem]">
                                         <label for="description_en" class="w-full font-bolder text-base">Text
                                             description</label>
-                                        <textarea class="rounded w-full" placeholder="description" id="description_en" name="description[en]"
-                                            rows="5">{{ old('description.en') }}</textarea>
+                                        <textarea class="rounded w-full" placeholder="description" id="description_en" name="description[en]" rows="5">{{ old('description.en') }}</textarea>
                                     </div>
 
                                     <div class="flex flex-col gap-[0.5rem]">
@@ -96,15 +101,16 @@
                                 <div class="flex flex-col gap-y-[0.75rem]">
                                     <div class="flex flex-col gap-[0.5rem]">
                                         <label for="name_fr" class="w-full font-bolder text-base">Nom</label>
-                                        <input class="rounded w-full" type="text" placeholder="nom" name="name[fr]"
-                                            id="name_fr" value="{{ old('name.fr') }}" required>
+                                        <input @input="nameInput.fr = name_fr.value !== ''" class="rounded w-full"
+                                            type="text" placeholder="nom" name="name[fr]" id="name_fr"
+                                            value="{{ old('name.fr') }}" required>
                                     </div>
 
                                     <div class="flex flex-col gap-[0.5rem]">
                                         <label for="description_fr" class="w-full font-bolder text-base">Description
                                             texte</label>
-                                        <textarea class="rounded w-full" type="text" placeholder="description" name="description[fr]" id="description_fr"
-                                            rows="5">{{ old('description.fr') }}</textarea>
+                                        <textarea class="rounded w-full" type="text" placeholder="description" name="description[fr]"
+                                            id="description_fr" rows="5">{{ old('description.fr') }}</textarea>
                                     </div>
 
                                     <div class="flex flex-col gap-[0.5rem]">
@@ -132,9 +138,10 @@
                             <div x-show="tab === 'العربية'">
                                 <div class="flex flex-col gap-y-[0.75rem] text-end">
                                     <div class="flex flex-col gap-[0.5rem]">
-                                        <label for="name.ar" class="text-base">الاسم</label>
-                                        <input class="rounded text-end" type="text" placeholder="الاسم"
-                                            name="name[ar]" id="name.ar" value="{{ old('name.ar') }}" required>
+                                        <label for="name_ar" class="text-base">الاسم</label>
+                                        <input @input="nameInput.ar = name_ar.value !== ''" class="rounded text-end"
+                                            type="text" placeholder="الاسم" name="name[ar]" id="name_ar"
+                                            value="{{ old('name.ar') }}" required>
                                     </div>
 
                                     <div class="flex flex-col gap-[0.5rem]">
@@ -183,14 +190,26 @@
                                     class="hidden" type="file" placeholder="image" multiple accept="image/*"
                                     name="image[]" id="image">
                             </div>
-                            <div class="flex justify-between py-2">
+                            <div class="flex justify-between mt-3.5">
                                 <button type="button" @click="step = 'Path'"
-                                    class="w-fit px-3 py-2 bg-alpha text-gray-100 rounded font-bold hover:shadow border-2 border-transparent hover:border-alpha hover:text-alpha hover:bg-white ">
-                                    Back
+                                    class="bg-white px-4 py-2 w-fit text-alpha border-[1.5px] border-alpha rounded-md text-sm font-medium flex items-center justify-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-3.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                    </svg>
+                                    <span>Previous</span>
                                 </button>
+
                                 <button type="button" @click="step = 'Assign Buildings'"
-                                    class="w-fit px-3 py-2 bg-alpha text-gray-100 rounded font-bold hover:shadow border-2 border-transparent hover:border-alpha hover:text-alpha hover:bg-white ">
-                                    Next
+                                    :disabled="!(nameInput.en && nameInput.ar && nameInput.fr)"
+                                    class="bg-alpha px-4 py-2 w-fit text-[#fff] border-[1.5px] border-alpha rounded-md transition-colors text-sm font-medium flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-300 disabled:opacity-50 disabled:pointer-events-none">
+                                    <span>Next</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.75" stroke="currentColor" class="size-3.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -199,27 +218,44 @@
 
                 <div x-show="step === 'Assign Buildings'" class="flex flex-col gap-2">
                     @foreach ($buildings as $building)
-                        <div
-                            class="bg-gray-100 w-full flex justify-between px-[1rem] py-[0.5rem] items-center rounded-lg">
-                            <h4 class="text-base">{{ $building->name->en }}</h4>
-                            <button type="button" class="bg-black text-white px-3 py-2 rounded-md">+ Assign</button>
-                        </div>
+                        @if (!$building->circuit_id)
+                            <div
+                                class="bg-gray-100 w-full flex justify-between px-[1rem] py-[0.5rem] items-center rounded-lg">
+                                <h4 class="text-base">{{ $building->name->en }}</h4>
+
+                                <label x-data="{ checked: false }" for="building_{{ $building->id }}"
+                                    class="group flex items-center gap-1 text-white rounded-md px-3.5 cursor-pointer select-none py-1.5"
+                                    :class="checked ? 'bg-red-500' : 'bg-black'">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            :d="checked ? 'M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z' :
+                                                'M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'" />
+                                    </svg>
+                                    <span x-text="checked ? 'Unassign' : 'Assign'" class="font-medium"></span>
+                                    <input type="checkbox" class="hidden" name="buildings[]"
+                                        id="building_{{ $building->id }}" value="{{ $building->id }}"
+                                        @change="checked = building_{{ $building->id }}.checked; building_{{ $building->id }}.value = building_{{ $building->id }}.checked ? '{{ $building->id }}' : ''">
+                                </label>
+                            </div>
+                        @endif
                     @endforeach
 
                     <div class="flex justify-between mt-3.5 py-3">
                         <button type="button" @click="step = 'Circuit Details'"
-                            class="px-3 py-2 bg-black text-white rounded-md">Back</button>
-                        <div class="flex gap-3">
-                            <button type="submit" class="px-3 py-2 bg-black text-white rounded-md">Withdraw</button>
-                            <button type="submit"
-                                class="px-3 py-2 bg-alpha text-white flex items-center gap-2 rounded-md">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
-                                </svg>
-                                <span>Publish Circuit</span></button>
-                        </div>
+                            class="bg-white px-4 py-2 w-fit text-alpha border-[1.5px] border-alpha rounded-md text-sm font-medium flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-3.5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 19.5 8.25 12l7.5-7.5" />
+                            </svg>
+                            <span>Previous</span>
+                        </button>
+
+                        <button type="submit"
+                            class="bg-alpha px-4 py-2 w-fit text-[#fff] border-[1.5px] border-alpha rounded-md transition-colors text-sm font-medium flex items-center justify-center gap-2">
+                            <span>Create Circuit</span>
+                        </button>
                     </div>
                 </div>
             </div>

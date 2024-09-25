@@ -41,6 +41,7 @@ class CircuitController extends Controller
             'audio.fr' => 'mimes:mp3,wav',
             'audio.ar' => 'mimes:mp3,wav',
             'image.*' => 'mimes:png,jpg,jpeg',
+            'buildings' => 'array',
         ]);
 
         $audioFiles = [
@@ -48,7 +49,6 @@ class CircuitController extends Controller
             'fr' => null,
             'ar' => null,
         ];
-
         foreach (['en', 'fr', 'ar'] as $lang) {
             if ($request->hasFile("audio.$lang")) {
                 $audioFile = $request->file("audio.$lang");
@@ -67,14 +67,24 @@ class CircuitController extends Controller
         $images = $request->file('image');
         Image::store($circuit, $images);
 
+        // add the circuit path
         $paths = json_decode($request->coordinates, false);
-
         foreach ($paths as $path) {
             Path::create([
                 'circuit_id' => $circuit->id,
                 'latitude' => $path->latitude,
                 'longitude' => $path->longitude,
             ]);
+        }
+
+        // assign buildings to circuit
+        foreach ($request->buildings as $building_id) {
+            $building = Building::find($building_id);
+            if ($building) {
+                $building->update([
+                    'circuit_id' => $circuit->id,
+                ]);
+            }
         }
 
         return redirect(route('circuits.show', $circuit));
@@ -140,58 +150,56 @@ class CircuitController extends Controller
         return view('circuit.circuit_update_map', compact('circuit'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Circuit $circuit)
     {
-        // if ($request->hasFile('name')) {
-        //     return [
-        //         'name' => $request->name,
-        //         'des' => $request->description,
-        //         'cord' => $request->get('cordinates')
-        //     ];
-        // }
-        // return 'noooo' . $request->name . 'hahah';
-
         request()->validate([
-            'name' => 'required',
-            'alternative' => 'required',
-            'description' => 'required',
+            'name' => 'required|array|min:3',
+            'name.en' => 'required|string',
+            'name.fr' => 'required|string',
+            'name.ar' => 'required|string',
+            'description' => 'array|min:3',
+            'description.en' => 'string|nullable',
+            'description.fr' => 'string|nullable',
+            'description.ar' => 'string|nullable',
+            'audio' => 'array',
+            'audio.en' => 'mimes:mp3,wav',
+            'audio.fr' => 'mimes:mp3,wav',
+            'audio.ar' => 'mimes:mp3,wav',
         ]);
 
-        $circuit = Circuit::where('id', $id)->first();
+        $audioFiles = (array)$circuit->audio;
 
-        if ($request->file('audio')) {
-            Storage::disk('public')->delete('audios/' . $circuit->audio);
-            $audio = $request->file('audio');
-            $audioName = time() . $audio->getClientOriginalName();
-            $circuit->audio = $audioName;
-            $circuit->save();
-            $audio->storeAs('/audios', $audioName, 'public');
+        foreach (['en', 'fr', 'ar'] as $lang) {
+            if ($request->hasFile("audio.$lang")) {
+                Storage::disk('public')->delete('audios/' . $audioFiles[$lang]);
+                $audioFile = $request->file("audio.$lang");
+                $audioName = time() . "_" . $lang;
+                $audioFile->storeAs('audios', $audioName, 'public');
+                $audioFiles[$lang] = $audioName;
+            }
         }
 
         $circuit->update([
-            'name' => $request->name,
-            'alternative' => $request->alternative,
-            'description' => $request->description,
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'audio' => $audioFiles,
         ]);
 
+        // $circuitPaths = Path::where('circuit_id', $id)->get();
+        // foreach ($circuitPaths as $path) {
+        //     $path->delete();
+        // }
 
-        $circuitPaths = Path::where('circuit_id', $id)->get();
-        foreach ($circuitPaths as $path) {
-            $path->delete();
-        }
+        // $new_paths = json_decode($request->get('cordinates'), true);
+        // foreach ($new_paths as $path) {
+        //     Path::create([
+        //         'circuit_id' => $path['circuit_id'],
+        //         'latitude' => $path['latitude'],
+        //         'longitude' => $path['longitude'],
+        //     ]);
+        // }
 
-        $new_paths = json_decode($request->get('cordinates'), true);
-        foreach ($new_paths as $path) {
-            Path::create([
-                'circuit_id' => $path['circuit_id'],
-                'latitude' => $path['latitude'],
-                'longitude' => $path['longitude'],
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'circuit updated successfully'
-        ]);
+        return back();
     }
 
     public function destroy(Circuit $circuit)
@@ -201,7 +209,19 @@ class CircuitController extends Controller
                 'circuit_id' => null
             ]);
         }
+
+        // delete the images
+        foreach ($circuit->images as $image) {
+            $image->erase();
+        }
+
+        // delete the audios
+        foreach ((array)$circuit->audio as $lang => $audioFile) {
+            Storage::disk('public')->delete('audios/' . $audioFile);
+        }
+
         $circuit->delete();
-        return redirect()->route('dashboard');
+
+        return redirect()->route('circuits.index');
     }
 }

@@ -10,7 +10,7 @@ function initMap() {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     });
 
-    let line = new google.maps.Polyline({
+    const line = new google.maps.Polyline({
         map: map,
         strokeOpacity: 0,
         icons: [
@@ -59,43 +59,9 @@ function initMap() {
         );
 
         line.setPath(markers.map((marker) => marker.getPosition()));
+
+        nextBtn.disabled = !(markers.length > 1);
     });
-
-    // const form = document.querySelector("#myForm");
-
-    // form.addEventListener("submit", function (e) {
-    //     e.preventDefault();
-    //     const formData = new FormData(form);
-    //     let cordinates = markers.map((marker) => {
-    //         return {
-    //             latitude: marker.getPosition().lat(),
-    //             longitude: marker.getPosition().lng(),
-    //         };
-    //     });
-
-    //     formData.append("cordinates", JSON.stringify(cordinates));
-
-    //     function submitData() {
-    //         if (markers.length < 2) return;
-    //         try {
-    //             axios.post("/circuit/store", formData).then((response) => {
-    //                 window.location.href = response.data["route_to_building"];
-    //             });
-    //             markers.map((marker) => marker.setMap(null));
-    //         } catch (error) {
-    //             console.error("Error posting data:", error);
-    //         }
-    //     }
-    //     submitData();
-
-    //     const markersOfPlyLine = markers.map((marker) => marker.getPosition());
-    //     new google.maps.Polyline({
-    //         path: markersOfPlyLine,
-    //         strokeColor: "#5A5A5A",
-    //         strokeWeight: 4,
-    //         map: map,
-    //     });
-    // });
 }
 
 window.onload = initMap;

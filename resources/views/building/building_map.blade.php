@@ -53,8 +53,7 @@
 
                         <div class="flex flex-col gap-[0.5rem]">
                             <label for="description_en" class="w-full font-bolder text-base">Text description</label>
-                            <textarea class="rounded w-full" type="text" placeholder="description" id="description_en" required
-                                name="description[en]" rows="5">{{ old('description.en') }}</textarea>
+                            <textarea class="rounded w-full" placeholder="description" id="description_en" name="description[en]" rows="5">{{ old('description.en') }}</textarea>
                         </div>
 
                         <div class="flex flex-col gap-[0.5rem]">
@@ -73,7 +72,7 @@
                             <input
                                 onchange="audioEnPlaceholder.textContent = [...this.files].map(f => f.name).join(', ')"
                                 class="hidden" type="file" placeholder="audio" accept="audio/*" name="audio[en]"
-                                id="audio_en" value="{{ old('audio.en') }}" required>
+                                id="audio_en" value="{{ old('audio.en') }}">
                         </div>
                     </div>
                 </div>
@@ -88,8 +87,7 @@
 
                         <div class="flex flex-col gap-[0.5rem]">
                             <label for="description_fr" class="w-full font-bolder text-base">Description texte</label>
-                            <textarea class="rounded w-full" type="text" placeholder="description" name="description[fr]" id="description_fr"
-                                rows="5" required>{{ old('description.fr') }}</textarea>
+                            <textarea class="rounded w-full" placeholder="description" name="description[fr]" id="description_fr" rows="5">{{ old('description.fr') }}</textarea>
                         </div>
 
                         <div class="flex flex-col gap-[0.5rem]">
@@ -108,7 +106,7 @@
                             <input
                                 onchange="audioFrPlaceholder.textContent = [...this.files].map(f => f.name).join(', ')"
                                 class="hidden" type="file" placeholder="audio" accept="audio/*" name="audio[fr]"
-                                id="audio_fr" value="{{ old('audio.fr') }}" required>
+                                id="audio_fr" value="{{ old('audio.fr') }}">
                         </div>
                     </div>
                 </div>
@@ -116,15 +114,14 @@
                 <div x-show="tab === 'العربية'">
                     <div class="flex flex-col gap-y-[0.75rem] text-end">
                         <div class="flex flex-col gap-[0.5rem]">
-                            <label for="name.ar" class="text-base">الاسم</label>
+                            <label for="name_ar" class="text-base">الاسم</label>
                             <input class="rounded text-end" type="text" placeholder="الاسم" name="name[ar]"
-                                id="name.ar" value="{{ old('name.ar') }}" required>
+                                id="name_ar" value="{{ old('name.ar') }}" required>
                         </div>
 
                         <div class="flex flex-col gap-[0.5rem]">
                             <label for="description_ar" class="text-base">وصف النص</label>
-                            <textarea class="rounded text-end" type="text" placeholder="وصف" name="description[ar]" id="description_ar"
-                                rows="5" required>{{ old('description.ar') }}</textarea>
+                            <textarea class="rounded text-end" placeholder="وصف" name="description[ar]" id="description_ar" rows="5">{{ old('description.ar') }}</textarea>
                         </div>
 
                         <div class="flex flex-col gap-[0.5rem]">
@@ -143,7 +140,7 @@
                             <input
                                 onchange="audioArPlaceholder.textContent = [...this.files].map(f => f.name).join(', ')"
                                 class="hidden" type="file" placeholder="audio" accept="audio/*" name="audio[ar]"
-                                id="audio_ar" value="{{ old('audio.ar') }}" required>
+                                id="audio_ar" value="{{ old('audio.ar') }}">
                         </div>
                     </div>
                 </div>
@@ -163,13 +160,13 @@
                     </label>
                     <input onchange="imagesPlaceholder.textContent = [...this.files].map(f => f.name).join(', ')"
                         class="hidden" type="file" placeholder="image" multiple accept="image/*" name="image[]"
-                        id="image" required>
+                        id="image">
                 </div>
 
                 <button
-                    class="mt-[0.75rem] flex items-center justify-center gap-2 p-2 bg-alpha text-gray-100 rounded w-full font-bold hover:shadow border-2 border-transparent hover:border-alpha hover:text-alpha hover:bg-white duration-200">
+                    class="mt-[0.75rem] ml-auto flex items-center justify-center gap-2 p-2 px-3.5 bg-alpha text-gray-100 rounded w-fit font-bold hover:shadow border-2 border-transparent hover:border-alpha hover:text-alpha hover:bg-white duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-6">
+                        stroke="currentColor" class="size-5">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         <path stroke-linecap="round" stroke-linejoin="round"

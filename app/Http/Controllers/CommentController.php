@@ -7,27 +7,36 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function index () {
+    public function index()
+    {
         $reviews = Comment::all();
         return view('notifications.notif', compact('reviews'));
     }
-    public function show (Comment $review) {
+
+    public function show(Comment $review)
+    {
         return view('notifications.eachnotif', compact('review'));
     }
-    public function destroy (Comment $review) {
+
+    public function destroy(Comment $review)
+    {
         $review->delete();
         return back();
     }
-    public function store(Request $request) {
+
+    public function store(Request $request)
+    {
         Comment::create([
-            'visitor_id'=> $request->visitor_id,
-            'building_id'=>$request->building_id,
+            'visitor_id' => $request->visitor_id,
+            'circuit_id' => $request->circuit_id,
             'content' => $request->content,
             'status' => $request->status,
         ]);
         return back();
     }
-    public function update(Request $request, Comment $review) {
+
+    public function update(Request $request, Comment $review)
+    {
         $response = !$review->mark_read;
         // dd($review);
         $review->update([
@@ -36,7 +45,8 @@ class CommentController extends Controller
         return back();
     }
 
-    public function asread() {
+    public function asread()
+    {
         $reviews = Comment::where('mark_read', false)->get();
         foreach ($reviews as $review) {
             $review->update([

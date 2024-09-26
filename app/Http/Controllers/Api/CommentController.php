@@ -29,13 +29,13 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         return $this->validateToken($request, function (models\Visitor $visitor) use ($request) {
-            $building = models\Building::find($request->building_id);
-            if (!$building) {
+            $circuit = models\Circuit::find($request->circuit_id);
+            if (!$circuit) {
                 return response()->json([
-                    'message' => "building with id '$request->building_id' not found"
+                    'message' => "Circuit with id '$request->circuit_id' not found"
                 ]);
             }
-            $visitor->comments()->attach($building, [
+            $visitor->comments()->attach($circuit, [
                 'content' => $request->content,
                 'status' => $request->status,
             ]);
@@ -48,26 +48,26 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, string $building_id)
+    public function show(Request $request, string $circuit_id)
     {
-        return $this->validateToken($request, function ($visitor) use ($building_id, $request) {
-            $building = models\Building::find($building_id);
-            if (!$building) {
-                return response()->json([
-                    'message' => "building with id '$building_id' not found"
-                ]);
-            }
-            return [
-                'comments' => $building->comments->map(fn ($building) => [
-                    'id' => $building->pivot->id,
-                    'content' => $building->pivot->content,
-                    'owner' => [
-                        'first_name' => $building->first_name,
-                        'last_name' => $building->last_name,
-                    ]
-                ]),
-            ];
-        });
+        // return $this->validateToken($request, function ($visitor) use ($circuit_id, $request) {
+        //     $circuit = models\Circuit::find($circuit_id);
+        //     if (!$circuit) {
+        //         return response()->json([
+        //             'message' => "circuit with id '$circuit_id' not found"
+        //         ]);
+        //     }
+        //     return [
+        //         'comments' => $circuit->comments->map(fn ($circuit) => [
+        //             'id' => $circuit->pivot->id,
+        //             'content' => $circuit->pivot->content,
+        //             'owner' => [
+        //                 'first_name' => $circuit->first_name,
+        //                 'last_name' => $circuit->last_name,
+        //             ]
+        //         ]),
+        //     ];
+        // });
     }
 
     /**
@@ -75,18 +75,18 @@ class CommentController extends Controller
      */
     public function update(Request $request, string $comment_id)
     {
-        return $this->validateToken($request, function ($visitor) use ($request, $comment_id) {
-            $comment = Comment::where('id', $comment_id)->first();
-            if (!$comment) return;
-            if ($visitor->id != $comment->visitor_id) return;
-            $comment->update([
-                'content' => $request->content,
-            ]);
-            $comment->save();
-            return response()->json([
-                'message' => 'comment updated successfully',
-            ]);
-        });
+        // return $this->validateToken($request, function ($visitor) use ($request, $comment_id) {
+        //     $comment = Comment::where('id', $comment_id)->first();
+        //     if (!$comment) return;
+        //     if ($visitor->id != $comment->visitor_id) return;
+        //     $comment->update([
+        //         'content' => $request->content,
+        //     ]);
+        //     $comment->save();
+        //     return response()->json([
+        //         'message' => 'comment updated successfully',
+        //     ]);
+        // });
     }
 
     /**
@@ -94,14 +94,14 @@ class CommentController extends Controller
      */
     public function destroy(Request $request, string $comment_id)
     {
-        return $this->validateToken($request, function ($visitor) use ($comment_id) {
-            $comment = Comment::where('id', $comment_id)->first();
-            if (!$comment) return;
-            if ($visitor->id != $comment->visitor_id) return;
-            $comment->delete();
-            return response()->json([
-                'message' => 'comment deleted successfully',
-            ]);
-        });
+        // return $this->validateToken($request, function ($visitor) use ($comment_id) {
+        //     $comment = Comment::where('id', $comment_id)->first();
+        //     if (!$comment) return;
+        //     if ($visitor->id != $comment->visitor_id) return;
+        //     $comment->delete();
+        //     return response()->json([
+        //         'message' => 'comment deleted successfully',
+        //     ]);
+        // });
     }
 };

@@ -136,7 +136,6 @@
 
                                 </span>
                             </td>
-
                             <td x-text="formatDate(visitor.created_at)"></td>
                         </tr>
                     </template>

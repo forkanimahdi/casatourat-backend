@@ -17,11 +17,13 @@ class Comment extends Model
         'mark_read',
     ];
 
-
-    public function visitor(){
+    public function visitor()
+    {
         return $this->belongsTo(Visitor::class);
     }
-    public function building(){
-        return $this->belongsTo(Building::class);
+
+    public function circuit()
+    {
+        return $this->belongsTo(Circuit::class);
     }
 }

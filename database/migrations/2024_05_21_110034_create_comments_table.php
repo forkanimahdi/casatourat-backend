@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('visitor_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('building_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->longText('content');
-            $table->enum('status', ['satisfying', 'warning', 'alert']);
+            $table->foreignId('circuit_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->longText('content')->default("");
+            $table->enum('status', ['good', 'bad', 'normal']);
             $table->boolean('mark_read')->default(false);
             $table->timestamps();
         });

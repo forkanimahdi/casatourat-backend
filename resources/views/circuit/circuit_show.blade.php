@@ -4,7 +4,10 @@
             Update Circuit
         </x-slot>
 
-        @include('circuit.partials.confirmation_modale')
+        <div class="inline-flex gap-2">
+            @include('circuit.partials.publish_circuit_modal')
+            @include('circuit.partials.confirmation_modale')
+        </div>
     </x-slot>
 
     <div class="flex gap-[1.25rem] p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-86px)]">
@@ -184,68 +187,120 @@
         </div>
     </div>
 
-    <div class="px-4 pb-7 ">
-        <div class="bg-white p-[1.25rem]  rounded-lg">
-            <h5>Assigned Building</h5>
-            <!-- Button trigger modal -->
-            <button type="button" class="bg-alpha flex items-center gap-2 px-3 py-2 text-white rounded-md"
-                data-bs-toggle="modal" data-bs-target="#assignBuild">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-5">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
-                </svg>
-                Assign Building
-            </button>
-        </div>
-    </div>
+    <div class="p-[1.25rem]  mt-0 m-4 sm:m-6 lg:m-8 bg-white rounded-lg">
+        <h5 class="mb-[1rem]">Manage Building Assignments</h5>
+        <div style="--count: 2; --gap: 1.25rem" class="flex gap-[var(--gap)]">
+            <div
+                class="border rounded-md w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] py-[0.75rem] px-[1.25rem]">
+                <h6 class="mb-[1rem] capitalize text-base font-semibold">Assigned Buildings</h6>
+                <div class="flex flex-col gap-2">
+                    @foreach ($circuit->buildings as $building)
+                        <div
+                            class="bg-gray-100 w-full flex justify-between px-[1rem] py-[0.5rem] items-center rounded-lg">
+                            <div class="flex items-center gap-x-4">
+                                <div class="size-9 rounded-lg border overflow-hidden grid place-items-center">
+                                    @if ($building->images?->first()?->path)
+                                        <img class="size-full"
+                                            src="{{ asset('storage/images/' . $building->images?->first()?->path) }}"
+                                            alt="{{ $building->name->en }}">
+                                    @else
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-3">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                                        </svg>
+                                    @endif
+                                </div>
+                                <h4 class="text-base/none m-0">{{ $building->name->en }}</h4>
+                            </div>
 
+                            <form action="{{ route('buildings.unassign', $building) }}" method="post">
+                                @csrf
+                                @method('PATCH')
 
+                                <button type="submit" class="bg-red-500 text-white p-1 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.75" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                    </svg>
 
-    <!-- Modal -->
-    <div class="modal fade" id="assignBuild" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal- flex justify-between p-3">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Assign Building to Circuit</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </button>
+                            </form>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="modal-body">
-                    <select class="w-full rounded-lg" name="" id="">
-                        <option class="rounded-lg" selected disabled value="">Select a build</option>
-                        @foreach ($buildings as $build)
-                            <option class="rounded-lg" value="{{ $build->name->en }}">{{ $build->name->en }}
-                            </option>
-                        @endforeach
-                    </select>
+            </div>
+
+            <div
+                class="border rounded-md w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] py-[0.75rem] px-[1.25rem]">
+                <h6 class="mb-[1rem] capitalize text-base font-semibold">Available Buildings</h6>
+                <div class="flex flex-col gap-2">
+                    @foreach ($available_buildings as $building)
+                        <div
+                            class="bg-gray-100 w-full flex justify-between px-[1rem] py-[0.5rem] items-center rounded-lg">
+                            <div class="flex items-center gap-x-4">
+                                <div class="size-9 rounded-lg border overflow-hidden grid place-items-center">
+                                    @if ($building->images?->first()?->path)
+                                        <img class="size-full"
+                                            src="{{ asset('storage/images/' . $building->images?->first()?->path) }}"
+                                            alt="{{ $building->name->en }}">
+                                    @else
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-3">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                                        </svg>
+                                    @endif
+                                </div>
+                                <h4 class="text-base/none m-0">{{ $building->name->en }}</h4>
+                            </div>
+
+                            <form action="{{ route('buildings.assign', $building) }}" method="post">
+                                @csrf
+                                @method('PATCH')
+
+                                <input type="hidden" name="circuit_id" value="{{ $circuit->id }}">
+                                <button type="submit" class="bg-black text-white p-1 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.75" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    @endforeach
+
+                    @foreach ($draft_buildings as $building)
+                        <div
+                            class="bg-gray-100 w-full flex justify-between px-[1rem] py-[0.5rem] items-center rounded-lg">
+                            <div class="flex items-center gap-x-4">
+                                <div class="size-9 rounded-lg border overflow-hidden grid place-items-center">
+                                    @if ($building->images?->first()?->path)
+                                        <img class="size-full"
+                                            src="{{ asset('storage/images/' . $building->images?->first()?->path) }}"
+                                            alt="{{ $building->name->en }}">
+                                    @else
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-3">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                                        </svg>
+                                    @endif
+                                </div>
+                                <h4 class="text-base/none m-0">{{ $building->name->en }}</h4>
+                            </div>
+
+                            <div class="bg-gray-400/75 cursor-not-allowed text-white/75 p-1 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.75" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-                {{-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div> --}}
             </div>
         </div>
     </div>
-
-
-    <script>
-        let circuit_path = @json($circuit->paths).map(path => {
-            return {
-                ...path,
-                lat: Number(path.latitude),
-                lng: Number(path.longitude),
-            }
-        })
-
-        let circuit_buildings = @json($circuit->buildings).map(building => {
-            return {
-                ...building,
-                path: {
-                    lat: Number(building.latitude),
-                    lng: Number(building.longitude),
-                }
-            }
-        })
-    </script>
-    @vite(['resources/js/show_circuit_map.js'])
 </x-app-layout>

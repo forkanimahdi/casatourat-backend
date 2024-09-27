@@ -20,7 +20,13 @@ class CircuitController extends Controller
 
     public function create()
     {
-        return view('circuit.circuit_create');
+        $buildings = Building::where('circuit_id',  null)
+            ->get()
+            ->filter(fn($building) => $building->images->first())
+            ->filter(fn($building) => $building->description->en && $building->description->fr && $building->description->ar)
+            ->filter(fn($building) => $building->audio->en && $building->audio->fr && $building->audio->ar);
+
+        return view('circuit.circuit_create', compact("buildings"));
     }
 
     public function store(Request $request)
@@ -78,12 +84,14 @@ class CircuitController extends Controller
         }
 
         // assign buildings to circuit
-        foreach ($request->buildings as $building_id) {
-            $building = Building::find($building_id);
-            if ($building) {
-                $building->update([
-                    'circuit_id' => $circuit->id,
-                ]);
+        if ($request->buildings) {
+            foreach ($request->buildings as $building_id) {
+                $building = Building::find($building_id);
+                if ($building) {
+                    $building->update([
+                        'circuit_id' => $circuit->id,
+                    ]);
+                }
             }
         }
 
@@ -92,32 +100,20 @@ class CircuitController extends Controller
 
     public function show(Circuit $circuit)
     {
-        return view('circuit.circuit_show', compact('circuit'));
-    }
+        $available_buildings = Building::where('circuit_id',  null)->get()
+            ->filter(fn($building) => $building->images->first())
+            ->filter(fn($building) => $building->description->en && $building->description->fr && $building->description->ar)
+            ->filter(fn($building) => $building->audio->en && $building->audio->fr && $building->audio->ar);
 
-    public function assign_building_index(string $id)
-    {
-        $path_of_circuit = Path::select('latitude AS lat', 'longitude AS lng')->where('circuit_id', $id)->get();
-        $buildings = Building::where('circuit_id', null)->latest()->get();
-        $circuit = Circuit::where('id', $id)->first();
-        return view('circuit.assign_building_map', compact('path_of_circuit', 'buildings', 'id', 'circuit'));
-    }
+        $draft_buildings = Building::where('circuit_id',  null)->get()->diff($available_buildings);
 
-    public function assign_building(Building $buildign, Request $request)
-    {
-        $buildign->update([
-            'circuit_id' => $request->circuit_id,
-        ]);
-        return back();
-    }
+        $circuit_has_description = $circuit->description->en && $circuit->description->fr && $circuit->description->ar;
+        $circuit_has_audio = $circuit->audio->en && $circuit->audio->fr && $circuit->audio->ar;
+        $circuit_has_image = $circuit->images->first();
 
-    public function unassign_building(Request $request)
-    {
-        $building_id = $request->building_id;
-        $building = Building::where('id', $building_id)->first();
-        $building['circuit_id'] = null;
-        $building->save();
-        return back();
+        $can_be_published = $circuit_has_audio && $circuit_has_description && $circuit_has_image;
+
+        return view('circuit.circuit_show', compact('circuit', 'available_buildings', 'draft_buildings', 'can_be_published'));
     }
 
     public function update_draft(Circuit $circuit)
@@ -223,5 +219,21 @@ class CircuitController extends Controller
         $circuit->delete();
 
         return redirect()->route('circuits.index');
+    }
+
+    public function publish(Circuit $circuit)
+    {
+        $circuit->update([
+            'published' => true,
+        ]);
+        return back();
+    }
+
+    public function unpublish(Circuit $circuit)
+    {
+        $circuit->update([
+            'published' => false,
+        ]);
+        return back();
     }
 }

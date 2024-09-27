@@ -134,4 +134,20 @@ class BuildingController extends Controller
 
         return redirect()->route('buildings.index');
     }
+
+    public function assign(Request $request, Building $building)
+    {
+        $building->update([
+            'circuit_id' => $request->circuit_id,
+        ]);
+        return back();
+    }
+
+    public function unassign(Building $building)
+    {
+        $building->update([
+            'circuit_id' => null,
+        ]);
+        return back();
+    }
 }

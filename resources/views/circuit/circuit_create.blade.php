@@ -218,27 +218,41 @@
 
                 <div x-show="step === 'Assign Buildings'" class="flex flex-col gap-2">
                     @foreach ($buildings as $building)
-                        @if (!$building->circuit_id)
-                            <div
-                                class="bg-gray-100 w-full flex justify-between px-[1rem] py-[0.5rem] items-center rounded-lg">
-                                <h4 class="text-base">{{ $building->name->en }}</h4>
-
-                                <label x-data="{ checked: false }" for="building_{{ $building->id }}"
-                                    class="group flex items-center gap-1 text-white rounded-md px-3.5 cursor-pointer select-none py-1.5"
-                                    :class="checked ? 'bg-red-500' : 'bg-black'">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            :d="checked ? 'M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z' :
-                                                'M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'" />
-                                    </svg>
-                                    <span x-text="checked ? 'Unassign' : 'Assign'" class="font-medium"></span>
-                                    <input type="checkbox" class="hidden" name="buildings[]"
-                                        id="building_{{ $building->id }}" value="{{ $building->id }}"
-                                        @change="checked = building_{{ $building->id }}.checked; building_{{ $building->id }}.value = building_{{ $building->id }}.checked ? '{{ $building->id }}' : ''">
-                                </label>
+                        <div
+                            class="bg-gray-100 w-full flex justify-between px-[1rem] py-[0.5rem] items-center rounded-lg">
+                            <div class="flex items-center gap-x-4">
+                                <div class="size-9 rounded-lg border overflow-hidden grid place-items-center">
+                                    @if ($building->images?->first()?->path)
+                                        <img class="size-full"
+                                            src="{{ asset('storage/images/' . $building->images?->first()?->path) }}"
+                                            alt="{{ $building->name->en }}">
+                                    @else
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-3">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                                        </svg>
+                                    @endif
+                                </div>
+                                <h4 class="text-base/none m-0">{{ $building->name->en }}</h4>
                             </div>
-                        @endif
+
+
+                            <label x-data="{ checked: false }" for="building_{{ $building->id }}"
+                                class="group flex items-center gap-1 text-white rounded-md px-3.5 cursor-pointer select-none py-1.5"
+                                :class="checked ? 'bg-red-500' : 'bg-black'">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        :d="checked ? 'M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z' :
+                                            'M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'" />
+                                </svg>
+                                <span x-text="checked ? 'Unassign' : 'Assign'" class="font-medium"></span>
+                                <input type="checkbox" class="hidden" name="buildings[]"
+                                    id="building_{{ $building->id }}" value="{{ $building->id }}"
+                                    @change="checked = building_{{ $building->id }}.checked; building_{{ $building->id }}.value = building_{{ $building->id }}.checked ? '{{ $building->id }}' : ''">
+                            </label>
+                        </div>
                     @endforeach
 
                     <div class="flex justify-between mt-3.5 py-3">

@@ -33,9 +33,15 @@ Route::controller(ImageController::class)->name('images.')->group(function () {
 // & circuit routes:
 Route::resource('circuits', CircuitController::class);
 
-Route::get('circuit/assign_building/map/{id}', [CircuitController::class, 'assign_building_index'])->name('assign_building.index');
-Route::put('circuit/assign_building/{buildign}', [CircuitController::class, 'assign_building'])->name('circuit.assign_building');
-Route::put('circuit/unassign_building', [CircuitController::class, 'unassign_building'])->name('circuit.unassign_building');
+Route::controller(CircuitController::class)->name('circuits.')->group(function () {
+    Route::patch('circuits/publish/{circuit}', 'publish')->name('publish');
+    Route::patch('circuits/unpublish/{circuit}', 'unpublish')->name('unpublish');
+});
+
+// Route::patch('circuits/assign_building/{building}', [BuildingController::class, 'assign_building'])->name('assign');
+// Route::patch('circuits/unassign_building/{building}', [BuildingController::class, 'unassign_building'])->name('buildings.unassign');
+
+// Route::put('circuit/unassign_building', [CircuitController::class, 'unassign_building'])->name('circuit.unassign_building');
 Route::put('circuit/update_draft/{circuit}', [CircuitController::class, 'update_draft'])->name('circuit.update_draft');
 Route::get('circuit/update/map/{circuit}', [CircuitController::class, 'update_map'])->name('circuit.update_map');
 Route::put('circuit/update_circuit/{id}', [CircuitController::class, 'update_circuit']);
@@ -44,8 +50,13 @@ Route::put('circuit/update_circuit/{id}', [CircuitController::class, 'update_cir
 // & building routes: this is a simplified way to put all the routes in one place
 Route::resource('buildings', BuildingController::class);
 
-Route::post('buildings/image/{building}', [BuildingController::class, 'store_image'])->name('buildings.store_image');
-Route::delete('buildings/image/{image}', [BuildingController::class, 'destory_image'])->name('buildings.destory_image');
+Route::controller(BuildingController::class)->name('buildings.')->group(function () {
+    Route::post('buildings/image/{building}', [BuildingController::class, 'store_image'])->name('store_image');
+    Route::delete('buildings/image/{image}', [BuildingController::class, 'destory_image'])->name('destory_image');
+
+    Route::patch('buildings/assign/{building}', [BuildingController::class, 'assign'])->name('assign');
+    Route::patch('buildings/unassign/{building}', [BuildingController::class, 'unassign'])->name('unassign');
+});
 
 // * Events :
 Route::resource('events', EventController::class);

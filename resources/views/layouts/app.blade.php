@@ -184,7 +184,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    {{-- <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="exampleModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -200,13 +200,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
-<script>
+{{-- <script>
     const reviews = @json($reviews);
     const buildings = @json($buildings);
     const visitors = @json($visitors)
-</script>
+</script> --}}
 
 </html>

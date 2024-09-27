@@ -76,7 +76,7 @@ class EventController extends Controller
             }
         }
 
-        return back();
+        return redirect('/events');
     }
 
 
@@ -168,6 +168,7 @@ class EventController extends Controller
 
     public function sendNotif()
     {
+        //! rwina o lbalbala
         //* Sending a message to one or more manually
         // $vis = Visitor::find(8);
 

@@ -14,7 +14,7 @@ class GuidedVisitController extends Controller
     public function index()
     {
         $guided = models\GuidedVisit::latest()->get();
-    
+
         $visitors = models\Visitor::select('id', 'full_name', 'email')->get();
 
         return view('guided.guided_index', compact('guided', 'visitors'));
@@ -47,8 +47,8 @@ class GuidedVisitController extends Controller
 
         $message = [
             new ExpoMessage([
-                'title' => 'Notification for default recipients',
-                'body' => 'Because "to" property is not defined',
+                'title' => 'Guided Visit',
+                'body' => 'Your Guided Visit Request has been ' . $res,
             ]),
         ];
 

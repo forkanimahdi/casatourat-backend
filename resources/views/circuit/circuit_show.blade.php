@@ -5,7 +5,13 @@
         </x-slot>
 
         <div class="inline-flex gap-2">
-            @include('circuit.partials.publish_circuit_modal')
+            @if ($circuit->published)
+                @include('circuit.partials.unpublish_modal')
+            @else
+                @if ($can_be_published)
+                    @include('circuit.partials.publish_modal')
+                @endif
+            @endif
             @include('circuit.partials.confirmation_modale')
         </div>
     </x-slot>

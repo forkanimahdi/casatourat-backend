@@ -15,7 +15,7 @@ class AppLayout extends Component
     public function render(): View
     {
         $guided = models\GuidedVisit::all();
-        $pending = models\GuidedVisit::where('pending', true)->first();
+        $pending = models\GuidedVisit::where('pending', true)->get();
         return view('layouts.app', compact('guided', 'pending'));
     }
 }

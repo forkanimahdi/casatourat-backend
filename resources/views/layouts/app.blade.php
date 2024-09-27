@@ -59,7 +59,7 @@
                             <div
                                 class="w-5 h-5 bg-red-500 text-white flex justify-center items-center rounded-lg absolute -top-2 -right-3">
                                 {{-- <small class="mb-0 text-sm"> <small>{{ $notif->count() }}</small></small> --}}
-                                <small class="mb-0 text-sm"> <small>9+</small></small>
+                                <small class="mb-0 text-sm"> <small>{{ $pending->count() > 9 ? '9+' : $pending->count() }}</small></small>
                             </div>
                         @endif
                         <div id="pop_triangle_map"

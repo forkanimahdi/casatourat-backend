@@ -59,6 +59,8 @@
                     </div>
                     <div class="flex gap-4 items-center justify-center">
                         <img src="{{ asset('assets/images/group_1609.png') }}" alt="">
+                        <img src="{{ asset('assets/images/Frame 65.png') }}" alt="">
+                        <img src="{{ asset('assets/images/Frame 64.png') }}" alt="">
                         <img src="{{ asset('assets/images/group_1608.png') }}" alt="">
                     </div>
                 </main>

@@ -43,14 +43,15 @@
                         </div>
 
                     </div>
-                    <div class="mr-3 relative">
+                    <div class="mr-3 relative" x-data="{ showNotif: false }">
                         {{-- <svg id="visite_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
                         </svg> --}}
-                        <svg id="visite_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer" id="notif_bell">
+                        <svg id="visite_icon" x-on:click="showNotif = !showNotif" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            class="size-6 cursor-pointer" id="notif_bell">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
                         </svg>
@@ -59,14 +60,15 @@
                             <div
                                 class="w-5 h-5 bg-red-500 text-white flex justify-center items-center rounded-lg absolute -top-2 -right-3">
                                 {{-- <small class="mb-0 text-sm"> <small>{{ $notif->count() }}</small></small> --}}
-                                <small class="mb-0 text-sm"> <small>{{ $pending->count() > 9 ? '9+' : $pending->count() }}</small></small>
+                                <small class="mb-0 text-sm">
+                                    <small>{{ $pending->count() > 9 ? '9+' : $pending->count() }}</small></small>
                             </div>
                         @endif
-                        <div id="pop_triangle_map"
+                        <div id="pop_triangle_map" x-show="showNotif"
                             style='width:0; height:0; border-left: 10px solid transparent;  border-right: 10px solid transparent; border-bottom: 10px solid rgb(229 231 235);'
-                            class='hidden absolute right-0 top-6 z-50'></div>
-                        <div id="notif_visite"
-                            class="hidden absolute top-8 -right-1 bg-gray-200 overflow-auto max-h-[60vh] w-[25vw] gap-2 flex-col p-2 z-50 ">
+                            class='absolute right-0 top-6 z-50'></div>
+                        <div id="notif_visite" x-show="showNotif"
+                            class="absolute top-8 -right-1 bg-gray-200 overflow-auto max-h-[60vh] w-[25vw] gap-2 flex-col p-2 z-50 ">
                             @foreach ($guided as $visit)
                                 @if ($visit->pending)
                                     <a id="visite_guide" href="{{ route('guided.index') }}"

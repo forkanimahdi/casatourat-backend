@@ -21,10 +21,10 @@
                 <!-- Main modal -->
                 {{-- @include('Event.partials.add_event') --}}
                 {{-- </div> --}}
-                {{-- <form action="{{route('event.send')}}">
+                <form action="{{route('event.send')}}">
                     @csrf
                     <button type="submit">Send Notif</button>
-                </form> --}}
+                </form>
 
                 {{-- Card --}}
                 <div class="flex flex-wrap py-4">

@@ -7,6 +7,7 @@ use App\Http\Requests\Api\VisitorRequest;
 use App\Http\Resources\VisitorResource;
 use App\Models\Visitor;
 use App\TokenValidation;
+use ExpoSDK\Expo;
 use Illuminate\Http\Request;
 
 class VisitorController extends Controller
@@ -80,6 +81,12 @@ class VisitorController extends Controller
             }
 
             $visitor->update($data);
+
+            if ($data['expoToken']) {
+                $expo = Expo::driver('file');
+                $channel = 'default';
+                $expo->subscribe($channel, $data['expoToken']);
+            }
 
             return response()->json([
                 'message' => "Vistor successfully updated.",

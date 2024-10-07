@@ -169,7 +169,6 @@
                             d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                 </div>
-
                 @foreach ($circuit->images as $index => $image)
                     <div
                         class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] relative group">
@@ -189,6 +188,51 @@
                         </form>
                     </div>
                 @endforeach
+            </div>
+
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-3 p-[1.25rem]  mt-0 m-4 sm:m-6 lg:m-8 bg-white rounded-lg">
+        <h5 class="m-0">Circuit videos</h5>
+        <div style="--gap: 0.75rem; --count: 3;" class="flex flex-wrap gap-[var(--gap)]">
+
+            @foreach ($circuit->videos as $video)
+                <div
+                    class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] relative group cursor-pointer aspect-video">
+                    <video class="rounded " controls src="{{ asset('storage/videos/' . $video->path) }}"></video>
+                    <form class="flex justify-end absolute top-2 right-2"
+                        action="{{ route('videos.destroy', $video) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button
+                            class="cursor-pointer hidden group-hover:block p-[0.25rem] font-semibold text-gray-100 no-underline bg-red-500 rounded-lg hover:text-red-500 hover:bg-[#fff] border-2 border-red-500 transition duration-200 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            @endforeach
+            <div
+            onclick="storeVideo.click()"
+                class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] border-2 border-dashed rounded-lg flex justify-center items-center">
+                <form action="{{ route('videos.store', $circuit->id) }}" method="post"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $circuit->id }}">
+                    <input type="hidden" name="type" value="circuit">
+                    <input onchange="addVideoBtn.click()" multiple name="video[]" type="file" id="storeVideo"
+                        accept="video/mp4" class="mt-2 border-2 rounded w-full bg-white hidden ">
+                    <button class="hidden" id="addVideoBtn">confirm</button>
+                </form>
+                <label class="block text-gray-700">Add an video: </label>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
             </div>
         </div>
     </div>
@@ -223,7 +267,7 @@
                             <form action="{{ route('buildings.unassign', $building) }}" method="post">
                                 @csrf
                                 @method('PATCH')
-
+                                <input type="hidden" name="circuit_id" value="{{ $circuit->id }}">
                                 <button type="submit" class="bg-red-500 text-white p-1 rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.75" stroke="currentColor" class="size-4">

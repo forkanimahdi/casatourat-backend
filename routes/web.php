@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api as api;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\GuidedVisitController;
+use App\Http\Controllers\VideoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +31,11 @@ Route::controller(ImageController::class)->name('images.')->group(function () {
     Route::delete('/images/destroy/{image}', 'destroy')->name('destroy');
 });
 
+// videos
+Route::controller(VideoController::class)->name('videos.')->group(function () {
+    Route::post('/videos/store/{ressource}', 'store')->name('store');
+    Route::delete('/videos/destroy/{video}', 'destroy')->name('destroy');
+});
 // & circuit routes:
 Route::resource('circuits', CircuitController::class);
 

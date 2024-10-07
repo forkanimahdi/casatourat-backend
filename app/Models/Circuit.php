@@ -24,17 +24,17 @@ class Circuit extends Model
         'audio' => 'object',
         'published' => 'boolean',
     ];
-
+    
+    public function buildings()
+    {
+        return $this->belongsToMany(Building::class, 'building_circuit');
+    }
     public function paths()
     {
         return $this->hasMany(Path::class);
     }
 
-    public function buildings()
-    {
-        return $this->hasMany(Building::class);
-    }
-
+    
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imagable');
@@ -43,5 +43,9 @@ class Circuit extends Model
     public function guided_visits()
     {
         return $this->hasMany(GuidedVisit::class);
+    }
+    public function videos(): MorphMany
+    {
+        return $this->morphMany(Video::class, 'videoable');
     }
 }

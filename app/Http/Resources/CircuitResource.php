@@ -38,6 +38,7 @@ class CircuitResource extends BaseResource
         return [
             ...parent::toArray($request),
             'images' => $this->resource->images->map(fn($image) => $image->path),
+            'videos' => $this->resource->videos->map(fn($video) => $video->path),
             'path' => PathResource::collection($this->resource->paths),
             'new' => $this->isNew($this->resource->updated_at) ?? false,
             'buildings' => BuildingResource::collection($this->resource->buildings),

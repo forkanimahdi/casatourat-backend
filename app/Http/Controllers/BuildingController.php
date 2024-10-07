@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Building;
+use App\Models\Circuit;
 use App\Models\Image;
+use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class BuildingController extends Controller
@@ -28,6 +31,7 @@ class BuildingController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         request()->validate([
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
@@ -45,6 +49,7 @@ class BuildingController extends Controller
             'audio.fr' => 'mimes:mp3,wav',
             'audio.ar' => 'mimes:mp3,wav',
             'image.*' => 'mimes:png,jpg,jfif',
+            
         ]);
 
         $audioFiles = [
@@ -72,7 +77,6 @@ class BuildingController extends Controller
 
         $images = $request->file('image');
         Image::store($building, $images);
-
         return redirect()->route('buildings.index');
     }
 
@@ -137,17 +141,18 @@ class BuildingController extends Controller
 
     public function assign(Request $request, Building $building)
     {
-        $building->update([
-            'circuit_id' => $request->circuit_id,
-        ]);
+        $circuit = Circuit::where('id', $request->circuit_id)->first();
+        $circuit->buildings()->attach($building);
         return back();
     }
 
-    public function unassign(Building $building)
+    public function unassign(Request $request, Building $building)
     {
-        $building->update([
-            'circuit_id' => null,
-        ]);
+        // delete relation row
+        DB::table('building_circuit')
+            ->where('building_id', $building->id)
+            ->where('circuit_id', $request->circuit_id)
+            ->delete();
         return back();
     }
 }

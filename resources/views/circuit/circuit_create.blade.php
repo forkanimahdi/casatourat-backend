@@ -190,6 +190,26 @@
                                     class="hidden" type="file" placeholder="image" multiple accept="image/*"
                                     name="image[]" id="image">
                             </div>
+                            
+                            <div class="flex flex-col gap-2">
+                                <p class="text-base m-0">Video</p>
+                                <label for="video"
+                                    class="p-[0.75rem] cursor-pointer flex gap-2 items-center border-[1.5px] border-gray-500 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+                                    </svg>
+                                    <span id="videosPlaceholder" class="text-base text-gray-500">
+                                        upload videos
+                                    </span>
+                                </label>
+                                <input
+                                    onchange="videosPlaceholder.textContent = [...this.files].map(f => f.name).join(', ')"
+                                    class="hidden" type="file" placeholder="video" multiple accept="video/*"
+                                    name="video[]" id="video">
+                            </div>
+
                             <div class="flex justify-between mt-3.5">
                                 <button type="button" @click="step = 'Path'"
                                     class="bg-white px-4 py-2 w-fit text-alpha border-[1.5px] border-alpha rounded-md text-sm font-medium flex items-center justify-center gap-2">

@@ -6,7 +6,9 @@ use App\Models\Building;
 use App\Models\Circuit;
 use App\Models\Image;
 use App\Models\Path;
+use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,8 +22,7 @@ class CircuitController extends Controller
 
     public function create()
     {
-        $buildings = Building::where('circuit_id',  null)
-            ->get()
+        $buildings = Building::all()
             ->filter(fn($building) => $building->images->first())
             ->filter(fn($building) => $building->description->en && $building->description->fr && $building->description->ar)
             ->filter(fn($building) => $building->audio->en && $building->audio->fr && $building->audio->ar);
@@ -47,6 +48,7 @@ class CircuitController extends Controller
             'audio.fr' => 'mimes:mp3,wav',
             'audio.ar' => 'mimes:mp3,wav',
             'image.*' => 'mimes:png,jpg,jpeg',
+            'video.*' => 'mimes:mp4,mov',
             'buildings' => 'array',
         ]);
 
@@ -72,6 +74,8 @@ class CircuitController extends Controller
 
         $images = $request->file('image');
         Image::store($circuit, $images);
+        $videos = $request->file('video');
+        Video::store($circuit, $videos);
 
         // add the circuit path
         $paths = json_decode($request->coordinates, false);
@@ -88,9 +92,7 @@ class CircuitController extends Controller
             foreach ($request->buildings as $building_id) {
                 $building = Building::find($building_id);
                 if ($building) {
-                    $building->update([
-                        'circuit_id' => $circuit->id,
-                    ]);
+                    $circuit->buildings()->attach($building);
                 }
             }
         }
@@ -100,19 +102,28 @@ class CircuitController extends Controller
 
     public function show(Circuit $circuit)
     {
-        $available_buildings = Building::where('circuit_id',  null)->get()
+        $relations = DB::table('building_circuit')
+            ->select('building_id', 'circuit_id')
+            ->get()
+            ->map(fn($relation) => "{$relation->building_id}_{$relation->circuit_id}")
+            ->toArray(); 
+        // dd($relations);
+
+        $available_buildings = Building::all()
             ->filter(fn($building) => $building->images->first())
             ->filter(fn($building) => $building->description->en && $building->description->fr && $building->description->ar)
-            ->filter(fn($building) => $building->audio->en && $building->audio->fr && $building->audio->ar);
+            ->filter(fn($building) => $building->audio->en && $building->audio->fr && $building->audio->ar)
+            ->filter(fn($building) => !in_array("{$building->id}_{$circuit->id}", $relations));
 
-        $draft_buildings = Building::where('circuit_id',  null)->get()->diff($available_buildings);
+        $draft_buildings = Building::all()
+        ->diff($available_buildings)
+        ->diff($circuit->buildings);
 
         $circuit_has_description = $circuit->description->en && $circuit->description->fr && $circuit->description->ar;
         $circuit_has_audio = $circuit->audio->en && $circuit->audio->fr && $circuit->audio->ar;
         $circuit_has_image = $circuit->images->first();
 
         $can_be_published = $circuit_has_audio && $circuit_has_description && $circuit_has_image;
-
         return view('circuit.circuit_show', compact('circuit', 'available_buildings', 'draft_buildings', 'can_be_published'));
     }
 

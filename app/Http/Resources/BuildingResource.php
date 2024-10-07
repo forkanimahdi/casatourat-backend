@@ -26,6 +26,7 @@ class BuildingResource extends BaseResource
         return [
             ...parent::toArray($request),
             'images' => $this->resource->images->map(fn($image) => $image->path),
+            'videos' => $this->resource->videos->map(fn($video) => $video->path),
             'coordinate' => [
                 'latitude' => $this->resource->latitude,
                 'longitude' => $this->resource->longitude

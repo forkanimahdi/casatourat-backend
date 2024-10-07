@@ -12,7 +12,7 @@ class Building extends Model
     use HasFactory;
 
     protected $fillable = [
-        'circuit_id',
+        // 'circuit_id',
         'name',
         'description',
         'audio',
@@ -26,14 +26,19 @@ class Building extends Model
         'audio' => 'object',
     ];
 
-    public function circuit()
+    
+    
+    public function circuits()  
     {
-        return $this->belongsTo(Circuit::class);
+        return $this->belongsToMany(Circuit::class, 'building_circuit');
     }
-
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imagable');
+    }
+    public function videos(): MorphMany
+    {
+        return $this->morphMany(Video::class, 'videoable');
     }
 
     public function rates()

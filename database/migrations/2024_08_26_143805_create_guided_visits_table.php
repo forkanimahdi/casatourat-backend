@@ -14,12 +14,20 @@ return new class extends Migration
         Schema::create('guided_visits', function (Blueprint $table) {
             $table->id();
             $table->foreignId("visitor_id")->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('circuit_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('phone');
+            $table->string('nationality');
+            $table->string('city');
+            $table->text('reason');
             $table->integer('number_of_people');
-            $table->text('message')->nullable();
+            $table->string('language');
+            $table->date('date');
+            $table->time('time');
+            $table->string('receipt');
+            $table->boolean('validate');
+
             $table->boolean('pending')->default(true);
             $table->boolean('approved')->default(false);
-            $table->dateTime("date");
             $table->timestamps();
         });
     }

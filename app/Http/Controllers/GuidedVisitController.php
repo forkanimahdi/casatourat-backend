@@ -16,8 +16,9 @@ class GuidedVisitController extends Controller
         $guided = models\GuidedVisit::latest()->get();
 
         $visitors = models\Visitor::select('id', 'full_name', 'email')->get();
+        $circuits = models\Circuit::select('id', 'name')->get();
 
-        return view('guided.guided_index', compact('guided', 'visitors'));
+        return view('guided.guided_index', compact('guided', 'visitors', 'circuits'));
     }
 
     public function clearance(Request $request, GuidedVisit $visit)

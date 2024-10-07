@@ -50,10 +50,11 @@ class EventController extends Controller
             'start' => 'required',
             'end' => 'required',
             'image.*' => 'required|mimes:png,jpg,jfif',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
         ]);
 
+        // TODO* ask if notification is needed when an event is added
 
         $images = $request->file('image');
         if ($images) {
@@ -63,8 +64,8 @@ class EventController extends Controller
                 'description' => $request->input('description'),
                 'start' => $request->start,
                 'end' => $request->end,
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude
+                'latitude' => $request->latitude ?? null,
+                'longitude' => $request->longitude ?? null,
             ]);
 
             foreach ($images as  $image) {
@@ -74,6 +75,18 @@ class EventController extends Controller
                 ]);
                 $image->storeAs('images', $imageName, 'public');
             }
+        }
+
+        if($event) {
+            $message = [
+                new ExpoMessage([
+                    'title' => 'new event added',
+                    'body' => $event->title->en,
+                ]),
+            ];
+
+            $expo = Expo::driver('file');
+            $expo->send($message)->toChannel('default')->push();
         }
 
         return redirect('/events');

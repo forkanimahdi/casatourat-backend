@@ -30,10 +30,18 @@ class GuidedVisitController extends Controller
 
                 models\GuidedVisit::create([
                     'visitor_id' => $visitor->id,
+                    'circuit_id' => $request->circuit_id['id'],
                     'phone' => $request->phone,
-                    'date' => $request->date,
                     'number_of_people' => $request->ppl,
-                    'message' => $request->message
+                    'date' => $request->date,
+                    'time' => $request->time,
+                    'nationality' => $request->nationality,
+                    'city' => $request->city,
+                    'reason' => $request->reason != 'Other' ? $request->reason : $request->reason . ' ' . $request->other,
+                    'language' => $request->language,
+                    'receipt' => $request->receipt ?? 'No Receipt',
+                    'validate' => $request->validate,
+
                 ]);
 
                 return response()->json([
@@ -66,5 +74,4 @@ class GuidedVisitController extends Controller
     {
         //
     }
-
 }

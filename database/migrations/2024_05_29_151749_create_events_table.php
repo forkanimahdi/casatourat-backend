@@ -17,8 +17,8 @@ return new class extends Migration
             $table->json("description");
             $table->datetime("start");
             $table->datetime("end");
-            $table->double('latitude');
-            $table->double('longitude');
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->timestamps();
         });
     }

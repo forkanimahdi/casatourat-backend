@@ -10,18 +10,33 @@ class GuidedVisit extends Model
     use HasFactory;
 
     protected $fillable = [
+        // form information
         'visitor_id',
+        'circuit_id',
         'phone',
         'number_of_people',
-        'message',
+        'date',
+        'time',
+        'nationality',
+        'city',
+        'reason',
+        'language',
+        'receipt',
+        'validate',
+
+        // backend info
         'pending',
         'approved',
-        'date',
     ];
 
 
     public function visitor()
     {
         return $this->belongsTo(Visitor::class);
+    }
+
+    public function circuit()
+    {
+        return $this->belongsTo(Circuit::class);
     }
 }

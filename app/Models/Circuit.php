@@ -39,4 +39,9 @@ class Circuit extends Model
     {
         return $this->morphMany(Image::class, 'imagable');
     }
+
+    public function guided_visits()
+    {
+        return $this->hasMany(GuidedVisit::class);
+    }
 }

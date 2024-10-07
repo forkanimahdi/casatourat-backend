@@ -11,10 +11,9 @@ class Comment extends Model
 
     protected $fillable = [
         'visitor_id',
-        'building_id',
+        'circuit_id',
         'content',
         'status',
-        'mark_read',
     ];
 
     public function visitor()

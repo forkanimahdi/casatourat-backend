@@ -32,7 +32,7 @@ class BuildingResource extends BaseResource
                 'longitude' => $this->resource->longitude
             ],
             'average_rate' => $this->resource->rates->avg('value') ?? 0,
-            'visited' => $this->resource->is_visited_by($request->header('Token')),
+            'visited' => $this->resource->is_visited_by($request->header('Token')), 
         ];
     }
 }

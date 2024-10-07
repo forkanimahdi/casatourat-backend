@@ -44,8 +44,14 @@ class Circuit extends Model
     {
         return $this->hasMany(GuidedVisit::class);
     }
+
     public function videos(): MorphMany
     {
         return $this->morphMany(Video::class, 'videoable');
+    }
+    
+    public function comments()
+    {
+        return $this->belongsToMany(Visitor::class, 'comments')->withPivot('content', 'id', 'status');
     }
 }

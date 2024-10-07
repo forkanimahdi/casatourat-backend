@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades as facades;
 use App\Mail\PasswordMail;
 use Illuminate\Support\Str;
+use PhpParser\Node\Stmt\TryCatch;
 
 class VisitorController extends Controller
 {
@@ -40,38 +41,41 @@ class VisitorController extends Controller
         ]);
 
         $random_password = Str::random(10);
+        try {
+            $response = facades\Http::withHeaders([
+                'Authorization' => 'Bearer ' . config("clerk.secret_key"),
+                'Content-Type' => 'application/json'
+            ])->post('https://api.clerk.com/v1/users', [
+                'email_address' => [
+                    $request->email
+                ],
+                "password" => $random_password
+            ]);
 
-        $response = facades\Http::withHeaders([
-            'Authorization' => 'Bearer ' . config("clerk.secret_key"),
-            'Content-Type' => 'application/json'
-        ])->post('https://api.clerk.com/v1/users', [
-            'email_address' => [
-                $request->email
-            ],
-            "password" => $random_password
-        ]);
+            if (!$response->ok()) {
+                throw $response->toException();
+            }
 
-        if (!$response->ok()) {
-            throw $response->toException();
+            models\Visitor::create([
+                'full_name' => $request->full_name,
+                'email' => $request->email,
+                'gender' => $request->gender,
+                'role' => 'admin',
+                'token' => $response->json()["id"],
+            ]);
+
+            models\User::create([
+                'name' => $request->full_name,
+                'email' => $request->email,
+                'password' => facades\Hash::make($random_password),
+            ]);
+
+            facades\Mail::to($request->email)->send(new PasswordMail($random_password));
+
+            return back();
+        } catch (\Throwable $th) {
+            // throw $th;
         }
-
-        models\Visitor::create([
-            'full_name' => $request->full_name,
-            'email' => $request->email,
-            'gender' => $request->gender,
-            'role' => 'admin',
-            'token' => $response->json()["id"],
-        ]);
-
-        models\User::create([
-            'name' => $request->full_name,
-            'email' => $request->email,
-            'password' => facades\Hash::make($random_password),
-        ]);
-
-        facades\Mail::to($request->email)->send(new PasswordMail($random_password));
-
-        return back();
     }
 
     /**

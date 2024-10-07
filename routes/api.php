@@ -23,10 +23,8 @@ Route::get('/circuits', [api\CircuitController::class, 'show']);
 Route::get('/rate/{building}', [api\RateController::class, 'show']);
 Route::post('/rate', [api\RateController::class, 'store']);
 
-Route::get('/comment/{building}', [api\CommentController::class, 'show']);
 Route::post('/comment', [api\CommentController::class, 'store']);
-Route::put('/comment/{comment}', [api\CommentController::class, 'update']);
-Route::delete('/comment/{comment}', [api\CommentController::class, 'destroy']);
+// Route::put('/comment/{comment}', [api\CommentController::class, 'update']);
 
 Route::get("/events", [api\EventController::class, "show"]);
 Route::get("/visitorNotifications", [api\VisitorNotificationController::class, 'show']);

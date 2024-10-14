@@ -6,6 +6,7 @@ use App\Models\Building;
 use App\Models\Circuit;
 use App\Models\Image;
 use App\Models\Video;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -49,7 +50,7 @@ class BuildingController extends Controller
             'audio.fr' => 'mimes:mp3,wav',
             'audio.ar' => 'mimes:mp3,wav',
             'image.*' => 'mimes:png,jpg,jfif',
-            
+
         ]);
 
         $audioFiles = [
@@ -77,7 +78,11 @@ class BuildingController extends Controller
 
         $images = $request->file('image');
         Image::store($building, $images);
-        return redirect()->route('buildings.index');
+        if ($building instanceof Model) {
+            return redirect()->route('buildings.index')->with("success", "Building was created succefully.");
+        } else {
+            return redirect()->route('buildings.create')->with('error', 'Your building was not created.');
+        }
     }
 
     public function edit(Building $building)

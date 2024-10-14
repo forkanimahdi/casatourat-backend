@@ -7,6 +7,7 @@ use App\Models\Circuit;
 use App\Models\Image;
 use App\Models\Path;
 use App\Models\Video;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -96,8 +97,11 @@ class CircuitController extends Controller
                 }
             }
         }
-
-        return redirect(route('circuits.show', $circuit));
+        if ($circuit instanceof Model) {
+            return redirect()->route('circuits.show', $circuit)->with("success", "Circuit was created succefully.");
+        } else {
+            return redirect()->route('circuits.create')->with('error', 'Your Circuit was not created.');
+        }
     }
 
     public function show(Circuit $circuit)
@@ -106,7 +110,7 @@ class CircuitController extends Controller
             ->select('building_id', 'circuit_id')
             ->get()
             ->map(fn($relation) => "{$relation->building_id}_{$relation->circuit_id}")
-            ->toArray(); 
+            ->toArray();
         // dd($relations);
 
         $available_buildings = Building::all()
@@ -116,8 +120,8 @@ class CircuitController extends Controller
             ->filter(fn($building) => !in_array("{$building->id}_{$circuit->id}", $relations));
 
         $draft_buildings = Building::all()
-        ->diff($available_buildings)
-        ->diff($circuit->buildings);
+            ->diff($available_buildings)
+            ->diff($circuit->buildings);
 
         $circuit_has_description = $circuit->description->en && $circuit->description->fr && $circuit->description->ar;
         $circuit_has_audio = $circuit->audio->en && $circuit->audio->fr && $circuit->audio->ar;
@@ -186,26 +190,13 @@ class CircuitController extends Controller
             }
         }
 
-        $circuit->update([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'audio' => $audioFiles,
-        ]);
-
-        // $circuitPaths = Path::where('circuit_id', $id)->get();
-        // foreach ($circuitPaths as $path) {
-        //     $path->delete();
-        // }
-
-        // $new_paths = json_decode($request->get('cordinates'), true);
-        // foreach ($new_paths as $path) {
-        //     Path::create([
-        //         'circuit_id' => $path['circuit_id'],
-        //         'latitude' => $path['latitude'],
-        //         'longitude' => $path['longitude'],
-        //     ]);
-        // }
-
+        $circuit->update(
+            [
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'audio' => $audioFiles,
+            ]
+        );
         return back();
     }
 

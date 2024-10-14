@@ -159,7 +159,7 @@
                         <input type="hidden" name="id" value="{{ $circuit->id }}">
                         <input type="hidden" name="type" value="circuit">
                         <input onchange="addImgBtn.click()" multiple name="image[]" type="file" id="storeImage"
-                            accept="image/png, image/jpeg" class="mt-2 border-2 rounded w-full bg-white hidden ">
+                            accept="image/jpg, image/jpeg, image/png" class="mt-2 border-2 rounded w-full bg-white hidden ">
                         <button class="hidden" id="addImgBtn">confirm</button>
                     </form>
                     <label class="block text-gray-700">Add an Image: </label>

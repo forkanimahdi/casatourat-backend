@@ -187,7 +187,7 @@
                                 </label>
                                 <input
                                     onchange="imagesPlaceholder.textContent = [...this.files].map(f => f.name).join(', ')"
-                                    class="hidden" type="file" placeholder="image" multiple accept="image/*"
+                                    class="hidden" type="file" placeholder="image" multiple accept="image/jpg, image/jpeg, image/png"
                                     name="image[]" id="image">
                             </div>
                             

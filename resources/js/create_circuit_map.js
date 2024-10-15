@@ -79,7 +79,7 @@ function initMap() {
     });
 
     // Handle places changed event
-    var markers = [];
+    var search_markers = [];
     searchBox.addListener('places_changed', function () {
         var places = searchBox.getPlaces();
 
@@ -88,10 +88,10 @@ function initMap() {
         }
 
         // Clear out the old markers
-        markers.forEach(function (marker) {
+        search_markers.forEach(function (marker) {
             marker.setMap(null);
         });
-        markers = [];
+        search_markers = [];
 
         // For each place, get the icon, name, and location
         var bounds = new google.maps.LatLngBounds();
@@ -104,7 +104,7 @@ function initMap() {
             }
 
             // Create a marker for each place
-            var marker = new google.maps.Marker({
+            var search_marker = new google.maps.Marker({
                 map: map,
                 title: place.name,
                 position: place.geometry.location,
@@ -114,7 +114,7 @@ function initMap() {
                     anchor: new google.maps.Point(20, 45),
                 }
             });
-            markers.push(marker);
+            search_markers.push(search_marker);
 
             if (place.geometry.viewport) {
                 bounds.union(place.geometry.viewport);

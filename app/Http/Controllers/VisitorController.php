@@ -6,6 +6,7 @@ use App\Models as models;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades as facades;
 use App\Mail\PasswordMail;
+use Exception;
 use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -53,7 +54,7 @@ class VisitorController extends Controller
             ]);
 
             if (!$response->ok()) {
-                throw $response->toException();
+                throw new Exception($response->json()['errors'][0]['message'] ?? "An unexpected error occurred. Please try again.");
             }
 
             models\Visitor::create([
@@ -71,10 +72,9 @@ class VisitorController extends Controller
             ]);
 
             facades\Mail::to($request->email)->send(new PasswordMail($random_password));
-
-            return back();
-        } catch (\Throwable $th) {
-            // throw $th;
+            return back()->with("success", "Admin account was created succefully.");
+        } catch (\Exception $th) {
+            return back()->with("error", $th->getMessage());
         }
     }
 

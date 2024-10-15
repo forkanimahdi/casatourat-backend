@@ -16,7 +16,7 @@
             }
         }" class="p-4 sm:p-6 lg:p-8">
             <div class="pt-10 pb-6 px-12 bg-white rounded-lg flex flex-col gap-3.5">
-                <div class="flex gap-3 justify-center">
+                <div class="flex gap-3 justify-center ">
                     @foreach (['Path', 'Circuit Details', 'Assign Buildings'] as $key => $item)
                         <div class="flex flex-col w-[30%]">
                             <div :class="{
@@ -35,7 +35,9 @@
                     @endforeach
                 </div>
 
+                
                 <div x-show="step === 'Path'" class="flex flex-col gap-3">
+                    <input type="text" id="search_input" class="w-[70%] mt-2 rounded">
                     <div id="map" class="rounded h-[62vh] aspect-square"></div>
                     <input type="hidden" name="coordinates" id="coordinates" required>
                     <button id="nextBtn" type="button" @click="step = 'Circuit Details'" disabled

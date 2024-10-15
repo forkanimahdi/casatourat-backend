@@ -26,6 +26,7 @@
                 </div>
             </div>
 
+            <input type="text" id="search_input" class="w-[70%] mt-2 rounded">
             <div id="map" class="flex-1 rounded"></div>
         </div>
 
@@ -201,6 +202,7 @@
                     lng: -7.59
                 },
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
+                disableDefaultUI: true
             });
 
             // allBuildings.forEach(building => {
@@ -239,6 +241,7 @@
 
             let marker;
 
+
             map.addListener('click', function(event) {
                 if (marker) {
                     marker.setMap(null)
@@ -260,8 +263,70 @@
                 document.getElementById('longitude').value = event.latLng.lng()
                 document.getElementById('latitude').value = event.latLng.lat()
             });
+
+
+
+            // Search box for places
+            var input = document.getElementById("search_input");
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+            // Bias the search results towards the map's viewport
+            map.addListener('bounds_changed', function() {
+                searchBox.setBounds(map.getBounds());
+            });
+
+            // Handle places changed event
+            var markers = [];
+            searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+
+                if (places.length === 0) {
+                    return;
+                }
+
+                // Clear out the old markers
+                markers.forEach(function(marker) {
+                    marker.setMap(null);
+                });
+                markers = [];
+
+                // For each place, get the icon, name, and location
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    console.log(place);
+
+                    if (!place.geometry || !place.geometry.location) {
+                        console.log("Returned place contains no geometry");
+                        return;
+                    }
+
+                    // Create a marker for each place
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        title: place.name,
+                        position: place.geometry.location,
+                        icon: {
+                            url: '/assets/markers/search_results.svg',
+                            scaledSize: new google.maps.Size(45, 45),
+                            anchor: new google.maps.Point(20, 45),
+                        }
+                    });
+                    markers.push(marker);
+
+                    if (place.geometry.viewport) {
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+
+                map.fitBounds(bounds);
+            });
         }
 
-        window.onload = initMap;
+        window.onload = function() {
+            initMap();
+        };
     </script>
 </x-app-layout>

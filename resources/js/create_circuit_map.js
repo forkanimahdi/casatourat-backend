@@ -8,6 +8,8 @@ function initMap() {
             lng: -7.6,
         },
         mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true
+
     });
 
     const line = new google.maps.Polyline({
@@ -24,6 +26,7 @@ function initMap() {
                 repeat: "15px",
             },
         ],
+        
     });
 
     map.addListener("click", function (event) {
@@ -61,6 +64,66 @@ function initMap() {
         line.setPath(markers.map((marker) => marker.getPosition()));
 
         nextBtn.disabled = !(markers.length > 1);
+    });
+
+
+
+    // Search box for places
+    var input = document.getElementById("search_input");
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+    // Bias the search results towards the map's viewport
+    map.addListener('bounds_changed', function () {
+        searchBox.setBounds(map.getBounds());
+    });
+
+    // Handle places changed event
+    var markers = [];
+    searchBox.addListener('places_changed', function () {
+        var places = searchBox.getPlaces();
+
+        if (places.length === 0) {
+            return;
+        }
+
+        // Clear out the old markers
+        markers.forEach(function (marker) {
+            marker.setMap(null);
+        });
+        markers = [];
+
+        // For each place, get the icon, name, and location
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function (place) {
+            console.log(place);
+
+            if (!place.geometry || !place.geometry.location) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+
+            // Create a marker for each place
+            var marker = new google.maps.Marker({
+                map: map,
+                title: place.name,
+                position: place.geometry.location,
+                icon: {
+                    url: '/assets/markers/search_results.svg',
+                    scaledSize: new google.maps.Size(45, 45),
+                    anchor: new google.maps.Point(20, 45),
+                }
+            });
+            markers.push(marker);
+
+            if (place.geometry.viewport) {
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+        });
+
+        map.fitBounds(bounds);
     });
 }
 

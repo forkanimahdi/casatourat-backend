@@ -23,7 +23,7 @@ class GuidedVisitController extends Controller
 
     public function clearance(Request $request, GuidedVisit $visit)
     {
-        // action is approve or deny: whichever the user pressed
+        // action is approve or deny: whichever the admin pressed
         $action = $request->input('action');
 
         $updateValues = [
@@ -31,14 +31,14 @@ class GuidedVisitController extends Controller
             'approved' => $action === 'approve'
         ];
 
-        // just to check that the user pressed approve or deny: redundant but safe
+        // just to check that the admin pressed approve or deny: redundant but safe
         if ($action === 'approve' || $action === 'deny') {
             $visit->update($updateValues);
         }
 
         $res = $action === "approve" ? "approved" : "denied";
 
-        // Create a notification for the visitor
+        // Create a notification for the visitor to be displayed in the notification page
         models\VisitorNotification::create([
             'visitor_id' => $visit->visitor->id,
             'type' => 'guide',
@@ -53,8 +53,12 @@ class GuidedVisitController extends Controller
             ]),
         ];
 
-        (new Expo())->send($message)->to($visit->visitor->expoToken)->push();
+        // check if the user has a token first
+        if ($visit->visitor->expoToken) {
+            (new Expo())->send($message)->to($visit->visitor->expoToken)->push();
+        }
 
-        return back();
+
+        return back()->with('success', $visit->visitor->full_name ."'s request has been " . $res . " successfully.");
     }
 }

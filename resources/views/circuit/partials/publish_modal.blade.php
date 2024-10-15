@@ -1,5 +1,5 @@
 <dh-component>
-    <button onclick="modalHandler(true)"
+    <button onclick="modalHandler(publishCircuitModal, true)"
         class="flex items-center font-medium gap-2 p-2 text-gray-100 no-underline bg-alpha rounded-lg hover:shadow-lg hover:text-alpha hover:bg-white border-2 border-alpha transition duration-500 ">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="size-5">
@@ -28,7 +28,7 @@
                 <div class="flex items-center justify-center gap-3 w-full">
                     <button
                         class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
-                        onclick="modalHandler()">Cancel</button>
+                        onclick="modalHandler(publishCircuitModal)">Cancel</button>
                     <form action="{{ route('circuits.publish', $circuit) }}" method="post">
                         @csrf
                         @method('PATCH')
@@ -42,7 +42,7 @@
 
                 <button
                     class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
-                    onclick="modalHandler()" aria-label="close modal" role="button">
+                    onclick="modalHandler(publishCircuitModal)" aria-label="close modal" role="button">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20"
                         height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -54,39 +54,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        let modal = document.getElementById("publishCircuitModal");
-
-        function modalHandler(val) {
-            if (val) {
-                fadeIn(modal);
-            } else {
-                fadeOut(modal);
-            }
-        }
-
-        function fadeOut(el) {
-            el.style.opacity = 1;
-            (function fade() {
-                if ((el.style.opacity -= 0.1) < 0) {
-                    el.style.display = "none";
-                } else {
-                    requestAnimationFrame(fade);
-                }
-            })();
-        }
-
-        function fadeIn(el, display) {
-            el.style.opacity = 0;
-            el.style.display = display || "flex";
-            (function fade() {
-                let val = parseFloat(el.style.opacity);
-                if (!((val += 0.2) > 1)) {
-                    el.style.opacity = val;
-                    requestAnimationFrame(fade);
-                }
-            })();
-        }
-    </script>
 </dh-component>

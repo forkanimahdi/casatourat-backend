@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use LDAP\Result;
 use ExpoSDK\Expo;
 use ExpoSDK\ExpoMessage;
+use Illuminate\Database\Eloquent\Model;
 
 class EventController extends Controller
 {
@@ -54,8 +55,6 @@ class EventController extends Controller
             'longitude' => 'nullable|numeric',
         ]);
 
-        // TODO* ask if notification is needed when an event is added
-
         $images = $request->file('image');
         if ($images) {
 
@@ -77,19 +76,29 @@ class EventController extends Controller
             }
         }
 
-        if($event) {
+        //TODO* (╯°□°)╯︵ ┻━┻ PUSH_TOO_MANY_EXPERIENCE_IDS: All push notification messages in the same request must be for the same project; check the details field to investigate conflicting tokens.
+        $expo = Expo::driver('file');
+        // get all the users that are in this channel
+        $subs = $expo->getSubscriptions('default');
+
+        // check if the event is created successfully and there are users token ($subs)
+        if ($event && $subs) {
             $message = [
                 new ExpoMessage([
-                    'title' => 'new event added',
+                    'title' => 'New Event Added',
                     'body' => $event->title->en,
                 ]),
             ];
 
-            $expo = Expo::driver('file');
             $expo->send($message)->toChannel('default')->push();
         }
 
-        return redirect('/events');
+
+        if ($event instanceof Model) {
+            return redirect()->route('events.index')->with('success', 'Event Created Successfully.');
+        } else {
+            return redirect()->route('events.create')->with('error', 'Event Could not be created Please Check Your Inputs Again.');
+        }
     }
 
 
@@ -143,6 +152,13 @@ class EventController extends Controller
 
         // delete the event itself
         $event->delete();
+
+        flash()
+            ->options([
+                'timeout' => 2000,
+                'position' => 'bottom-right',
+            ])
+            ->info('Event Deleted Successfully');
         return back();
     }
 
@@ -181,33 +197,31 @@ class EventController extends Controller
 
     public function sendNotif()
     {
-        //! rwina o lbalbala
-        //* Sending a message to one or more manually
-        // $vis = Visitor::find(8);
-
-        $message = [
-            new ExpoMessage([
-                'title' => 'Notification for default recipients',
-                'body' => 'Because "to" property is not defined',
-            ]),
-        ];
+        // $message = [
+        //     new ExpoMessage([
+        //         'title' => 'Notification for default recipients',
+        //         'body' => 'Because "to" property is not defined',
+        //     ]),
+        // ];
 
         // $defaultRecipients = [
-        //     'ExponentPushToken[BJYa2QJeurTh-v5oPcC8VF]',
-        //     'ExponentPushToken[Z3lm68FTVhXlfGtcsdM4uk]'
+        //     'ExponentPushToken[LFDV6OPfdcDHgzO_HMueuY]',
+        //     'ExponentPushToken[5L2aFsDYTfVCctRXep0pDQ]'
         // ];
 
 
         // (new Expo)->send($message)->to($defaultRecipients)->push();
 
-        //* Subscribing someone to a channel then sending a message to the channel
+        //* Subscribing someone to a channel then sending a group message to the channel
         $expo = Expo::driver('file');
 
-        $channel = 'default';
+        // $channel = 'default';
         // $expo->subscribe($channel, $defaultRecipients);
-        $expo->send($message)->toChannel($channel)->push();
+        // $expo->send($message)->toChannel($channel)->push();
 
-
+        //* get all the tokens that are subscribed to this channel name
+        $subs = $expo->getSubscriptions('default');
+        dd(['all the user tokens', $subs]);
 
         return back();
     }

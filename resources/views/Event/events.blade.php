@@ -23,7 +23,7 @@
                 {{-- </div> --}}
                 {{-- <form action="{{route('event.send')}}">
                     @csrf
-                    <button type="submit">Send Notif</button>
+                    <button type="submit">Notif</button>
                 </form> --}}
 
                 {{-- Card --}}

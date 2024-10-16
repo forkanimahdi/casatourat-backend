@@ -8,7 +8,11 @@ import axios from "axios";
 window.Alpine = Alpine;
 
 Alpine.start();
-
+let x = document.querySelector(".audiohada");
+x.addEventListener('play', () => {
+    console.log("x : ", x.duration);
+})
+// console.log("x : ", x.duration);
 let csrf = document.querySelector('meta[name="csrf-token"]').content;
 let mySelect = document.getElementById("mySelect");
 let notif_bell = document.getElementById("notif_bell");
@@ -20,7 +24,6 @@ let map_icon = document.getElementById("visite_icon");
 let pop = document.getElementById("pop_triangle");
 let pop_map = document.getElementById("pop_triangle_map");
 let selectedReview;
-console.log(notifBodyVisite);
 
 const colors = {
     alert: "rgb(220 38 38)",

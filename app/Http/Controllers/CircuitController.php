@@ -45,9 +45,9 @@ class CircuitController extends Controller
             'description.fr' => 'string|nullable',
             'description.ar' => 'string|nullable',
             'audio' => 'array|min:3',
-            'audio.en' => 'mimes:mp3,wav',
-            'audio.fr' => 'mimes:mp3,wav',
-            'audio.ar' => 'mimes:mp3,wav',
+            'audio.en' => 'mimes:mp3,wav,m4a',
+            'audio.fr' => 'mimes:mp3,wav,m4a',
+            'audio.ar' => 'mimes:mp3,wav,m4a',
             'image.*' => 'mimes:png,jpg,jpeg',
             'video.*' => 'mimes:mp4,mov',
             'buildings' => 'array',
@@ -173,9 +173,9 @@ class CircuitController extends Controller
             'description.fr' => 'string|nullable',
             'description.ar' => 'string|nullable',
             'audio' => 'array',
-            'audio.en' => 'mimes:mp3,wav',
-            'audio.fr' => 'mimes:mp3,wav',
-            'audio.ar' => 'mimes:mp3,wav',
+            'audio.en' => 'mimes:mp3,wav,m4a',
+            'audio.fr' => 'mimes:mp3,wav,m4a',
+            'audio.ar' => 'mimes:mp3,wav,m4a',
         ]);
 
         $audioFiles = (array)$circuit->audio;

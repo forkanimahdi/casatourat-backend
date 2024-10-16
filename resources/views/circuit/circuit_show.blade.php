@@ -61,7 +61,7 @@
                                 </label>
                                 <input class="hidden" type="file" placeholder="audio" accept="audio/*"
                                     name="audio[en]" id="audio_en" />
-                                <audio controls class="w-full" id="audio_preview_en"
+                                <audio controls class="w-full audiohada" id="audio_preview_en"
                                     src="{{ asset('storage/audios/' . $circuit->audio->en) }}"></audio>
                             </div>
                         </div>

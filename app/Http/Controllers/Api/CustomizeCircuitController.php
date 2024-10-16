@@ -8,11 +8,6 @@ use App\Models\CustomizeCircuit;
 use Illuminate\Http\Request;
 use App\TokenValidation;
 use App\Models as models;
-use App\Models\Visitor;
-use Illuminate\Support\Facades\DB;
-
-use function Pest\Laravel\json;
-// use function PHPSTORM_META\map;
 
 class CustomizeCircuitController extends Controller
 {

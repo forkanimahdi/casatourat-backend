@@ -46,9 +46,9 @@ class BuildingController extends Controller
             'description.fr' => 'nullable|string',
             'description.ar' => 'nullable|string',
             'audio' => 'array|min:3',
-            'audio.en' => 'mimes:mp3,wav',
-            'audio.fr' => 'mimes:mp3,wav',
-            'audio.ar' => 'mimes:mp3,wav',
+            'audio.en' => 'mimes:mp3,wav,m4a',
+            'audio.fr' => 'mimes:mp3,wav,m4a',
+            'audio.ar' => 'mimes:mp3,wav,m4a',
             'image.*' => 'mimes:png,jpg,jfif',
 
         ]);
@@ -102,9 +102,9 @@ class BuildingController extends Controller
             'description.fr' => 'string|nullable',
             'description.ar' => 'string|nullable',
             'audio' => 'array',
-            'audio.en' => 'mimes:mp3,wav',
-            'audio.fr' => 'mimes:mp3,wav',
-            'audio.ar' => 'mimes:mp3,wav',
+            'audio.en' => 'mimes:mp3,wav,m4a',
+            'audio.fr' => 'mimes:mp3,wav,m4a',
+            'audio.ar' => 'mimes:mp3,wav,m4a',
         ]);
 
         $audioFiles = (array)$building->audio;

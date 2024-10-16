@@ -35,8 +35,28 @@ class CircuitResource extends BaseResource
      */
     public function toArray(Request $request): array
     {
+        // dd('test');
+        $data = parent::toArray($request);
+        $audios = $data['audio'];
+        $audioDurations = [];
+        // dd($audios);
+
+        foreach ($audios as $key => $audio) {
+            $audioFilePath = storage_path('app/public/audios/' . $audio);
+
+            if (file_exists($audioFilePath)) {
+                $getID3 = new \getID3;
+                $fileInfo = $getID3->analyze($audioFilePath);
+                $audioDurations[$key] = isset($fileInfo['playtime_seconds']) ? round(($fileInfo['playtime_seconds']) * 1000) : 'Unknown duration';
+            } else {
+                $audioDurations[$key] = 'File not found';
+            }
+        }
+
+        // dd($audioDurations);
         return [
             ...parent::toArray($request),
+            'audiosDuration' => $audioDurations,
             'images' => $this->resource->images->map(fn($image) => $image->path),
             'videos' => $this->resource->videos->map(fn($video) => $video->path),
             'path' => PathResource::collection($this->resource->paths),

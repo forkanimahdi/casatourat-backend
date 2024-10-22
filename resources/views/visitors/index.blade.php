@@ -118,7 +118,7 @@
                 </thead>
 
                 <tbody id="table">
-                    <template x-for="visitor in visitors" :key="visitor.email">
+                    <template x-for="visitor in visitors" :key="visitor.id">
                         <tr x-show="matchesSearch(visitor)" class="h-[7vh]">
                             <td x-text="visitor.full_name"></td>
                             <td x-text="visitor.email"></td>

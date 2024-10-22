@@ -50,7 +50,7 @@ class EventController extends Controller
             'description.ar' => 'required|string',
             'start' => 'required',
             'end' => 'required',
-            'image.*' => 'required|mimes:png,jpg,jfif',
+            'image.*' => 'required|mimes:png,jpg,jfif,webp',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
         ]);

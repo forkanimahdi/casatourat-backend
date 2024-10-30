@@ -26,7 +26,7 @@ function initMap() {
                 repeat: "15px",
             },
         ],
-        
+
     });
 
     map.addListener("click", function (event) {
@@ -48,6 +48,7 @@ function initMap() {
             marker.setMap(null);
             markers = markers.filter((m) => m !== marker);
             line.setPath(markers.map((marker) => marker.getPosition()));
+            nextBtn.disabled = !(markers.length > 1);
         });
 
         markers.push(marker);

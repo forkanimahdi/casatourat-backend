@@ -238,4 +238,23 @@ class CircuitController extends Controller
         ]);
         return back();
     }
+
+    public function updatePath(Request $request, string $id)
+    {
+        $circuitPaths = Path::where('circuit_id', $id)->get();
+        foreach ($circuitPaths as $path) {
+            $path->delete();
+        }
+        $circuitPaths = json_decode($request->cordinates, true);
+        foreach ($circuitPaths as $path) {
+            Path::create([
+                'circuit_id' => $path['circuit_id'],
+                'latitude' => $path['latitude'],
+                'longitude' => $path['longitude'],
+            ]);
+        }
+        return response()->json([
+            'message' => 'succefully',
+        ]);
+    }
 }

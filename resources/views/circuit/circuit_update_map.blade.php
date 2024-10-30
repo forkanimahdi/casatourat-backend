@@ -3,7 +3,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center w-full">
             <h5 class="text-alpha leading-tight capitalize font-semibold ">
-                update <span class="font-medium text-2xl">{{ $circuit->name }}</span> circuit
+                update <span class="font-medium text-2xl">{{ $circuit->name->en }}</span> circuit
             </h5>
         </div>
     </x-slot>
@@ -15,17 +15,17 @@
         @csrf
         <div class="flex flex-col gap-1">
             <label class="text-gray-400 ps-1" for="">Name:</label>
-            <input value="{{ $circuit->name }}" class="rounded-xl border-gray-300 bg-gray-50" required type="text"
+            <input value="{{ $circuit->name->en }}" class="rounded-xl border-gray-300 bg-gray-50" required type="text"
                 placeholder="Name" id="name" name="name">
         </div>
         <div class="flex flex-col gap-1">
-            <label class="text-gray-400 ps-1" for="">Alternative:</label>
+            {{-- <label class="text-gray-400 ps-1" for="">Alternative:</label>
             <input value="{{ $circuit->alternative }}" class="rounded-xl border-gray-300 bg-gray-50" required
-                type="text" placeholder="Alternative" id="alternative" name="alternative">
+                type="text" placeholder="Alternative" id="alternative" name="alternative"> --}}
         </div>
         <div class="flex flex-col gap-1">
             <label class="text-gray-400 ps-1" for="">Description:</label>
-            <input value="{{ $circuit->description }}" class="rounded-xl border-gray-300 bg-gray-50" required
+            <input value="{{ $circuit->description->en }}" class="rounded-xl border-gray-300 bg-gray-50" required
                 type="text" placeholder="Description" id="description" name="description">
         </div>
         <div class="flex flex-col gap-1">
@@ -48,5 +48,5 @@
             }
         })
     </script>
-    @vite(['resources/js/update_circuit_map.js'])
+    {{-- @vite(['resources/js/update_circuit_map.js']) --}}
 </x-app-layout>

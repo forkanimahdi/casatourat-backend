@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api as api;
+use App\Http\Controllers\Api\CircuitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,7 +40,7 @@ Route::post('/achievement', [api\AchievementController::class, 'store']);
 
 // Visitor to Request a Guided Visit
 Route::post('/guided/', [api\GuidedVisitController::class, 'store']);
-
+Route::get('/audios/{name}', [api\CircuitController::class, 'getAudio']);
 // When a building get visited
 Route::controller(api\VisitedBuildingsController::class)->name("visited_buildings")->group(
     function () {

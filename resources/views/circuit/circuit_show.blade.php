@@ -15,7 +15,32 @@
             @include('circuit.partials.confirmation_modale')
         </div>
     </x-slot>
+    <div class="px-4 pt-4 relative">
+        <div id="map" class="w-full h-[55vh] rounded-lg "></div>
 
+        <form id="myForm" enctype="multipart/form-data "
+            class="  w-fit absolute top-[15%] left-[5%] rounded flex flex-col ">
+            @csrf
+            <button class="flex  gap-2 bg-alpha text-white px-4 py-2 font-medium rounded-xl  w-fit ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                </svg>
+                <span>update</span>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        let circuit_id = @json($circuit).id
+        let circuit_path = @json($circuit->paths).map((path) => {
+            return {
+                lat: path.latitude,
+                lng: path.longitude
+            }
+        })
+    </script>
     <div class="flex gap-[1.25rem] p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-86px)]">
         <form action="{{ route('circuits.update', $circuit) }}" method="post" enctype="multipart/form-data"
             x-data="{ tab: 'English' }" class="flex-[60%] p-[1.25rem] bg-white rounded-lg">
@@ -159,7 +184,8 @@
                         <input type="hidden" name="id" value="{{ $circuit->id }}">
                         <input type="hidden" name="type" value="circuit">
                         <input onchange="addImgBtn.click()" multiple name="image[]" type="file" id="storeImage"
-                            accept="image/jpg, image/jpeg, image/png" class="mt-2 border-2 rounded w-full bg-white hidden ">
+                            accept="image/jpg, image/jpeg, image/png"
+                            class="mt-2 border-2 rounded w-full bg-white hidden ">
                         <button class="hidden" id="addImgBtn">confirm</button>
                     </form>
                     <label class="block text-gray-700">Add an Image: </label>
@@ -215,8 +241,7 @@
                     </form>
                 </div>
             @endforeach
-            <div
-            onclick="storeVideo.click()"
+            <div onclick="storeVideo.click()"
                 class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] border-2 border-dashed rounded-lg flex justify-center items-center">
                 <form action="{{ route('videos.store', $circuit->id) }}" method="post"
                     enctype="multipart/form-data">
@@ -353,4 +378,5 @@
             </div>
         </div>
     </div>
+    @vite(['resources/js/update_circuit_map.js'])
 </x-app-layout>

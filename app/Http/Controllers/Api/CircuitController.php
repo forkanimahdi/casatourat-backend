@@ -37,6 +37,17 @@ class CircuitController extends Controller
         });
     }
 
+    public function getAudio(Request $request, $name) {
+        // $audio = Audio::find($name);
+        // dd($name);
+        return response()->file(storage_path("app/public/audios/{$name}"), [
+            'Content-Type' => 'audio/mp3',
+            'Accept-Ranges' => 'bytes',
+            'Content-Length' => filesize(storage_path("app/public/audios/{$name}")),
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'GET, OPTIONS',
+        ]);
+    }
     /**
      * Update the specified resource in storage.
      */

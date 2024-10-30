@@ -42,6 +42,7 @@ Route::resource('circuits', CircuitController::class);
 Route::controller(CircuitController::class)->name('circuits.')->group(function () {
     Route::patch('circuits/publish/{circuit}', 'publish')->name('publish');
     Route::patch('circuits/unpublish/{circuit}', 'unpublish')->name('unpublish');
+    Route::post("/update/path/{id}", 'updatePath')->name('updatepath');
 });
 
 // Route::patch('circuits/assign_building/{building}', [BuildingController::class, 'assign_building'])->name('assign');

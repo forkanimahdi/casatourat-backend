@@ -1,12 +1,12 @@
 function initMap() {
     const circuit = {
         lat: circuit_path[1].lat,
-        lng: circuit_path[1].lng
-    }
-    const map = new google.maps.Map(document.getElementById('map'), {
+        lng: circuit_path[1].lng,
+    };
+    const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
         center: circuit,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
     });
 
     const lineSymbol = {
@@ -29,13 +29,13 @@ function initMap() {
         ],
     });
 
-    circuit_path.forEach(path => {
-        const svgMarkerPath = '/assets/markers/path.svg';
+    circuit_path.forEach((path) => {
+        const svgMarkerPath = "/assets/markers/path.svg";
 
         const currentMarkers = new google.maps.Marker({
             position: {
                 lat: path.lat,
-                lng: path.lng
+                lng: path.lng,
             },
             icon: {
                 url: svgMarkerPath,
@@ -45,19 +45,20 @@ function initMap() {
             map: map,
         });
 
-        currentMarkers.addListener('click', function (event) {
-            currentMarkers.setMap(null)
-            circuit_path = circuit_path.filter(m => m.lat !== currentMarkers.getPosition().lat())
+        currentMarkers.addListener("click", function (event) {
+            currentMarkers.setMap(null);
+            circuit_path = circuit_path.filter(
+                (m) => m.lat !== currentMarkers.getPosition().lat()
+            );
             line.setPath(circuit_path);
         });
     });
 
-
-    map.addListener('click', function (event) {
+    map.addListener("click", function (event) {
         const marker = new google.maps.Marker({
             position: {
                 lat: event.latLng.lat(),
-                lng: event.latLng.lng()
+                lng: event.latLng.lng(),
             },
             map: map,
         });
@@ -65,45 +66,46 @@ function initMap() {
             lat: marker.getPosition().lat(),
             lng: marker.getPosition().lng(),
         });
-        marker.addListener('click', function () {
+        marker.addListener("click", function () {
             marker.setMap(null);
-            circuit_path = circuit_path.filter(m => m.lat !== marker.getPosition().lat())
+            circuit_path = circuit_path.filter(
+                (m) => m.lat !== marker.getPosition().lat()
+            );
             line.setPath(circuit_path);
         });
         line.setPath(circuit_path);
-    })
+    });
+}
 
-};
-
-const form = document.querySelector('#myForm')
-
-
-form.addEventListener('submit', function (e) {
-    e.preventDefault()
-    const formData = new FormData(form)
+const form = document.querySelector("#myForm");
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    let formData = new FormData(form);
     let cordinates = circuit_path.map((marker) => {
         return {
             circuit_id: circuit_id,
             latitude: marker.lat,
-            longitude: marker.lng
-        }
-    })
-    formData.append('cordinates', JSON.stringify(cordinates))
+            longitude: marker.lng,
+        };
+    });
+    formData.append("cordinates", JSON.stringify(cordinates));
+    console.log(formData);
     function submitData() {
-        if (cordinates.length < 2) return
+        if (cordinates.length < 2) return;
         try {
-            axios.post(`/circuit/update/${circuit_id}`, formData).then(response => {
-                if (response.status == 200) {
-                    console.log(response);
-                    location.reload()
-                }
-            })
+            axios
+                .post(`/update/path/${circuit_id}`, formData)
+                .then((response) => {
+                    if (response.status == 200) {
+                        console.log("response : ", response.data);
+                        location.reload();
+                    }
+                });
         } catch (error) {
-            console.error('Error posting data:', error);
+            console.error("Error posting data:", error);
         }
     }
-    submitData()
-})
-
+    submitData();
+});
 
 window.onload = initMap;

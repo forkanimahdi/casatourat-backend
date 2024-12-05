@@ -10,13 +10,13 @@
     </x-slot>
 
     <div class="bg-gray-100 p-4">
-        <div class="bg-white">
+        <div class="bg-white pb-4 rounded-xl">
             {{-- Image Header Info --}}
-            <div class="relative">
-                <img class="h-[400px] w-full rounded-tl-xl rounded-tr-xl object-cover aspect-square "
+            <div class="relative ">
+                <img class="h-[400px] w-full rounded-tl-xl  rounded-tr-xl object-cover aspect-square "
                     src="{{ asset('storage/images/' . $event->images->first()->path) }}" alt="event poster">
 
-                <div class="absolute inset-0 bg-black/40 rounded-xl"></div>
+                <div class="absolute inset-0 bg-black/40 rounded-tl-xl  rounded-tr-xl "></div>
 
                 <div class="absolute bottom-0 left-0 text-white px-4">
                     <h1>{{ $event->title->en }}</h1>

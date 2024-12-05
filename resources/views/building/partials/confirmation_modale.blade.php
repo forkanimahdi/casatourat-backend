@@ -1,11 +1,11 @@
 <!-- Code block starts -->
 <dh-component>
 
-    <div class="hidden py-12 bg-gray-700 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
+    <div class="hidden py-12 sm:px-0 px-4 bg-gray-700 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
         id="modal">
         <div role="alert" class="container flex justify-center items-center mx-auto w-11/12 md:w-2/3 max-w-lg">
-            <div class="relative  py-8 px-5 md:px-10 w-3/5 bg-white shadow-md rounded-2xl border border-gray-400">
-                <div class="text-center p-5 flex-auto justify-center">
+            <div class="relative  py-8 sm:px-5 md:px-10 lg:w-3/5 bg-white shadow-md rounded-2xl border border-gray-400">
+                <div class="text-center sm:p-5 flex-auto justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 -m-1 flex items-center text-red-500 mx-auto"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

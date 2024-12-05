@@ -10,8 +10,8 @@
         </a>
     </x-slot>
 
-    <div class="p-4 sm:p-6 lg:p-8">
-        <div style="--gap: 0.75rem; --count: 4;" class="flex flex-wrap gap-[var(--gap)]">
+    <div class="p-4 sm:p-6 lg:p-8  w-full">
+        <div style="--gap: 0.75rem; --count: 4;" class="flex sm:flex-wrap sm:flex-row flex-col  gap-[var(--gap)] ">
             @foreach ($buildings as $building)
                 <x-card title="{{ $building->name->en }}" image="{{ $building->images?->first()?->path }}"
                     route="{{ route('buildings.edit', $building) }}">

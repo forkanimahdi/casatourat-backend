@@ -27,10 +27,10 @@
                 </form> --}}
 
                 {{-- Card --}}
-                <div class="flex flex-wrap py-4">
+                <div class="flex  sm:flex-row flex-col  flex-wrap py-4">
                     @foreach ($events as $event)
                         <div
-                            class="group bg-gray-100 relative shadow-lg rounded-lg overflow-hidden my-4 mr-2 ml-[14px] w-[25vw]">
+                            class="group bg-gray-100 relative shadow-lg rounded-lg overflow-hidden my-4 mr-2 ml-[14px] sm:w-[25vw]">
                             <img class="w-full h-56 object-cover object-center"
                                 src='{{ asset('storage/images/' . $event->images[0]->path) }}' alt="event image">
 
@@ -83,7 +83,7 @@
 
                         </div>
                     @endforeach
-
+                        
                 </div>
 
 

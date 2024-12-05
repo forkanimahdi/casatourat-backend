@@ -7,7 +7,7 @@
         @include('building.partials.confirmation_modale')
     </x-slot>
 
-    <div class="flex gap-[1.25rem] p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-86px)]">
+    <div class="flex lg:flex-row flex-col  gap-[1.25rem]p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-86px)]">
         <form action="{{ route('buildings.update', $building) }}" method="post" enctype="multipart/form-data"
             x-data="{ tab: 'English' }" class="flex-[60%] p-[1.25rem] bg-white rounded-lg">
             @csrf

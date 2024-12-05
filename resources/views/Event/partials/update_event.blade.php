@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
 
-    <section class=" w-full flex justify-around gap-2 p-2 bg-gray-100 h-[90vh]">
-        <div x-data="{ tab: 'English' }" class="w-[60%] flex flex-col gap-3 border rounded-lg p-4 bg-white">
+    <section class=" w-full flex sm:flex-row flex-col justify-around gap-2 p-2 bg-gray-100 sm:h-[90vh]">
+        <div x-data="{ tab: 'English' }" class="sm:w-[60%] flex flex-col gap-3 border rounded-lg p-4 bg-white">
             <h1>Event Details</h1>
             <div id="tabsBtn" class="flex bg-gray-200 w-full justify-between gap-2 p-1 rounded-lg">
                 @foreach (['English', 'Français', 'العربية'] as $language)
@@ -82,14 +82,14 @@
                     <input class="rounded" type="datetime-local" id="end" name="end" placeholder="insert name"
                         value="{{ $event->end }}" class="r">
                 </div>
-                <div class="flex justify-center py-2 w-full">
+                <div class="flex justify-center py-2 px-3 sm:w-full">
                     <button type="submit" class="bg-alpha btn-block py-2 rounded text-white w-full">Save</button>
                 </div>
             </form>
         </div>
 
 
-        <div class="w-[40%] border p-4 rounded-lg flex flex-col gap-2 bg-white">
+        <div class="sm:w-[40%] border p-4 rounded-lg flex flex-col gap-2 bg-white">
             <h1>Event Images</h1>
             <div class="flex flex-wrap gap-3">
                 <div onclick="storeImage.click()"

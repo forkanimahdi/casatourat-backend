@@ -9,13 +9,13 @@
 
     <div>
         <form action="{{ route('events.store') }}" method="post" enctype="multipart/form-data"
-            class="flex gap-[1.25rem] p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-86px)]">
+            class="flex sm:flex-row flex-col gap-[1.25rem] p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-86px)]">
             @csrf
 
             <div class="flex-[55%] p-[1.25rem] bg-white rounded-lg flex flex-col gap-y-[1rem]">
                 <h5 class="m-0">Choose location</h5>
 
-                <div class="flex items-start gap-[1rem]">
+                <div class="flex sm:flex-row flex-col items-start gap-[1rem]">
                     <div class="flex flex-col w-full">
                         <label class="w-full font-bolder text-base/none mb-[0.5rem]" for="latitude">Latitude</label>
                         <input type="text" class="rounded w-" id="latitude" placeholder="Latitude"
@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <div id="map" class="flex-1 rounded"></div>
+                <div id="map" class="lg:flex-1 h-[40vh] rounded"></div>
             </div>
 
             <div x-data="{ tab: 'English' }" class="flex-[44%] p-[1.25rem] bg-white rounded-lg">
@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="flex flex-col gap-2">
-                        <div class=" flex gap-2 w-full justify-between">
+                        <div class=" flex sm:flex-row flex-col gap-2 w-full justify-between">
                             <div class="firstinput w-full flex flex-col py-2">
                                 <label for="startDate" class=" py-1">Start Date</label>
                                 <input type="datetime-local" name="start" placeholder="00/00/0000"

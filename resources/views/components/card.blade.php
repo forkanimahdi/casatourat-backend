@@ -2,7 +2,7 @@
 
 <a href="{{ $route }}"
     class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] no-underline text-black group">
-    <div class="aspect-square p-3 bg-white rounded-lg overflow-hidden border flex flex-col gap-[0.5rem]">
+    <div class="aspect-square p-3 bg-white sm:w-full w-[90vw] rounded-lg overflow-hidden border flex flex-col gap-[0.5rem]">
         <div class="relative size-full aspect-[1/0.5] rounded overflow-hidden border border-gray-100">
             @if ($image)
                 <img class="size-full aspect-[1/0.5] object-cover" src="{{ asset('storage/images/' . $image) }}"

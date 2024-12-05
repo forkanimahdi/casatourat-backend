@@ -17,12 +17,12 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class=" text-black/50">
+    <div class=" text-black/50 ">
         <div class="relative flex flex-col items-center justify-center selection:bg-alpha selection:text-white">
-            <div class="relative w-full px-16">
-                <header class="flex justify-between items-center gap-2 ">
-                    <div class="flex ">
-                        <x-application-logo />
+            <div class="relative w-full  lg:px-16 ">
+                <header class="flex justify-between items-center sm:gap-2 sm:px-0 px-4  ">
+                    <div class="flex  ">
+                        <x-application-logo  />
                     </div>
                     @if (Route::has('login'))
                         <nav class="-mx-3 flex flex-1 justify-end font-medium">
@@ -42,9 +42,9 @@
                 </header>
 
                 <main class="">
-                    <div class="flex flex-col items-center text-black">
-                        <h1>Explore Casablanca with Casatourat</h1>
-                        <p class="text-lg font-medium text-black/75">Discover hidden gems, follow curated circuits, and stay updated with local events.</p>
+                    <div class="flex flex-col items-center   text-black sm:px-0 px-2">
+                        <h1 class="sm:text-start text-center">Explore Casablanca with Casatourat</h1>
+                        <p class="text-lg font-medium text-black/75 lg:text-start text-center">Discover hidden gems, follow curated circuits, and stay updated with local events.</p>
                         <div class="flex justify-center gap-4">
                             <a target="_blank" href="https://www.apple.com/app-store/">
                                 <img width="200" class=""
@@ -57,7 +57,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="flex gap-4 items-center justify-center">
+                    <div class="flex sm:flex-row flex-col gap-4 items-center justify-center">
                         <img src="{{ asset('assets/images/group_1609.png') }}" alt="">
                         <img src="{{ asset('assets/images/Frame 65.png') }}" alt="">
                         <img src="{{ asset('assets/images/Frame 64.png') }}" alt="">

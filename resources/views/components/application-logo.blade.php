@@ -1,5 +1,5 @@
 @props(['color' => false, 'size' => '150'])
-<svg width="{{ $size }}" height="{{ $size }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 693.47 323.45"
+<svg width="{{ $size }}" height="{{ $size }}" class="sm:w-full w-[100px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 693.47 323.45"
     fill="none">
     @if ($attributes['by'])
         <path class="{{ !$color ? 'fill-[#1221af]' : 'fill-[#fff]' }} stroke-0"

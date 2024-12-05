@@ -17,14 +17,14 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen flex">
-        <img class="w-1/2 h-screen object-center" src="{{ asset('assets/images/old_casa.jpg') }}" alt="">
+<body class="font-sans  text-gray-900 antialiased">
+    <div class="min-h-screen sm:flex ">
+        <img class="w-1/2 sm:block hidden h-screen object-center" src="{{ asset('assets/images/old_casa.jpg') }}" alt="">
 
-        <div class="w-1/2 flex flex-col items-center justify-center">
+        <div class="sm:w-1/2 flex flex-col items-center justify-center sm:h-screen">
             <x-application-logo by />
 
-            <div class="min-w-[66.66%] mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+            <div class="sm:min-w-[66.66%] min-w-[80%]  mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
                 <form method="POST" action="{{ route('login') }}">

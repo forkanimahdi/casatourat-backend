@@ -27,10 +27,11 @@
             </div>
         </div>
 
-        <div class="flex justify-between gap-2">
-            <h1 class="text-base truncate">
+        <div class="flex justify-between gap-2 items-center">
+            <h1 class="text-base truncate ">
                 {{ $title }}
             </h1>
+            <button class="md:hidden bg-[#1221af] text-white p-2 rounded-lg">View Details</button>
         </div>
     </div>
 </a>

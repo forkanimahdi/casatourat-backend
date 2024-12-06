@@ -39,6 +39,10 @@
     background: #333;
 }
 
+#circuitsimages::-webkit-scrollbar {
+    width: 1px;
+};
+
 
 .trow {
     padding: 0.75rem;
@@ -57,3 +61,4 @@
 input[type="file"]::file-selector-button {
     background-color: rgba(0, 45, 85, 87.5%);
 }
+

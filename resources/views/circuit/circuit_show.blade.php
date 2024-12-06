@@ -41,7 +41,7 @@
             }
         })
     </script>
-    <div class="flex gap-[1.25rem] p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-86px)]">
+    <div class="flex flex-col md:flex-row gap-[1.25rem] p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-86px)]">
         <form action="{{ route('circuits.update', $circuit) }}" method="post" enctype="multipart/form-data"
             x-data="{ tab: 'English' }" class="flex-[60%] p-[1.25rem] bg-white rounded-lg">
             @csrf
@@ -173,39 +173,44 @@
             </div>
         </form>
 
-        <div class="flex-[40%] p-[1.25rem] bg-white rounded-lg flex flex-col gap-y-[1rem]">
+        <div id="circuitsimages" class="flex-[40%] p-[1.25rem] bg-white rounded-lg flex flex-col gap-y-[1rem] h-[83vh] max-h-[83vh] overflow-y-auto">
             <h5 class="m-0">Circuit images</h5>
             <div style="--gap: 0.75rem; --count: 3;" class="flex flex-wrap gap-[var(--gap)]">
-                <div onclick="storeImage.click()"
-                    class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] cursor-pointer aspect-square border-2 border-dashed rounded-lg flex flex-col items-center justify-center">
-                    <form action="{{ route('images.store', $circuit->id) }}" method="post"
-                        enctype="multipart/form-data">
+                <div onclick="storeImage.click()" 
+                    class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] min-w-[150px] cursor-pointer aspect-square border-2 border-dashed rounded-lg flex flex-col items-center justify-center">
+                    <form action="{{ route('images.store', $circuit->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="{{ $circuit->id }}">
                         <input type="hidden" name="type" value="circuit">
-                        <input onchange="addImgBtn.click()" multiple name="image[]" type="file" id="storeImage"
+                        <input onchange="addImgBtn.click()" 
+                            multiple 
+                            name="image[]" 
+                            type="file" 
+                            id="storeImage"
                             accept="image/jpg, image/jpeg, image/png"
-                            class="mt-2 border-2 rounded w-full bg-white hidden ">
+                            class="mt-2 border-2 rounded w-full bg-white hidden">
                         <button class="hidden" id="addImgBtn">confirm</button>
                     </form>
-                    <label class="block text-gray-700">Add an Image: </label>
+                    <label class="block text-gray-700 text-sm">Add an Image: </label>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                 </div>
+                
                 @foreach ($circuit->images as $index => $image)
-                    <div
-                        class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] relative group">
+                    <div class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] min-w-[150px] relative group">
                         <img class="w-full aspect-square object-cover rounded border"
-                            src="{{ asset('storage/images/' . $image->path) }}" alt="">
+                            src="{{ asset('storage/images/' . $image->path) }}" 
+                            alt="Circuit image"
+                            loading="lazy">
                         <form class="flex justify-end absolute top-2 right-2"
-                            action="{{ route('images.destroy', $image) }}" method="post">
+                            action="{{ route('images.destroy', $image) }}" 
+                            method="post">
                             @csrf
                             @method('DELETE')
-                            <button
-                                class="cursor-pointer hidden group-hover:block p-[0.25rem] font-semibold text-gray-100 no-underline bg-red-500 rounded-lg hover:text-red-500 hover:bg-[#fff] border-2 border-red-500 transition duration-200 ">
+                            <button class="cursor-pointer opacity-0 group-hover:opacity-100 p-[0.25rem] font-semibold text-gray-100 no-underline bg-red-500 rounded-lg hover:text-red-500 hover:bg-[#fff] border-2 border-red-500 transition-all duration-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -215,7 +220,6 @@
                     </div>
                 @endforeach
             </div>
-
         </div>
     </div>
 
@@ -242,7 +246,7 @@
                 </div>
             @endforeach
             <div onclick="storeVideo.click()"
-                class="w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] border-2 border-dashed rounded-lg flex justify-center items-center">
+                class="md:w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] w-full border-2 border-dashed rounded-lg flex justify-center items-center">
                 <form action="{{ route('videos.store', $circuit->id) }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
@@ -264,9 +268,9 @@
 
     <div class="p-[1.25rem]  mt-0 m-4 sm:m-6 lg:m-8 bg-white rounded-lg">
         <h5 class="mb-[1rem]">Manage Building Assignments</h5>
-        <div style="--count: 2; --gap: 1.25rem" class="flex gap-[var(--gap)]">
+        <div style="--count: 2; --gap: 1.25rem" class="flex gap-[var(--gap)] flex-col md:flex-row" >
             <div
-                class="border rounded-md w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] py-[0.75rem] px-[1.25rem]">
+                class="border rounded-md md:w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] py-[0.75rem] px-[1.25rem] w-full">
                 <h6 class="mb-[1rem] capitalize text-base font-semibold">Assigned Buildings</h6>
                 <div class="flex flex-col gap-2">
                     @foreach ($circuit->buildings as $building)
@@ -307,7 +311,7 @@
             </div>
 
             <div
-                class="border rounded-md w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] py-[0.75rem] px-[1.25rem]">
+                class="border rounded-md md:w-[calc(calc(100%-calc(calc(var(--count)-1)*var(--gap)))/var(--count))] py-[0.75rem] px-[1.25rem] w-full">
                 <h6 class="mb-[1rem] capitalize text-base font-semibold">Available Buildings</h6>
                 <div class="flex flex-col gap-2">
                     @foreach ($available_buildings as $building)

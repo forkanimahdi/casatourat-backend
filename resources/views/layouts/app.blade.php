@@ -24,7 +24,7 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen flex bg-gray-100">
         <!-- Side Bar -->
-        {{-- @include('layouts.side_bare') --}}
+        @include('layouts.side_bare')
 
         <!-- Page Content -->
         <div class="flex flex-col w-full overflow-y-auto h-screen">

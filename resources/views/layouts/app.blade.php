@@ -30,11 +30,19 @@
         <div class="flex flex-col w-full overflow-y-auto h-screen">
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white flex items-center justify-between">
-                    <div class="max-w-7xl py-[1.25rem] px-4 sm:px-6 lg:px-8 w-full">
-                        <div class="flex justify-between items-center w-full">
-                            @if (isset($title))
-                                <h2 class="text-alpha leading-tight capitalize font-bold text-xl">
+            <header class="bg-white flex items-center md:justify-between">
+                <div class="max-w-7xl py-[1.25rem] flex items-center gap-x-3 px-4 sm:px-6 lg:px-8 w-full">
+                    <div class="md:hidden">
+                        <input id="checkbox" type="checkbox">
+                        <label class="toggle" for="checkbox">
+                            <div id="bar1" class="bars"></div>
+                            <div id="bar2" class="bars"></div>
+                            <div id="bar3" class="bars"></div>
+                        </label>
+                    </div>
+                    <div class="flex justify-between items-center w-full">
+                        @if (isset($title))
+                            <h2 class="text-alpha leading-tight m-0 capitalize font-bold text-xl">
                                     {{ $title }}
                                 </h2>
                             @endif
@@ -121,7 +129,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hidden mr-4 sm:flex {{ isset($header) ? '' : 'sm:ml-auto' }}">
+                    <div class=" mr-4 sm:flex {{ isset($header) ? '' : 'sm:ml-auto' }}">
                         <!-- Settings Dropdown -->
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">

@@ -105,61 +105,106 @@
                 <div class="flex mb-3 items-center justify-between">
                     {{-- sort goes here --}}
                 </div>
-
-                <table class="w-full">
-                    <thead>
-                        @php
-                            $headers = [
-                                ['key' => 'visitor', 'label' => 'User'],
-                                ['key' => 'circuit.name', 'label' => 'Circuit'],
-                                ['key' => 'created_at', 'label' => 'Date'],
-                                ['key' => 'gender', 'label' => 'Rating'],
-                                ['key' => 'role', 'label' => 'Comment'],
-                            ];
-                        @endphp
-                        <tr class="*:px-[0.5rem] *:py-[0.75rem]">
-                            @foreach ($headers as $header)
-                                <th @click="sortTable('{{ $header['key'] }}')"
-                                    class="cursor-pointer capitalize text-alpha/75 text-base/none font-semibold">
-                                    {{ $header['label'] }}
-                                </th>
-                            @endforeach
-                        </tr>
-                    </thead>
-
-                    <tbody id="table">
-                        <template x-for="comment in comments">
-                            <tr class="border-t *:px-[0.5rem] *:py-[0.875rem] hover:bg-gray-50">
-                                <td class="font-medium" x-text="comment.visitor"></td>
-                                <td>
-                                    <a :href="comment.circuit.link"
-                                        class="flex items-center gap-1.5 no-underline text-inherit">
-                                        <img x-show="comment.circuit.image" class="size-9 rounded-lg"
-                                            :src="comment.circuit.image" :alt="comment.circuit.name">
-                                        <div x-show="!comment.circuit.image"
-                                            class="size-9 rounded-lg border grid place-items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="size-3">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
-                                            </svg>
-                                        </div>
-                                        <span x-text="comment.circuit.name"></span>
-                                    </a>
-                                </td>
-                                <td x-text="formatDate(comment.date)"></td>
-                                <td>
-                                    <span x-text="comment.status"
-                                        :class="comment.status == 'good' ? 'bg-green-100' : comment.status == 'bad' ?
-                                            'bg-red-100' : 'bg-amber-100'"
-                                        class="text-sm rounded-full px-2 py-1 capitalize">
-                                    </span>
-                                </td>
-                                <td x-text="comment.content"></td>
+                <div class="hidden md:block">
+                    <table class="w-full">
+                        <thead>
+                            @php
+                                $headers = [
+                                    ['key' => 'visitor', 'label' => 'User'],
+                                    ['key' => 'circuit.name', 'label' => 'Circuit'],
+                                    ['key' => 'created_at', 'label' => 'Date'],
+                                    ['key' => 'gender', 'label' => 'Rating'],
+                                    ['key' => 'role', 'label' => 'Comment'],
+                                ];
+                            @endphp
+                            <tr class="*:px-[0.5rem] *:py-[0.75rem]">
+                                @foreach ($headers as $header)
+                                    <th @click="sortTable('{{ $header['key'] }}')"
+                                        class="cursor-pointer capitalize text-alpha/75 text-base/none font-semibold">
+                                        {{ $header['label'] }}
+                                    </th>
+                                @endforeach
                             </tr>
-                        </template>
-                    </tbody>
-                </table>
+                        </thead>
+
+                        <tbody id="table">
+                            <template x-for="comment in comments">
+                                <tr class="border-t *:px-[0.5rem] *:py-[0.875rem] hover:bg-gray-50">
+                                    <td class="font-medium" x-text="comment.visitor"></td>
+                                    <td>
+                                        <a :href="comment.circuit.link"
+                                            class="flex items-center gap-1.5 no-underline text-inherit">
+                                            <img x-show="comment.circuit.image" class="size-9 rounded-lg"
+                                                :src="comment.circuit.image" :alt="comment.circuit.name">
+                                            <div x-show="!comment.circuit.image"
+                                                class="size-9 rounded-lg border grid place-items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="size-3">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                                                </svg>
+                                            </div>
+                                            <span x-text="comment.circuit.name"></span>
+                                        </a>
+                                    </td>
+                                    <td x-text="formatDate(comment.date)"></td>
+                                    <td>
+                                        <span x-text="comment.status"
+                                            :class="comment.status == 'good' ? 'bg-green-100' : comment.status == 'bad' ?
+                                                'bg-red-100' : 'bg-amber-100'"
+                                            class="text-sm rounded-full px-2 py-1 capitalize">
+                                        </span>
+                                    </td>
+                                    <td x-text="comment.content"></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="md:hidden">
+                    <template x-for="comment in comments">
+                        <div x-show="matchesSearch(comment)" class="bg-white rounded-lg shadow-sm mb-4 p-4 border border-gray-200">
+                            <div class="space-y-2">
+                                    <div class="flex justify-between items-center">
+                                        <span class="capitalize text-alpha text-base font-semibold">User</span>
+                                        <span x-text="comment.visitor" class="text-sm"></span>
+                                    </div>
+                                    <div class="">
+                                        <a :href="comment.circuit.link"
+                                            class="flex items-center gap-1.5 no-underline text-inherit">
+                                            <img x-show="comment.circuit.image" class="size-9 rounded-lg"
+                                                :src="comment.circuit.image" :alt="comment.circuit.name">
+                                            <div x-show="!comment.circuit.image"
+                                                class="size-9 rounded-lg border grid place-items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="size-3">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                                                </svg>
+                                            </div>
+                                            <span x-text="comment.circuit.name"></span>
+                                        </a>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="capitalize text-alpha text-base font-semibold">Date</span>
+                                        <span x-text="formatDate(comment.date)" class="text-sm"></span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="capitalize text-alpha text-base font-semibold">Rating</span>
+                                        <span x-text="comment.status"
+                                            :class="comment.status == 'good' ? 'bg-green-100' : comment.status == 'bad' ?
+                                                'bg-red-100' : 'bg-amber-100'"
+                                            class="text-sm rounded-full px-2 py-1 capitalize">
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="capitalize text-alpha text-base font-semibold">Comment</span>
+                                        <span x-text="comment.content" class="text-sm"></span>
+                                    </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
             </div>
         </div>
 

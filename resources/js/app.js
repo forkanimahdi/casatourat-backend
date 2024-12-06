@@ -5,6 +5,21 @@ import "./media_Selector";
 import Alpine from "alpinejs";
 import axios from "axios";
 
+
+let menu = document.querySelector(".toggle")
+let sideBar = document.querySelector(".side-bar")
+
+menu.addEventListener("click",()=>{
+    if (sideBar.classList.contains("left-[-700px]")) {
+        sideBar.classList.remove("left-[-700px]") 
+        sideBar.classList.add("left-6")   
+    }else if(sideBar.classList.contains("left-6")){
+        sideBar.classList.remove("left-6")
+        sideBar.classList.add("left-[-700px]")   
+    }
+    
+})
+
 window.Alpine = Alpine;
 
 Alpine.start();

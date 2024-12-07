@@ -5,8 +5,12 @@
         </x-slot>
 
         <a href='{{ route('buildings.create') }}'
-            class="text-gray-50 no-underline text-md font-semibold border-2 border-alpha bg-alpha py-2 px-4 rounded-lg shadow-md hover:text-alpha hover:bg-gray-100">Create
+            class="text-gray-50 no-underline text-md font-semibold border-2 border-alpha bg-alpha py-2 px-4 rounded-lg shadow-md hover:text-alpha hover:bg-gray-100 md:flex hidden">Create
             New Building
+        </a>
+        <a href='{{ route('buildings.create') }}'
+            class="text-gray-50 no-underline text-md font-semibold border-2 border-alpha bg-alpha py-2 px-4 rounded-lg shadow-md hover:text-alpha hover:bg-gray-100 md:hidden flex  ">Create
+             Building
         </a>
     </x-slot>
 

@@ -40,9 +40,9 @@
                             <div id="bar3" class="bars"></div>
                         </label>
                     </div>
-                    <div class="flex justify-between items-center w-full">
+                    <div class="flex md:justify-between justify-end items-center w-full">
                         @if (isset($title))
-                            <h2 class="text-alpha leading-tight m-0 capitalize font-bold text-xl">
+                            <h2 class="text-alpha leading-tight m-0 capitalize font-bold text-xl md:flex hidden">
                                     {{ $title }}
                                 </h2>
                             @endif

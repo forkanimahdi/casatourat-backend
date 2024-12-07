@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-slot name="title">
+        <x-slot name="title" >
             Update Circuit
         </x-slot>
 
@@ -19,7 +19,7 @@
         <div id="map" class="w-full h-[55vh] rounded-lg "></div>
 
         <form id="myForm" enctype="multipart/form-data "
-            class="  w-fit absolute top-[15%] left-[5%] rounded flex flex-col ">
+            class="  w-fit absolute top-[15%] md:left-[5%] left-[10%] rounded flex flex-col ">
             @csrf
             <button class="flex  gap-2 bg-alpha text-white px-4 py-2 font-medium rounded-xl  w-fit ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

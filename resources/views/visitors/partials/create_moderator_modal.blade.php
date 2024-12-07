@@ -1,6 +1,6 @@
 <dialog id="addModeratorAdmin">
     <div class="w-screen h-screen fixed inset-0 bg-black/50 grid place-items-center z-10">
-        <div class="bg-white rounded w-[32.5%] shadow-md pt-1.5 pb-4">
+        <div class="bg-white rounded w-[90%] md:w-[32.5%] shadow-md pt-1.5 pb-4">
             <div class="flex justify-between py-[1.25rem] px-8 border-b border-gray-100">
                 <h1 class="capitalize text-2xl font-bold">Add new Admin</h1>
 

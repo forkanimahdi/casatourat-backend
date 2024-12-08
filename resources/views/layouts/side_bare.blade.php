@@ -68,7 +68,7 @@
     </div>
 </div>
 <div class="md:hidden z-50">
-    <div class="side-bar rounded-lg fixed top-[14.5vh] w-[80vw] left-[-700px] bg-alpha duration-500 ">
+    <div class="side-bar rounded-lg fixed top-[14.5vh] w-[80vw] left-[-700px] bg-alpha duration-500 transition-all">
         <div class="flex flex-col w-full">
             <div id="nav-content" class='flex flex-col gap-[0.5rem] py-3 px-[0.5rem] relative'>
                 <a href='{{ route('dashboard') }}'

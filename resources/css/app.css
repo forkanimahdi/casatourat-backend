@@ -135,3 +135,13 @@ input[type="file"]::file-selector-button {
     transition-duration: .5s;
     transform: rotate(180deg);
   }
+
+
+  .side-bar {
+    transform: translateX(-700px);
+  }
+  
+  .side-bar.active {
+    transform: translateX(5vw);
+  }
+  

@@ -18,6 +18,9 @@ use App\Http\Controllers\VideoController;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+Route::get('/termsofuse', function () {
+    return view('terms.terms_and_policy');
+});
 
 Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 

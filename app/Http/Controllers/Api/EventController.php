@@ -20,6 +20,11 @@ class EventController extends Controller
         //
     }
 
+    public function getAudio()
+    {
+        $audio = asset('storage/audios/1727880387_en.mp3');
+        return response()->json($audio);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -35,7 +40,7 @@ class EventController extends Controller
     {
         return $this->validateToken(
             $request,
-            fn () => EventResource::collection(Event::orderBy('created_at', 'desc')->get())
+            fn() => EventResource::collection(Event::orderBy('created_at', 'desc')->get())
         );
     }
 

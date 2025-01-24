@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Api as api;
 use App\Http\Controllers\Api\CircuitController;
+use App\Http\Controllers\Api\EventController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/audios', [EventController::class, 'getAudio']);
 
 Route::get('/user', function (Request $request) {
     return $request->user();

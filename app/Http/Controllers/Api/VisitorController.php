@@ -107,7 +107,7 @@ class VisitorController extends Controller
             try {
                 // delete from clerk
                 Http::withHeaders([
-                    'Authorization' => 'Bearer sk_test_eoJb7w2mQYZR1R3569kBbcT2LPeOspPSbUmJ60dKnY',
+                    'Authorization' => 'Bearer '. config("clerk.secret_key"),
                     'Content-Type' => 'application/json'
                 ])->delete("https://api.clerk.dev/v1/users/{$visitor->token}");
 

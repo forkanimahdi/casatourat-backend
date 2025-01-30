@@ -86,7 +86,6 @@ Route::resource('users', VisitorController::class)->except([
     'create',
     'edit',
     'update',
-    'destroy'
 ]);
 
 

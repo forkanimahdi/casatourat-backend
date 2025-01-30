@@ -9,6 +9,7 @@ use App\Models\Visitor;
 use App\TokenValidation;
 use ExpoSDK\Expo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class VisitorController extends Controller
 {
@@ -29,7 +30,7 @@ class VisitorController extends Controller
     {
         Visitor::create(array_filter(
             $request->all(),
-            fn ($key) => in_array($key, [
+            fn($key) => in_array($key, [
                 "full_name",
                 "email",
                 "token",
@@ -64,7 +65,7 @@ class VisitorController extends Controller
         return $this->validateToken($request, function (Visitor $visitor) use ($request) {
             $data = array_filter(
                 $request->all(),
-                fn ($key) => in_array($key, [
+                fn($key) => in_array($key, [
                     "full_name",
                     "gender",
                     "avatar",
@@ -98,8 +99,28 @@ class VisitorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        return $this->validateToken($request, function (Visitor $visitor) use ($request) {
+
+
+            try {
+                // delete from clerk
+                Http::withHeaders([
+                    'Authorization' => 'Bearer sk_test_eoJb7w2mQYZR1R3569kBbcT2LPeOspPSbUmJ60dKnY',
+                    'Content-Type' => 'application/json'
+                ])->delete("https://api.clerk.dev/v1/users/{$visitor->token}");
+
+                // delete the visitor from the database
+                $visitor->delete();
+                return response()->json([
+                    'message' => "Account Deleted Successfully!"
+                ]);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'message' => "Error: " . $th->getMessage()
+                ]);
+            }
+        });
     }
 }

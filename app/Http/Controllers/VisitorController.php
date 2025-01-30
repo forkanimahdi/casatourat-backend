@@ -6,6 +6,7 @@ use App\Models as models;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades as facades;
 use App\Mail\PasswordMail;
+use App\Models\Visitor;
 use Exception;
 use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\TryCatch;
@@ -105,9 +106,11 @@ class VisitorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(models\Visitor $visitor)
+    public function destroy(string $id)
     {
+        $visitor = models\Visitor::find($id);
         $visitor->delete();
-        return back();
+        // TODO: delete from clerk as well
+        return back()->with('success', 'Visitor Deleted from Database');
     }
 }

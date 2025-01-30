@@ -112,7 +112,7 @@ class BuildingController extends Controller
             if ($request->hasFile("audio.$lang")) {
                 Storage::disk('public')->delete('audios/' . $audioFiles[$lang]);
                 $audioFile = $request->file("audio.$lang");
-                $audioName = time() . "_" . $lang . $audioFile->extension();
+                $audioName = time() . "_" . $lang . "mp3";
                 $audioFile->storeAs('audios', $audioName, 'public');
                 $audioFiles[$lang] = $audioName;
             }

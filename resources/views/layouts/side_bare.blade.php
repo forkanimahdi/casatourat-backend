@@ -1,6 +1,6 @@
 <div class="hidden md:block">
     <div class="w-[16vw]  h-screen bg-alpha flex flex-col justify-">
-        <div class="flex flex-col w-full">
+        <div class="flex flex-col items-start w-full">
             <div class="px-[1.5rem]">
                 <a href="{{ route('welcome') }}">
                     <x-application-logo color size="100" />

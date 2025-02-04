@@ -15,6 +15,7 @@ Route::get('/user', function (Request $request) {
 Route::get("/visitor", [api\VisitorController::class, "show"]);
 Route::post("/visitor", [api\VisitorController::class, "store"]);
 Route::put("/visitor", [api\VisitorController::class, "update"]);
+Route::delete("/visitor/{id}", [api\VisitorController::class, "destroy"]);
 
 Route::get("/favorites", [api\FavoriteController::class, "show"]);
 Route::post("/favorites/building/{building}", [api\FavoriteController::class, "store"])->name('favorite.building');

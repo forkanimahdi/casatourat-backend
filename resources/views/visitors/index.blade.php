@@ -114,6 +114,7 @@
                                 </div>
                             </th>
                         @endforeach
+                        {{-- <th>Delete Visitor</th> --}}
                     </tr>
                 </thead>
 
@@ -137,6 +138,17 @@
                                 </span>
                             </td>
                             <td x-text="formatDate(visitor.created_at)"></td>
+
+                            {{-- delete visitor: havent added delete from clerk yet --}}
+                            {{-- <td>
+                                <form method="POST" :action="`{{ route('users.destroy', '') }}/${visitor.id}`">
+                                    @csrf
+                                    @method("DELETE")
+                                    <button class="px-4 py-2 rounded bg-red-500 text-white" type="submit">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td> --}}
                         </tr>
                     </template>
                 </tbody>
@@ -144,7 +156,7 @@
             </div>
             <!-- Mobile Card View -->
             <div class="md:hidden">
-                
+
                 <div class="space-y-4">
                     <template x-for="visitor in visitors" :key="visitor.id">
                         <div x-show="matchesSearch(visitor)" class="bg-white rounded-lg shadow p-4 border border-gray-200">

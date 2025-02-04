@@ -184,7 +184,7 @@ class CircuitController extends Controller
             if ($request->hasFile("audio.$lang")) {
                 Storage::disk('public')->delete('audios/' . $audioFiles[$lang]);
                 $audioFile = $request->file("audio.$lang");
-                $audioName = time() . "_" . $lang;
+                $audioName = time() . "_" . $lang . "." . $audioFile->extension();
                 $audioFile->storeAs('audios', $audioName, 'public');
                 $audioFiles[$lang] = $audioName;
             }

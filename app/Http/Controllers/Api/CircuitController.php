@@ -31,10 +31,10 @@ class CircuitController extends Controller
      */
     public function show(Request $request)
     {
-        return $this->validateToken($request, function ($visitor) {
-            $circuits = $visitor->role == 'admin' ? Circuit::all() : Circuit::where('published', 1)->get();
+        // return $this->validateToken($request, function ($visitor) {
+            $circuits = Circuit::where('published', 1)->get();
             return CircuitResource::collection($circuits);
-        });
+        // });
     }
 
     public function getAudio(Request $request, $name) {

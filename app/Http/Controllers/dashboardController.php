@@ -48,7 +48,7 @@ class dashboardController extends Controller
         $lastVisitorsCount = $dataPerMonth['visitors'][6 - 2];
 
         $visitorsPercentage = $lastVisitorsCount !== 0 ? (($currentVisitorsCount - $lastVisitorsCount) / $lastVisitorsCount) * 100 : 0;
-
+        $visitorsPercentage = round($visitorsPercentage, 2);
         // for new visitors statistics
         $currentNewVisitorsCount = Visitor::where('role', 'user')
             ->where('created_at', '>=', Carbon::now()->startOfMonth())
@@ -60,7 +60,7 @@ class dashboardController extends Controller
             ->count();
 
         $newVisitorsPercentage = $lastNewVisitorsCout !== 0 ? (($currentNewVisitorsCount - $lastNewVisitorsCout) / $lastNewVisitorsCout) * 100 : 0;
-
+        $newVisitorsPercentage = round($newVisitorsPercentage, 2);
         // for visitors reviews table
         $comments = Comment::all()
             ->map(fn($comment) => [

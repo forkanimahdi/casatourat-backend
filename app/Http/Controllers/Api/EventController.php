@@ -19,7 +19,7 @@ class EventController extends Controller
     public function show(Request $request)
     {
         // Send all the events
-        $events = Event::all();
+        $events = Event::latest()->get();
         return EventResource::collection($events);
     }
 }

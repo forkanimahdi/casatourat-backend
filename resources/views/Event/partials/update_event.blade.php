@@ -114,7 +114,7 @@
                         <img class="w-full aspect-square object-cover rounded border"
                             src="{{ asset('storage/images/' . $image->path) }}" alt="">
                         <form class="flex justify-end absolute top-2 right-2"
-                            action="{{ route('buildings.destory_image', [$event, $image]) }}" method="post">
+                            action="{{ route('events.delete_image', [$event, $image]) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button

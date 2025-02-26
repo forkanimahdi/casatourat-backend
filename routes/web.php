@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api as api;
+use App\Http\Controllers\ClerckController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\GuidedVisitController;
 use App\Http\Controllers\VideoController;
@@ -91,7 +92,9 @@ Route::resource('users', VisitorController::class)->except([
 
 // & staff routes :
 Route::get('/staff', [StaffController::class, 'index'])->name('staff.index')->middleware('auth');
-
+// &clerk key
+Route::get('/clerk', [ClerckController::class, 'index'])->name('clerk.index')->middleware('auth');
+Route::post('/clerk/store', [ClerckController::class, 'store'])->name('clerk.store')->middleware('auth');
 // & comments :
 Route::get('/notiffication/{review}', [CommentController::class, 'show'])->name('notif.show');
 Route::get('/notiffication', [CommentController::class, 'index'])->name('notif.index');

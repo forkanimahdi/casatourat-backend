@@ -17,6 +17,11 @@ class VisitorNotification extends Model
         'circuit_id'
     ];
 
+    protected $casts = [
+        'title',
+        'content'
+    ];
+
     public function visitor()
     {
         return $this->belongsTo(Visitor::class);

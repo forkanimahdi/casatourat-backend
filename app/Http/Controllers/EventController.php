@@ -6,9 +6,9 @@ use App\Models\Booking;
 use App\Models\Event;
 use App\Models\Image;
 use App\Models\Visitor;
+use App\Models\VisitorNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use LDAP\Result;
 use ExpoSDK\Expo;
 use ExpoSDK\ExpoMessage;
 use Illuminate\Database\Eloquent\Model;
@@ -76,22 +76,36 @@ class EventController extends Controller
             }
         }
 
+        $title = [
+            'en' => 'New Event Has Been Added',
+            'fr' => 'Un nouvel événement a été ajouté',
+            'ar' => 'تم إضافة حدث جديد',
+        ];
+        $jsonTitle = json_encode($title);
+        $jsonContent = json_encode($request->input('title'));
+
+        VisitorNotification::create([
+            'type' => 'event',
+            'title' => $jsonTitle,
+            'content' => $jsonContent,
+        ]);
+
         //TODO* (╯°□°)╯︵ ┻━┻ PUSH_TOO_MANY_EXPERIENCE_IDS: All push notification messages in the same request must be for the same project; check the details field to investigate conflicting tokens.
-        $expo = Expo::driver('file');
-        // get all the users that are in this channel
-        $subs = $expo->getSubscriptions('default');
+        // $expo = Expo::driver('file');
+        // // get all the users that are in this channel
+        // $subs = $expo->getSubscriptions('default');
 
-        // check if the event is created successfully and there are users token ($subs)
-        if ($event && $subs) {
-            $message = [
-                new ExpoMessage([
-                    'title' => 'New Event Added',
-                    'body' => $event->title->en,
-                ]),
-            ];
+        // // check if the event is created successfully and there are users token ($subs)
+        // if ($event && $subs) {
+        //     $message = [
+        //         new ExpoMessage([
+        //             'title' => 'New Event Added',
+        //             'body' => $event->title->en,
+        //         ]),
+        //     ];
 
-            $expo->send($message)->toChannel('default')->push();
-        }
+        //     $expo->send($message)->toChannel('default')->push();
+        // }
 
 
         if ($event instanceof Model) {

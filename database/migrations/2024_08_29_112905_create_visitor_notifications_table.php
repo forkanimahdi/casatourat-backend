@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('visitor_notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('visitor_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('visitor_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('type');
-            $table->string('title');
-            $table->text('content');
+            $table->json('title');
+            $table->json('content');
             $table->integer('circuit_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });

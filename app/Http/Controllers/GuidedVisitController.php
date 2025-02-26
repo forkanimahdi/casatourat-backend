@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models as models;
 use App\Models\GuidedVisit;
+use App\Models\VisitorNotification;
 use Carbon\Carbon;
 use ExpoSDK\Expo;
 use ExpoSDK\ExpoMessage;
@@ -38,12 +39,32 @@ class GuidedVisitController extends Controller
 
         $res = $action === "approve" ? "approved" : "denied";
 
+        $response = (object)[
+            'en' => $res,
+            'fr' => $res === "approved" ? "approuvé" : "refusé",
+            'ar' => $res === "approved" ? "تم الموافقة" : "مرفوض"
+        ];
+
+        // todo check if date language is correct
+        $formattedDateEnglish = Carbon::parse($visit->date)->locale('en')->format('l j F');
+        $formattedDateFrench = Carbon::parse($visit->date)->locale('fr')->format('l j F');
+        $formattedDateArabic = Carbon::parse($visit->date)->locale('ar')->format('l j F');
+
+        $content = [
+            'en' => 'Your request for The guided visit on ' . $formattedDateEnglish . ' has been ' . $res,
+            'fr' => 'Votre demande pour la visite guidée du ' . $formattedDateFrench . ' a été ' . $response->fr,
+            'ar' => 'طلبك لزيارة مرشدة في ' . $formattedDateArabic . ' تم ' . $response->ar,
+        ];
+
+        $responseJson = json_encode($response);
+        $contentJson = json_encode($content);
+
         // Create a notification for the visitor to be displayed in the notification page
-        models\VisitorNotification::create([
+        VisitorNotification::create([
             'visitor_id' => $visit->visitor->id,
             'type' => 'guide',
-            'title' => $action,
-            'content' => 'Your request for The guided visit on ' .  Carbon::parse($visit->date)->format('l j F') . ' has been ' . $res,
+            'title' => $responseJson,
+            'content' => $contentJson,
         ]);
 
         $message = [

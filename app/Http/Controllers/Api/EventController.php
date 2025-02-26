@@ -18,8 +18,8 @@ class EventController extends Controller
      */
     public function show(Request $request)
     {
-        // Send all the events
-        $events = Event::latest()->get();
+        // Send all the events based on their starting date
+        $events = Event::orderBy('start', 'desc')->get();
         return EventResource::collection($events);
     }
 }

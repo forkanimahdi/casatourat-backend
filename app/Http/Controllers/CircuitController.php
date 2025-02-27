@@ -48,7 +48,7 @@ class CircuitController extends Controller
             'audio.en' => 'mimes:mp3,wav,m4a',
             'audio.fr' => 'mimes:mp3,wav,m4a',
             'audio.ar' => 'mimes:mp3,wav,m4a',
-            'image.*' => 'mimes:png,jpg,jpeg',
+            'image.*' => 'image|mimes:png,jpg',
             'video.*' => 'mimes:mp4,mov',
             'buildings' => 'array',
         ]);

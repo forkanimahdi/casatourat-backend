@@ -95,6 +95,8 @@ Route::get('/staff', [StaffController::class, 'index'])->name('staff.index')->mi
 // &clerk key
 Route::get('/clerk', [ClerckController::class, 'index'])->name('clerk.index')->middleware('auth');
 Route::post('/clerk/store', [ClerckController::class, 'store'])->name('clerk.store')->middleware('auth');
+Route::put('/clerk/update/{clerkey}', [ClerckController::class, 'update'])->name('clerk.update')->middleware('auth');
+Route::delete('/clerk/delete/{clerkey}', [ClerckController::class, 'destroy'])->name('clerk.delete')->middleware('auth');
 // & comments :
 Route::get('/notiffication/{review}', [CommentController::class, 'show'])->name('notif.show');
 Route::get('/notiffication', [CommentController::class, 'index'])->name('notif.index');

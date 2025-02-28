@@ -9,7 +9,8 @@ class ClerckController extends Controller
 {
     public function index()
     {
-        return view('clerk.index');
+        $clerks = Clerkey::latest()->get();
+        return view('clerk.index', compact('clerks'));
     }
     public function store(Request $request)
     {
@@ -19,6 +20,21 @@ class ClerckController extends Controller
         Clerkey::create([
             'clerk' => $request->clerk
         ]);
+        return back();
+    }
+    public function update(Request $request, Clerkey $clerkey)
+    {
+        $request->validate([
+            'clerk' => 'required'
+        ]);
+        // dd($clerkey);
+        $clerkey->update([
+            'clerk' => $request->clerk
+        ]);
+        return back();
+    }
+    public function destroy(Clerkey $clerkey) {
+        $clerkey->delete();
         return back();
     }
 }
